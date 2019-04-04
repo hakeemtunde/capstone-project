@@ -1,3 +1,11 @@
 <resources>
     <string name="app_name">kiipa</string>
+    <string name="strCategoryButtonText">Stock Category</string>
+    <string name="strStockButtonText">View Stock</string>
+    <string name="strCustomerButtonText">Customers</string>
+    <string name="strDailyTransactionButtonText">Daily Transactions</string>
+
+    <string name="strToolbarDate">Fri 08 Mar, 2019 </string>
+    <string name="strToolbarTime">04:40pm</string>
 </resources>
+

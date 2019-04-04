@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="dimenMainLayoutButtonTextSize">20dp</dimen>
+    <dimen name="dimenMainActionBarHeight">200dp</dimen>
+
+    <dimen name="dimenMainLayoutButtonWidth">350dp</dimen>
+</resources>
