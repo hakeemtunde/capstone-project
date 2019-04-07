@@ -7,5 +7,12 @@
 
     <string name="strToolbarDate">Fri 08 Mar, 2019 </string>
     <string name="strToolbarTime">04:40pm</string>
+
+    <string name="categoryNameHint">Name</string>
+    <string name="categoryDlgTitle">Add category</string>
+    <string name="ok_string">OK</string>
+    <string name="cancel_string">Cancel</string>
+    <string name="categoryDlgTag">ADDCATEGORYDLG</string>
+
 </resources>
 
