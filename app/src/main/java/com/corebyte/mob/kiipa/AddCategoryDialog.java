@@ -13,10 +13,12 @@ import android.view.View;
 import android.widget.EditText;
 
 import com.corebyte.mob.kiipa.event.StockDialogListener;
+import com.corebyte.mob.kiipa.repo.Repository;
 
 public class AddCategoryDialog extends DialogFragment {
 
-    private StockDialogListener stockDialogListener;
+    private StockDialogListener mStockDialogListener;
+    private Repository mRepository;
 
     @NonNull
     @Override
@@ -33,7 +35,8 @@ public class AddCategoryDialog extends DialogFragment {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
                 String catname = editText.getText().toString();
-                stockDialogListener.create(catname);
+                mStockDialogListener.create(mRepository, catname);
+                mRepository.getAll();
             }
         });
         dialogBuilder.setNegativeButton(R.string.cancel_string, new DialogInterface.OnClickListener() {
@@ -48,7 +51,12 @@ public class AddCategoryDialog extends DialogFragment {
 
     public void setDialogListener(StockDialogListener listener) {
         if (listener == null) return;
-        this.stockDialogListener = listener;
+        this.mStockDialogListener = listener;
+    }
+
+    public void setRepository(Repository repository) {
+        this.mRepository = repository;
+
     }
 
 }
