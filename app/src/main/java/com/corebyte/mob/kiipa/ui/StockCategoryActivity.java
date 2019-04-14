@@ -72,12 +72,12 @@ public class StockCategoryActivity extends AppCompatActivity
     }
 
     @Override
-    public void loadProgressBar() {
+    public void showLoading() {
         progressBar.setVisibility(View.VISIBLE);
     }
 
     @Override
-    public void unLoadProgressBar() {
+    public void hideLoading() {
         progressBar.setVisibility(View.INVISIBLE);
     }
 }

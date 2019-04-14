@@ -2,7 +2,7 @@ package com.corebyte.mob.kiipa.event;
 
 public interface ProgressBarEvent {
 
-    void loadProgressBar();
+    void showLoading();
 
-    void unLoadProgressBar();
+    void hideLoading();
 }

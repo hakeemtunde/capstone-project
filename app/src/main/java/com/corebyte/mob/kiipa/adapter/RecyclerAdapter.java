@@ -55,10 +55,10 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHo
 
     @Override
     public void loadData(List<Category> categories) {
-        mProgressBarEvent.loadProgressBar();
+        mProgressBarEvent.showLoading();
         this.mCategories = categories;
         notifyDataSetChanged();
-        mProgressBarEvent.unLoadProgressBar();
+        mProgressBarEvent.hideLoading();
     }
 
     class ViewHolder extends RecyclerView.ViewHolder {
