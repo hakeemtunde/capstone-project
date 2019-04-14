@@ -29,5 +29,12 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+    @OnClick(R.id.stock_btn)
+    public void lunchStockActivity() {
+        Intent intent = new Intent(this, StockActivity.class);
+        startActivity(intent);
+    }
+
+
 
 }
