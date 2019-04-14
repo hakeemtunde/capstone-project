@@ -4,6 +4,7 @@ import android.content.Context;
 import android.os.AsyncTask;
 
 import com.corebyte.mob.kiipa.adapter.AdapterDataLoader;
+import com.corebyte.mob.kiipa.dao.AppDatabase;
 import com.corebyte.mob.kiipa.model.BaseModel;
 import com.corebyte.mob.kiipa.model.Category;
 

@@ -1,4 +1,4 @@
-package com.corebyte.mob.kiipa;
+package com.corebyte.mob.kiipa.ui;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -10,6 +10,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.ProgressBar;
 
+import com.corebyte.mob.kiipa.R;
 import com.corebyte.mob.kiipa.adapter.RecyclerAdapter;
 import com.corebyte.mob.kiipa.event.ProgressBarEvent;
 import com.corebyte.mob.kiipa.repo.CategoryCrudOperation;

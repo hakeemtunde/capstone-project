@@ -12,9 +12,9 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.corebyte.mob.kiipa.CategoryDialog;
+import com.corebyte.mob.kiipa.ui.CategoryDialog;
 import com.corebyte.mob.kiipa.R;
-import com.corebyte.mob.kiipa.StockCategoryActivity;
+import com.corebyte.mob.kiipa.ui.StockCategoryActivity;
 import com.corebyte.mob.kiipa.event.ProgressBarEvent;
 import com.corebyte.mob.kiipa.model.Category;
 import com.corebyte.mob.kiipa.repo.CategoryCrudOperation;

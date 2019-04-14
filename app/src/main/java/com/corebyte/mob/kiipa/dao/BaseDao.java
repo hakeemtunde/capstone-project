@@ -1,4 +1,4 @@
-package com.corebyte.mob.kiipa.repo;
+package com.corebyte.mob.kiipa.dao;
 
 import android.arch.persistence.room.Delete;
 import android.arch.persistence.room.Insert;

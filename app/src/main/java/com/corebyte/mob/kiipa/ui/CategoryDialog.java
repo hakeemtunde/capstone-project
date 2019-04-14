@@ -1,4 +1,4 @@
-package com.corebyte.mob.kiipa;
+package com.corebyte.mob.kiipa.ui;
 
 import android.app.Dialog;
 import android.content.DialogInterface;
@@ -12,6 +12,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.EditText;
 
+import com.corebyte.mob.kiipa.R;
 import com.corebyte.mob.kiipa.adapter.AdapterDataLoader;
 import com.corebyte.mob.kiipa.event.StockDialogAction;
 import com.corebyte.mob.kiipa.event.StockDialogAction.StockDialogActionImp;

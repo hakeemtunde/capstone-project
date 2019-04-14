@@ -1,12 +1,12 @@
-package com.corebyte.mob.kiipa;
+package com.corebyte.mob.kiipa.ui;
 
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
-import android.widget.Button;
 
-import butterknife.BindView;
+import com.corebyte.mob.kiipa.R;
+
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 

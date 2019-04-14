@@ -1,4 +1,4 @@
-package com.corebyte.mob.kiipa.repo;
+package com.corebyte.mob.kiipa.util;
 
 import android.arch.persistence.room.TypeConverter;
 

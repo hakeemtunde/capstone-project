@@ -1,4 +1,4 @@
-package com.corebyte.mob.kiipa.repo;
+package com.corebyte.mob.kiipa.dao;
 
 import android.arch.persistence.room.Database;
 import android.arch.persistence.room.Room;
@@ -8,6 +8,7 @@ import android.content.Context;
 import android.util.Log;
 
 import com.corebyte.mob.kiipa.model.Category;
+import com.corebyte.mob.kiipa.util.DateConverter;
 
 @Database(entities = {Category.class}, version = 1, exportSchema = false)
 @TypeConverters(DateConverter.class)
