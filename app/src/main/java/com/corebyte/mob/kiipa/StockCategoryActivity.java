@@ -7,19 +7,18 @@ import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.ProgressBar;
 
 import com.corebyte.mob.kiipa.adapter.RecyclerAdapter;
-import com.corebyte.mob.kiipa.event.StockDialogListener;
-import com.corebyte.mob.kiipa.model.Category;
-import com.corebyte.mob.kiipa.repo.Repository;
-
-import java.util.ArrayList;
-import java.util.List;
+import com.corebyte.mob.kiipa.event.ProgressBarEvent;
+import com.corebyte.mob.kiipa.repo.CategoryCrudOperation;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class StockCategoryActivity extends AppCompatActivity {
+public class StockCategoryActivity extends AppCompatActivity
+        implements ProgressBarEvent {
 
     @BindView(R.id.appToolbar)
     public Toolbar toolbar;
@@ -27,7 +26,13 @@ public class StockCategoryActivity extends AppCompatActivity {
     @BindView(R.id.rc_category)
     public RecyclerView mCategoryRv;
 
-    private Repository mRepository;
+    @BindView(R.id.pb_loader)
+    public ProgressBar progressBar;
+
+    private CategoryCrudOperation categoryCrudOperation;
+
+    private RecyclerAdapter mAdapter;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -37,17 +42,14 @@ public class StockCategoryActivity extends AppCompatActivity {
 
         setSupportActionBar(toolbar);
 
-        RecyclerAdapter adapter = new RecyclerAdapter(getApplicationContext());
+        mAdapter = new RecyclerAdapter(getApplicationContext(), this);
         mCategoryRv.setHasFixedSize(true);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
         mCategoryRv.setLayoutManager(linearLayoutManager);
-        mCategoryRv.setAdapter(adapter);
+        mCategoryRv.setAdapter(mAdapter);
 
-        mRepository = new Repository(getApplicationContext(), adapter);
-        mRepository.getAll();
-
-        //addFetchCat();
-
+        categoryCrudOperation = new CategoryCrudOperation(getApplicationContext());
+        categoryCrudOperation.loadDataToAdapter(mAdapter);
     }
 
     @Override
@@ -60,12 +62,21 @@ public class StockCategoryActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
 
         if (item.getItemId() == R.id.add_category) {
-            AddCategoryDialog addCategoryDialog = new AddCategoryDialog();
-            addCategoryDialog.setDialogListener(new StockDialogListener.StockDialogListenerEvent());
-            addCategoryDialog.setRepository(mRepository);
-            addCategoryDialog.show(getSupportFragmentManager(), getString(R.string.categoryDlgTag));
+            CategoryDialog categoryDialog = new CategoryDialog();
+            categoryDialog.setAdapter(mAdapter);
+            categoryDialog.show(getSupportFragmentManager(), getString(R.string.categoryDlgTag));
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void loadProgressBar() {
+        progressBar.setVisibility(View.VISIBLE);
+    }
+
+    @Override
+    public void unLoadProgressBar() {
+        progressBar.setVisibility(View.INVISIBLE);
     }
 }

@@ -9,10 +9,12 @@
     <string name="strToolbarTime">04:40pm</string>
 
     <string name="categoryNameHint">Name</string>
-    <string name="categoryDlgTitle">Add category</string>
+    <string name="categoryDlgTitleAdd">Add category</string>
+    <string name="categoryDlgTitleUpdate">Update category</string>
+    <string name="update_string">Update</string>
     <string name="ok_string">OK</string>
     <string name="cancel_string">Cancel</string>
-    <string name="categoryDlgTag">ADDCATEGORYDLG</string>
+    <string name="categoryDlgTag">CATEGORYDLG</string>
 
 </resources>
 

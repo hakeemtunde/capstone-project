@@ -4,5 +4,5 @@ import java.util.List;
 
 public interface AdapterDataLoader<T> {
 
-    void loadData(List<T> categories);
+    void loadData(List<T> entities);
 }

@@ -1,7 +1,9 @@
 package com.corebyte.mob.kiipa.adapter;
 
 import android.content.Context;
+import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.v4.app.FragmentManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -10,8 +12,12 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.corebyte.mob.kiipa.CategoryDialog;
 import com.corebyte.mob.kiipa.R;
+import com.corebyte.mob.kiipa.StockCategoryActivity;
+import com.corebyte.mob.kiipa.event.ProgressBarEvent;
 import com.corebyte.mob.kiipa.model.Category;
+import com.corebyte.mob.kiipa.repo.CategoryCrudOperation;
 
 import java.util.List;
 
@@ -19,10 +25,12 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHo
         implements AdapterDataLoader<Category> {
 
     private final Context mContext;
+    private final ProgressBarEvent mProgressBarEvent;
     private List<Category> mCategories;
 
-    public RecyclerAdapter(Context context) {
+    public RecyclerAdapter(Context context, ProgressBarEvent progressBarEvent) {
         mContext = context;
+        mProgressBarEvent = progressBarEvent;
     }
 
     @NonNull
@@ -42,13 +50,15 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHo
 
     @Override
     public int getItemCount() {
-        return mCategories == null ? 0 : mCategories.size() ;
+        return mCategories == null ? 0 : mCategories.size();
     }
 
     @Override
     public void loadData(List<Category> categories) {
+        mProgressBarEvent.loadProgressBar();
         this.mCategories = categories;
         notifyDataSetChanged();
+        mProgressBarEvent.unLoadProgressBar();
     }
 
     class ViewHolder extends RecyclerView.ViewHolder {
@@ -68,25 +78,34 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHo
 
         }
 
-        public void bind(Category category) {
+        public void bind(final Category category) {
             mCategoryNameTv.setText(category.getName());
             mTotalStockTv.setText("100");
 
             mEditImg.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    Toast.makeText(mContext, "Edit Clicked!", Toast.LENGTH_LONG).show();
+                    CategoryDialog categoryDialog = new CategoryDialog();
+                    categoryDialog.setAdapter(RecyclerAdapter.this);
+                    Bundle bundle = new Bundle();
+                    bundle.putParcelable(CategoryDialog.CATEGORY_KEY, category);
+                    categoryDialog.setArguments(bundle);
+                    FragmentManager fragmentManager = ((StockCategoryActivity) mProgressBarEvent)
+                            .getSupportFragmentManager();
+                    categoryDialog.show(fragmentManager, "EDIT_CATEGORY");
+
                 }
             });
 
             mDeleteImg.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    Toast.makeText(mContext, "Delete Clicked!", Toast.LENGTH_LONG).show();
+                    CategoryCrudOperation categoryCrudOperation = new CategoryCrudOperation(mContext);
+                    categoryCrudOperation.delete(category);
+                    categoryCrudOperation.loadDataToAdapter(RecyclerAdapter.this);
+                    Toast.makeText(mContext, "Deleted", Toast.LENGTH_LONG).show();
                 }
             });
         }
     }
-
-
 }
