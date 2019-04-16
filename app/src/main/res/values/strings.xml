@@ -15,6 +15,13 @@
     <string name="ok_string">OK</string>
     <string name="cancel_string">Cancel</string>
     <string name="categoryDlgTag">CATEGORYDLG</string>
+    <string name="name_str">name</string>
+    <string name="supply_price">Supply price</string>
+    <string name="selling_price">Selling price</string>
+    <string name="supply_qty">Supply qty</string>
+    <string name="last_qty">Last qty</string>
+    <string name="show_on_sale">Show on sale</string>
+    <string name="add_measurements">Add Measurements</string>
 
 </resources>
 

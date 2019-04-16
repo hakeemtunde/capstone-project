@@ -6,5 +6,8 @@
     <dimen name="dimenMainLayoutButtonWidth">350dp</dimen>
 
     <dimen name="dimenMainLayoutcardViewMarginTop">10dp</dimen>
+    <dimen name="marginMeasureWidget">20dp</dimen>
+    <dimen name="marginRightMeasureWidget">20dp</dimen>
+    <dimen name="widthMeasureWidget">180dp</dimen>
 
 </resources>
