@@ -6,6 +6,7 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageButton;
@@ -36,6 +37,9 @@ public class StockItemActivity extends AppCompatActivity {
 
     @BindView(R.id.show_category_btn)
     public ImageButton showCategoryBtn;
+
+    @BindView(R.id.add_measurements_btn)
+    public Button addMeasureBtn;
 
 
     @Override
@@ -82,5 +86,13 @@ public class StockItemActivity extends AppCompatActivity {
                 .setPositiveButton(getString(R.string.ok_string), null)
                 .setNegativeButton(getString(R.string.cancel_string), null)
                 .show();
+    }
+
+    @OnClick(R.id.add_measurements_btn)
+    public void onClickAddMeasureBtn() {
+
+        MeasureDialog measureDialog = new MeasureDialog();
+        measureDialog.show(getSupportFragmentManager(), "MeasureDlg");
+
     }
 }

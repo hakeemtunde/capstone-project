@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="4dp">
+
+    <EditText
+        android:id="@+id/ed_measure"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="name"
+        android:layout_marginBottom="20dp"
+        android:inputType="text"/>
+
+
+    <EditText
+        android:layout_below="@+id/ed_measure"
+        android:id="@+id/ed_supply_price"
+        android:layout_width="180dp"
+        android:layout_height="wrap_content"
+        android:hint="Supply price"
+        android:layout_marginRight="20dp"
+        android:inputType="number"/>
+
+    <EditText
+        android:layout_below="@+id/ed_measure"
+        android:layout_toRightOf="@+id/ed_supply_price"
+        android:id="@+id/ed_selling_price"
+        android:layout_width="180dp"
+        android:layout_height="wrap_content"
+        android:hint="Selling price"
+        android:inputType="numberDecimal"/>
+
+
+    <EditText
+        android:id="@+id/ed_supply_qty"
+        android:layout_below="@+id/ed_supply_price"
+        android:layout_width="180dp"
+        android:layout_height="wrap_content"
+        android:hint="Supply qty"
+        android:layout_marginRight="20dp"
+        android:layout_marginTop="20dp"
+        android:inputType="number"/>
+
+    <EditText
+        android:id="@+id/ed_last_supply_qty"
+        android:layout_below="@+id/ed_supply_price"
+        android:layout_toRightOf="@+id/ed_supply_qty"
+        android:layout_width="180dp"
+        android:layout_height="wrap_content"
+        android:hint="Last qty"
+        android:layout_marginTop="20dp"
+        android:inputType="numberDecimal"/>
+
+
+    <TextView
+        android:id="@+id/tv_last_supply_date"
+        android:layout_below="@+id/ed_supply_qty"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Tue 16 April, 2019"
+        android:layout_marginTop="20dp"/>
+
+    <CheckBox
+        android:layout_below="@+id/tv_last_supply_date"
+        android:text="Show on sale"
+        android:layout_marginTop="20dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+
+</RelativeLayout>
