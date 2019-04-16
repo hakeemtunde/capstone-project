@@ -1,5 +1,6 @@
 package com.corebyte.mob.kiipa.ui;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -37,8 +38,8 @@ public class StockActivity extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         if (item.getItemId() == R.id.menu_add_stock) {
-
-
+            Intent intent = new Intent(this, StockItemActivity.class);
+            startActivity(intent);
             return true;
         }
 
