@@ -1,0 +1,28 @@
+<resources>
+    <string name="app_name">kiipa</string>
+    <string name="strCategoryButtonText">Stock Category</string>
+    <string name="strStockButtonText">View Stock</string>
+    <string name="strCustomerButtonText">Customers</string>
+    <string name="strDailyTransactionButtonText">Daily Transactions</string>
+
+    <string name="strToolbarDate">Fri 08 Mar, 2019 </string>
+    <string name="strToolbarTime">04:40pm</string>
+
+    <string name="categoryNameHint">Name</string>
+    <string name="categoryDlgTitleAdd">Add category</string>
+    <string name="categoryDlgTitleUpdate">Update category</string>
+    <string name="update_string">Update</string>
+    <string name="ok_string">OK</string>
+    <string name="cancel_string">Cancel</string>
+    <string name="categoryDlgTag">CATEGORYDLG</string>
+    <string name="name_str">name</string>
+    <string name="supply_price">Supply price</string>
+    <string name="selling_price">Selling price</string>
+    <string name="supply_qty">Supply qty</string>
+    <string name="last_qty">Last qty</string>
+    <string name="show_on_sale">Show on sale</string>
+    <string name="add_measurements">Add Measurements</string>
+    <string name="save">Save</string>
+
+</resources>
+

@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="4dp">
+
+    <EditText
+        android:id="@+id/ed_measure"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/name_str"
+        android:layout_marginBottom="@dimen/marginMeasureWidget"
+        android:inputType="text"/>
+
+
+    <EditText
+        android:id="@+id/ed_supply_price"
+        android:layout_below="@+id/ed_measure"
+        android:layout_width="@dimen/widthMeasureWidget"
+        android:layout_height="wrap_content"
+        android:hint="@string/supply_price"
+        android:layout_marginRight="@dimen/marginRightMeasureWidget"
+        android:layout_marginEnd="@dimen/marginRightMeasureWidget"
+        android:inputType="number"
+         />
+
+    <EditText
+        android:id="@+id/ed_selling_price"
+        android:layout_toRightOf="@+id/ed_supply_price"
+        android:layout_below="@+id/ed_measure"
+        android:layout_width="@dimen/widthMeasureWidget"
+        android:layout_height="wrap_content"
+        android:hint="@string/selling_price"
+        android:inputType="numberDecimal"/>
+
+
+    <EditText
+        android:id="@+id/ed_supply_qty"
+        android:layout_below="@+id/ed_supply_price"
+        android:layout_width="@dimen/widthMeasureWidget"
+        android:layout_height="wrap_content"
+        android:hint="@string/supply_qty"
+        android:layout_marginRight="@dimen/marginRightMeasureWidget"
+        android:layout_marginTop="@dimen/marginMeasureWidget"
+        android:inputType="number"/>
+
+    <EditText
+        android:id="@+id/ed_last_supply_qty"
+        android:layout_below="@+id/ed_supply_price"
+        android:layout_toRightOf="@+id/ed_supply_qty"
+        android:layout_width="@dimen/widthMeasureWidget"
+        android:layout_height="wrap_content"
+        android:hint="@string/last_qty"
+        android:layout_marginTop="@dimen/marginMeasureWidget"
+        android:inputType="numberDecimal"/>
+
+
+    <TextView
+        android:id="@+id/tv_last_supply_date"
+        android:layout_below="@+id/ed_supply_qty"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Tue 16 April, 2019"
+        android:layout_marginTop="@dimen/marginMeasureWidget"/>
+
+    <CheckBox
+        android:id="@+id/cb_show"
+        android:layout_below="@+id/tv_last_supply_date"
+        android:text="@string/show_on_sale"
+        android:layout_marginTop="@dimen/marginMeasureWidget"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+
+</RelativeLayout>
