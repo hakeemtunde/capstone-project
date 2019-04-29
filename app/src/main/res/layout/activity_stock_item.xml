@@ -7,15 +7,15 @@
     tools:context=".ui.StockItemActivity">
 
     <include layout="@layout/app_toolbar" />
-    
+
     <ScrollView
+        android:layout_marginTop="60dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="60dp"
             android:padding="5dp">
 
             <EditText
@@ -161,6 +161,6 @@
         </RelativeLayout>
 
 
-    </ScrollView>
+    </ScrollView>-->
 
 </RelativeLayout>

@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Button;
@@ -20,7 +21,10 @@ import com.corebyte.mob.kiipa.PublishMeasurementTable;
 import com.corebyte.mob.kiipa.R;
 import com.corebyte.mob.kiipa.model.Category;
 import com.corebyte.mob.kiipa.model.Measurement;
+import com.corebyte.mob.kiipa.model.Stock;
 import com.corebyte.mob.kiipa.repo.CategoryCrudOperation;
+import com.corebyte.mob.kiipa.repo.MeasurementCrudOperation;
+import com.corebyte.mob.kiipa.repo.StockCrudOperation;
 import com.corebyte.mob.kiipa.util.DateUtil;
 
 import java.util.Calendar;
@@ -74,8 +78,8 @@ public class StockItemActivity extends AppCompatActivity implements MeasurementH
 
         setSupportActionBar(toolbar);
 
-        measurementTable = PublishMeasurementTable
-                .creator(getApplicationContext(), tableLayout);
+//        measurementTable = PublishMeasurementTable
+//                .creator(getApplicationContext(), tableLayout);
 
         mCategoryCrudOperation = new CategoryCrudOperation(getApplicationContext());
     }
@@ -89,19 +93,17 @@ public class StockItemActivity extends AppCompatActivity implements MeasurementH
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
 
-        Toast.makeText(getApplicationContext(), "save!", Toast.LENGTH_SHORT).show();
         if (item.getItemId() == R.id.save_stock) {
 
             Toast.makeText(getApplicationContext(), "save!", Toast.LENGTH_SHORT).show();
+            String name = nameEt.getText().toString();
+            StockCrudOperation stockCrudOperation = new StockCrudOperation(getApplicationContext());
+            long stockId = stockCrudOperation.create(new Stock(name, mExpireDate, mCategory.id));
 
-//            String name = nameEt.getText().toString();
-//            StockCrudOperation stockCrudOperation = new StockCrudOperation(getApplicationContext());
-//            long stockId = stockCrudOperation.create(new Stock(name, mExpireDate, mCategory.id));
-//
-//            measurementTable.setStockIdForMeasurements(stockId);
-//            Measurement[] measurements = measurementTable.getMeasurementsAsArray();
-//            MeasurementCrudOperation measurementCrudOperation = new MeasurementCrudOperation(getApplicationContext());
-//            measurementCrudOperation.create(measurements);
+            measurementTable.setStockIdForMeasurements(stockId);
+            Measurement[] measurements = measurementTable.getMeasurementsAsArray();
+            MeasurementCrudOperation measurementCrudOperation = new MeasurementCrudOperation(getApplicationContext());
+            measurementCrudOperation.create(measurements);
 
             return true;
 
@@ -161,8 +163,8 @@ public class StockItemActivity extends AppCompatActivity implements MeasurementH
 
     @Override
     public void attach(Measurement measurement) {
-        Toast.makeText(getApplicationContext(), "Clicked!!", Toast.LENGTH_SHORT).show();
-
+         measurementTable = PublishMeasurementTable.creator(
+                getApplicationContext(), tableLayout);
         measurementTable.initTableWidgets();
         measurementTable.attachToTable(measurement);
         measurementTable.measurementList.add(measurement);

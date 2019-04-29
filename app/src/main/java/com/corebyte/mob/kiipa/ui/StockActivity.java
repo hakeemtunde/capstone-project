@@ -26,7 +26,6 @@ public class StockActivity extends AppCompatActivity {
 
         setSupportActionBar(toolbar);
 
-        toolbar.setSubtitle("Stock");
     }
 
     @Override

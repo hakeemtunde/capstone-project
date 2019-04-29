@@ -15,6 +15,7 @@ import java.util.List;
 public class PublishMeasurementTable {
 
     static PublishMeasurementTable sInstance;
+    public List<Measurement> measurementList;
     Context mContext;
     TableLayout mTableLayout;
     TextView mMeasureTv;
@@ -23,7 +24,6 @@ public class PublishMeasurementTable {
     TextView mQuantityTv;
     ImageView mEditIv;
     ImageView mDeleteIv;
-    public List<Measurement> measurementList;
 
     private PublishMeasurementTable(Context context, TableLayout tableLayout) {
         mContext = context;
@@ -58,10 +58,9 @@ public class PublishMeasurementTable {
     }
 
     public void setStockIdForMeasurements(long stockId) {
-        for (int i=0; i<measurementList.size(); i++) {
-            if (measurementList.get(i).getStockId() == 0){
+        for (int i = 0; i < measurementList.size(); i++) {
+            if (measurementList.get(i).getStockId() == 0) {
                 measurementList.get(i).setStockId(stockId);
-                Log.i(this.getClass().getSimpleName(), "measurement: "+ measurementList.get(i).toString());
             }
         }
     }
