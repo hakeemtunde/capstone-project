@@ -1,117 +1,94 @@
 package com.corebyte.mob.kiipa.repo;
 
 import android.content.Context;
-import android.os.AsyncTask;
+import android.util.Log;
 
 import com.corebyte.mob.kiipa.adapter.AdapterDataLoader;
 import com.corebyte.mob.kiipa.dao.AppDatabase;
-import com.corebyte.mob.kiipa.model.BaseModel;
+import com.corebyte.mob.kiipa.dao.BaseDao;
+import com.corebyte.mob.kiipa.event.CrudDao;
 import com.corebyte.mob.kiipa.model.Category;
 
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-import java.util.concurrent.ExecutionException;
 
-public class CategoryCrudOperation implements CrudOperation<Category> {
+public class CategoryCrudOperation implements CrudDao<Category> {
 
-    private final AppDatabase mAppDatabase;
+    private final CrudAsyncTask<Category> mCrudAsyncTask;
+    private List<Category> mCategories;
 
     public CategoryCrudOperation(Context context) {
-        mAppDatabase = AppDatabase.getInstance(context);
+        mCrudAsyncTask = new CrudAsyncTask<>(context, this);
+    }
+
+    public String[] getAllAsArray() {
+
+        if (mCategories == null)  {
+            mCategories = getAll();
+        }
+
+        String[] categoryArray = new String[mCategories.size()];
+
+        for (int i = 0; i < mCategories.size(); i++) {
+            Category category = mCategories.get(i);
+            categoryArray[i] = category.getName();
+        }
+        return categoryArray;
+    }
+
+    public Category getCategoryWithIndex(int index) {
+        if (mCategories == null)  {
+            mCategories = getAll();
+        }
+
+        if (index > (mCategories.size() - 1)) return null;
+
+        return mCategories.get(index);
     }
 
     @Override
-    public void create(Category model) {
-        new AsyncTask<BaseModel, Void, Void>() {
-            @Override
-            protected Void doInBackground(BaseModel... params) {
-                Category category = (Category) params[0];
-                mAppDatabase.categoryDao().insert(category);
-                return null;
-            }
-        }.execute(model);
+    public long create(Category model) {
+        long id = mCrudAsyncTask.create(model);
+        Log.i(this.getClass().getSimpleName(), "ID: "+ id);
+        return id;
+    }
+
+    @Override
+    public long[] create(Category... models) {
+        return mCrudAsyncTask.create(models);
     }
 
     @Override
     public void update(Category category) {
         category.updatedAt = new Date();
-
-        new AsyncTask<BaseModel, Void, Void>() {
-            @Override
-            protected Void doInBackground(BaseModel... params) {
-                Category category = (Category) params[0];
-                mAppDatabase.categoryDao().update(category);
-                return null;
-            }
-        }.execute(category);
+        mCrudAsyncTask.update(category);
     }
 
     @Override
     public void delete(Category model) {
-        Category category = getById(model.id);
-        if (category == null) return;
-
-        new AsyncTask<BaseModel, Void, Void>() {
-
-            @Override
-            protected Void doInBackground(BaseModel... params) {
-                Category category = (Category) params[0];
-                mAppDatabase.categoryDao().delete(category);
-                return null;
-            }
-        }.execute(category);
+        mCrudAsyncTask.delete(model);
     }
 
     @Override
-    public Category getById(int id) {
-        Category category = null;
-        AsyncTask asyncTask = new AsyncTask<Integer, Void, Category>() {
-            @Override
-            protected Category doInBackground(Integer... ids) {
-                return mAppDatabase.categoryDao().findById(ids[0]);
-
-            }
-        }.execute(id);
-
-        try {
-            category = ((Category) asyncTask.get());
-        } catch (InterruptedException ie) {
-            ie.printStackTrace();
-        } catch (ExecutionException ee) {
-            ee.printStackTrace();
-        }
-
+    public Category getById(long id) {
+        Category category = mCrudAsyncTask.getById(id);
         return category;
     }
 
     @Override
     public List<Category> getAll() {
-        List<Category> data = new ArrayList<>();
-        AsyncTask asyncTask = new AsyncTask<Void, Void, List<Category>>() {
-
-            @Override
-            protected List<Category> doInBackground(Void... voids) {
-                List<Category> data = mAppDatabase.categoryDao().getAll();
-                return data;
-            }
-
-        }.execute();
-
-        try {
-            data = ((List<Category>) asyncTask.get());
-        } catch (InterruptedException ie) {
-            ie.printStackTrace();
-        } catch (ExecutionException ee) {
-            ee.printStackTrace();
-        }
-
+        List<Category> data = mCrudAsyncTask.getAll();
         return data;
+    }
 
+    @Override
+    public BaseDao getDao(AppDatabase database) {
+        return database.categoryDao();
     }
 
     public void loadDataToAdapter(AdapterDataLoader loader) {
         List<Category> data = getAll();
         loader.loadData(data);
     }
+
 }

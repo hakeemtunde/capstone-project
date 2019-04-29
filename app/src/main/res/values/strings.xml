@@ -22,6 +22,7 @@
     <string name="last_qty">Last qty</string>
     <string name="show_on_sale">Show on sale</string>
     <string name="add_measurements">Add Measurements</string>
+    <string name="save">Save</string>
 
 </resources>
 

@@ -8,7 +8,6 @@ import android.os.Parcelable;
 import java.util.Date;
 
 @Entity(tableName = "categories")
-
 public class Category extends BaseModel implements Parcelable {
 
 
@@ -67,7 +66,7 @@ public class Category extends BaseModel implements Parcelable {
 
     @Override
     public void writeToParcel(Parcel parcel, int i) {
-        parcel.writeInt(this.id);
+        parcel.writeLong(this.id);
         parcel.writeLong(this.createdAt.getTime());
         parcel.writeLong(this.updatedAt.getTime());
         parcel.writeString(this.name);

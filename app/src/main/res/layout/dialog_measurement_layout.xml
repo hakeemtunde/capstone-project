@@ -15,8 +15,8 @@
 
 
     <EditText
-        android:layout_below="@+id/ed_measure"
         android:id="@+id/ed_supply_price"
+        android:layout_below="@+id/ed_measure"
         android:layout_width="@dimen/widthMeasureWidget"
         android:layout_height="wrap_content"
         android:hint="@string/supply_price"
@@ -26,9 +26,9 @@
          />
 
     <EditText
-        android:layout_below="@+id/ed_measure"
-        android:layout_toRightOf="@+id/ed_supply_price"
         android:id="@+id/ed_selling_price"
+        android:layout_toRightOf="@+id/ed_supply_price"
+        android:layout_below="@+id/ed_measure"
         android:layout_width="@dimen/widthMeasureWidget"
         android:layout_height="wrap_content"
         android:hint="@string/selling_price"
@@ -65,6 +65,7 @@
         android:layout_marginTop="@dimen/marginMeasureWidget"/>
 
     <CheckBox
+        android:id="@+id/cb_show"
         android:layout_below="@+id/tv_last_supply_date"
         android:text="@string/show_on_sale"
         android:layout_marginTop="@dimen/marginMeasureWidget"

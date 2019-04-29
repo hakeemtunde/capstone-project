@@ -9,12 +9,16 @@ import android.support.v4.app.DialogFragment;
 import android.support.v7.app.AlertDialog;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
-import android.widget.Toast;
 
+import com.corebyte.mob.kiipa.MeasurementDlgProcessor;
+import com.corebyte.mob.kiipa.MeasurementDlgProcessor.MeasurementHandler;
 import com.corebyte.mob.kiipa.R;
 
-public class MeasureDialog extends DialogFragment {
+public class MeasureDialog extends DialogFragment implements AlertDialog.OnClickListener {
+
+    private static final String TAG = MeasureDialog.class.getSimpleName();
+    private MeasurementDlgProcessor measureDialogWidget;
+    private MeasurementHandler mHandler;
 
     @NonNull
     @Override
@@ -25,15 +29,22 @@ public class MeasureDialog extends DialogFragment {
         View view = layoutInflater.inflate(R.layout.dialog_measurement_layout, null);
         dialogue.setView(view);
 
-        dialogue.setPositiveButton(R.string.ok_string, new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialogInterface, int i) {
-                Toast.makeText(getContext(), "Click Ok", Toast.LENGTH_SHORT).show();
-            }
-        });
+        measureDialogWidget = new MeasurementDlgProcessor(view);
+
+        dialogue.setPositiveButton(R.string.ok_string, this);
 
         dialogue.setNegativeButton(R.string.cancel_string, null);
 
         return dialogue.create();
     }
+
+    @Override
+    public void onClick(DialogInterface dialogInterface, int i) {
+        mHandler.attach(measureDialogWidget.getUiMeasurement());
+    }
+
+    public void setMeasurementHandler(MeasurementHandler handler) {
+        mHandler = handler;
+    }
+
 }

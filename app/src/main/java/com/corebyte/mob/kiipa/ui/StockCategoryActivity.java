@@ -66,6 +66,7 @@ public class StockCategoryActivity extends AppCompatActivity
             CategoryDialog categoryDialog = new CategoryDialog();
             categoryDialog.setAdapter(mAdapter);
             categoryDialog.show(getSupportFragmentManager(), getString(R.string.categoryDlgTag));
+            return true;
         }
 
         return super.onOptionsItemSelected(item);

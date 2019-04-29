@@ -13,10 +13,14 @@ public interface BaseDao<T extends BaseModel> {
 
     List<T> getAll();
 
-    T findById(int id);
+    T findById(long id);
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    void insert(T entity);
+    long insert(T entity);
+
+    @Insert
+    long[] insert(T... entities);
+
 
     @Update
     void update(T entity);

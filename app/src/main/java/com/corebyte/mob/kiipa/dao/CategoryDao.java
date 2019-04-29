@@ -17,6 +17,5 @@ public interface CategoryDao extends BaseDao<Category> {
 
     @Override
     @Query(AppQuery.CATEGORY_FETCH_BY_ID)
-    Category findById(int id);
-
+    Category findById(long id);
 }

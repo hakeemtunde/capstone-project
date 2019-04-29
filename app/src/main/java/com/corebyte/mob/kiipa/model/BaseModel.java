@@ -7,7 +7,7 @@ import java.util.Date;
 
 public class BaseModel {
     @PrimaryKey(autoGenerate = true)
-    public int id;
+    public long id;
     @ColumnInfo(name="created_at")
     public Date createdAt;
     @ColumnInfo(name="updated_at")

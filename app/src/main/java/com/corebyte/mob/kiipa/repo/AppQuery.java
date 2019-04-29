@@ -4,5 +4,6 @@ public interface AppQuery {
 
     String CATEGORY_FETCH_ALL = "SELECT * FROM categories";
     String CATEGORY_FETCH_BY_ID = "SELECT * FROM categories WHERE id = :id";
+    String CATEGORY_FETCH_BY_NAME = "SELECT * FROM categories WHERE name = :name";
 
 }
