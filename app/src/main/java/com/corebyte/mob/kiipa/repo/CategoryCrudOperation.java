@@ -1,15 +1,14 @@
 package com.corebyte.mob.kiipa.repo;
 
 import android.content.Context;
-import android.util.Log;
 
 import com.corebyte.mob.kiipa.adapter.AdapterDataLoader;
 import com.corebyte.mob.kiipa.dao.AppDatabase;
 import com.corebyte.mob.kiipa.dao.BaseDao;
 import com.corebyte.mob.kiipa.event.CrudDao;
 import com.corebyte.mob.kiipa.model.Category;
+import com.corebyte.mob.kiipa.util.DateUtil;
 
-import java.util.Date;
 import java.util.List;
 
 public class CategoryCrudOperation implements CrudDao<Category> {
@@ -23,7 +22,7 @@ public class CategoryCrudOperation implements CrudDao<Category> {
 
     public String[] getAllAsArray() {
 
-        if (mCategories == null)  {
+        if (mCategories == null) {
             mCategories = getAll();
         }
 
@@ -37,7 +36,7 @@ public class CategoryCrudOperation implements CrudDao<Category> {
     }
 
     public Category getCategoryWithIndex(int index) {
-        if (mCategories == null)  {
+        if (mCategories == null) {
             mCategories = getAll();
         }
 
@@ -48,20 +47,27 @@ public class CategoryCrudOperation implements CrudDao<Category> {
 
     @Override
     public long create(Category model) {
+        DateUtil.initCreateDate(model);
         long id = mCrudAsyncTask.create(model);
-        Log.i(this.getClass().getSimpleName(), "ID: "+ id);
         return id;
     }
 
     @Override
     public long[] create(Category... models) {
+        DateUtil.initCreateDate(models);
         return mCrudAsyncTask.create(models);
     }
 
     @Override
     public void update(Category category) {
-        category.updatedAt = new Date();
+        DateUtil.modifyUpdateDate(category);
         mCrudAsyncTask.update(category);
+    }
+
+    @Override
+    public void update(Category... categories) {
+        DateUtil.modifyUpdateDate(categories);
+        mCrudAsyncTask.update(categories);
     }
 
     @Override
@@ -82,7 +88,7 @@ public class CategoryCrudOperation implements CrudDao<Category> {
     }
 
     @Override
-    public BaseDao getDao(AppDatabase database) {
+    public BaseDao getCrudDao(AppDatabase database) {
         return database.categoryDao();
     }
 

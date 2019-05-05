@@ -6,6 +6,7 @@ import com.corebyte.mob.kiipa.dao.AppDatabase;
 import com.corebyte.mob.kiipa.dao.BaseDao;
 import com.corebyte.mob.kiipa.event.CrudDao;
 import com.corebyte.mob.kiipa.model.Stock;
+import com.corebyte.mob.kiipa.util.DateUtil;
 
 import java.util.List;
 
@@ -18,23 +19,32 @@ public class StockCrudOperation implements CrudDao<Stock> {
     }
 
     @Override
-    public BaseDao getDao(AppDatabase database) {
+    public BaseDao getCrudDao(AppDatabase database) {
         return database.stockDao();
     }
 
     @Override
     public long create(Stock model) {
+        DateUtil.initCreateDate(model);
         return mCrudAsync.create(model);
     }
 
     @Override
     public long[] create(Stock... models) {
+        DateUtil.initCreateDate(models);
         return mCrudAsync.create(models);
     }
 
     @Override
     public void update(Stock model) {
+        DateUtil.modifyUpdateDate(model);
         mCrudAsync.update(model);
+    }
+
+    @Override
+    public void update(Stock... models) {
+        DateUtil.modifyUpdateDate(models);
+        mCrudAsync.update(models);
     }
 
     @Override

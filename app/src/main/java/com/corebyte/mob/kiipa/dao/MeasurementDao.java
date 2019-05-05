@@ -17,4 +17,7 @@ public interface MeasurementDao extends BaseDao<Measurement> {
     @Override
     @Query("SELECT * FROM measurements WHERE id = :id")
     Measurement findById(long id);
+
+    @Query("SELECT * FROM measurements WHERE stockId = :stockId")
+    List<Measurement> findByStockId(long stockId);
 }

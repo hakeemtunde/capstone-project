@@ -2,6 +2,7 @@ package com.corebyte.mob.kiipa.ui;
 
 import android.app.DatePickerDialog;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
@@ -20,11 +21,15 @@ import com.corebyte.mob.kiipa.PublishMeasurementTable;
 import com.corebyte.mob.kiipa.R;
 import com.corebyte.mob.kiipa.model.Category;
 import com.corebyte.mob.kiipa.model.Measurement;
+import com.corebyte.mob.kiipa.model.Stock;
 import com.corebyte.mob.kiipa.repo.CategoryCrudOperation;
+import com.corebyte.mob.kiipa.repo.MeasurementCrudOperation;
+import com.corebyte.mob.kiipa.repo.StockCrudOperation;
 import com.corebyte.mob.kiipa.util.DateUtil;
 
 import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -32,6 +37,9 @@ import butterknife.OnClick;
 
 public class StockItemActivity extends AppCompatActivity implements MeasurementHandler {
 
+    public static final String STOCKITEM = "STOCKITEM";
+    public static final String ACTION_EDIT = "EDIT";
+    public static final String ACTION_NEW = "NEW";
     private static final String DLG_TAG = "MEASUREMENTDLG";
     @BindView(R.id.ed_name)
     public EditText nameEt;
@@ -61,9 +69,13 @@ public class StockItemActivity extends AppCompatActivity implements MeasurementH
 
     private Date mExpireDate;
 
+    private StockCrudOperation mStockCrudOperation;
     private CategoryCrudOperation mCategoryCrudOperation;
+    private MeasurementCrudOperation mMeasurementCrudOperation;
 
     private PublishMeasurementTable measurementTable;
+
+    private Stock stock;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -74,10 +86,22 @@ public class StockItemActivity extends AppCompatActivity implements MeasurementH
 
         setSupportActionBar(toolbar);
 
-        measurementTable = PublishMeasurementTable
-                .creator(getApplicationContext(), tableLayout);
-
+        mStockCrudOperation = new StockCrudOperation(getApplicationContext());
         mCategoryCrudOperation = new CategoryCrudOperation(getApplicationContext());
+        mMeasurementCrudOperation = new MeasurementCrudOperation(getApplicationContext());
+
+        measurementTable = new PublishMeasurementTable(
+                this, tableLayout);
+
+        Intent intent = getIntent();
+        if (intent.getAction() != null && intent.getAction().equals(ACTION_EDIT)) {
+            if (intent.hasExtra(STOCKITEM)) {
+                stock = intent.getParcelableExtra(STOCKITEM);
+                displayStock(stock);
+            }
+        }
+
+
     }
 
     @Override
@@ -89,25 +113,60 @@ public class StockItemActivity extends AppCompatActivity implements MeasurementH
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
 
-        Toast.makeText(getApplicationContext(), "save!", Toast.LENGTH_SHORT).show();
         if (item.getItemId() == R.id.save_stock) {
 
-            Toast.makeText(getApplicationContext(), "save!", Toast.LENGTH_SHORT).show();
 
-//            String name = nameEt.getText().toString();
-//            StockCrudOperation stockCrudOperation = new StockCrudOperation(getApplicationContext());
-//            long stockId = stockCrudOperation.create(new Stock(name, mExpireDate, mCategory.id));
-//
-//            measurementTable.setStockIdForMeasurements(stockId);
-//            Measurement[] measurements = measurementTable.getMeasurementsAsArray();
-//            MeasurementCrudOperation measurementCrudOperation = new MeasurementCrudOperation(getApplicationContext());
-//            measurementCrudOperation.create(measurements);
+            String name = nameEt.getText().toString();
+
+            //new stock entry
+            if (stock == null) {
+                long stockId = mStockCrudOperation.create(new Stock(name, mExpireDate, mCategory.id));
+                measurementTable.setStockId(stockId);
+                Measurement[] measurements = measurementTable.getMeasurementsAsArray();
+                mMeasurementCrudOperation.create(measurements);
+            } else {
+                //update stock/measurements
+
+                if (mCategory != null) {
+                    stock.setCategoryId(mCategory.id);
+                }
+
+                if (mExpireDate != null) {
+                    stock.setExpireDate(mExpireDate);
+                }
+
+                mStockCrudOperation.update(stock);
+
+                //new
+                Measurement[] newMeasurements = measurementTable.getNewMeasurements();
+                measurementTable.setStockId(stock.id, newMeasurements);
+                mMeasurementCrudOperation.create(newMeasurements);
+
+                //update
+                Measurement[] existingMeasurements = measurementTable.getExistingMeasurements();
+                mMeasurementCrudOperation.update(existingMeasurements);
+
+            }
+
+            Toast.makeText(getApplicationContext(), "save!", Toast.LENGTH_SHORT).show();
 
             return true;
 
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    private void displayStock(Stock stock) {
+
+        nameEt.setText(stock.getName());
+        expireDateEt.setText(DateUtil.getDateFormat2(stock.getExpireDate()));
+        Category category = mCategoryCrudOperation.getById(stock.getCategoryId());
+        categoryEt.setText(category.getName());
+
+        List<Measurement> measurements = mMeasurementCrudOperation.findByStockId(stock.id);
+        measurementTable.attachToTable(measurements);
+
     }
 
     @OnClick(R.id.date_picker_btn)
@@ -161,10 +220,9 @@ public class StockItemActivity extends AppCompatActivity implements MeasurementH
 
     @Override
     public void attach(Measurement measurement) {
-        Toast.makeText(getApplicationContext(), "Clicked!!", Toast.LENGTH_SHORT).show();
-
-        measurementTable.initTableWidgets();
         measurementTable.attachToTable(measurement);
-        measurementTable.measurementList.add(measurement);
+
     }
+
+
 }
