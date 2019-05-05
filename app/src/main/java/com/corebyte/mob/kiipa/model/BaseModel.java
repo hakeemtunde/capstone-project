@@ -12,4 +12,9 @@ public class BaseModel {
     public Date createdAt;
     @ColumnInfo(name="updated_at")
     public Date updatedAt;
+
+    public void initDates() {
+        createdAt = new Date();
+        updatedAt = new Date();
+    }
 }

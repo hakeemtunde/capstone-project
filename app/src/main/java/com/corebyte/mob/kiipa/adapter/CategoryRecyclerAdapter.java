@@ -21,14 +21,14 @@ import com.corebyte.mob.kiipa.repo.CategoryCrudOperation;
 
 import java.util.List;
 
-public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHolder>
+public class CategoryRecyclerAdapter extends RecyclerView.Adapter<CategoryRecyclerAdapter.ViewHolder>
         implements AdapterDataLoader<Category> {
 
     private final Context mContext;
     private final ProgressBarEvent mProgressBarEvent;
     private List<Category> mCategories;
 
-    public RecyclerAdapter(Context context, ProgressBarEvent progressBarEvent) {
+    public CategoryRecyclerAdapter(Context context, ProgressBarEvent progressBarEvent) {
         mContext = context;
         mProgressBarEvent = progressBarEvent;
     }
@@ -86,7 +86,7 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHo
                 @Override
                 public void onClick(View view) {
                     CategoryDialog categoryDialog = new CategoryDialog();
-                    categoryDialog.setAdapter(RecyclerAdapter.this);
+                    categoryDialog.setAdapter(CategoryRecyclerAdapter.this);
                     Bundle bundle = new Bundle();
                     bundle.putParcelable(CategoryDialog.CATEGORY_KEY, category);
                     categoryDialog.setArguments(bundle);
@@ -102,7 +102,7 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHo
                 public void onClick(View view) {
                     CategoryCrudOperation categoryCrudOperation = new CategoryCrudOperation(mContext);
                     categoryCrudOperation.delete(category);
-                    categoryCrudOperation.loadDataToAdapter(RecyclerAdapter.this);
+                    categoryCrudOperation.loadDataToAdapter(CategoryRecyclerAdapter.this);
                     Toast.makeText(mContext, "Deleted", Toast.LENGTH_LONG).show();
                 }
             });

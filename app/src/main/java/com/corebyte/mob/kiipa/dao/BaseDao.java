@@ -25,6 +25,9 @@ public interface BaseDao<T extends BaseModel> {
     @Update
     void update(T entity);
 
+    @Update
+    void update(T... entities);
+
     @Delete
     void delete(T entity);
 

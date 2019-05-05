@@ -1,12 +1,20 @@
 package com.corebyte.mob.kiipa;
 
+import android.arch.persistence.room.util.StringUtil;
+import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.widget.CheckBox;
 import android.widget.EditText;
+import android.widget.TextView;
 
 import com.corebyte.mob.kiipa.model.Measurement;
+import com.corebyte.mob.kiipa.util.DateUtil;
 
+import java.text.DateFormat;
 import java.util.Date;
+
+import butterknife.internal.Utils;
 
 public class MeasurementDlgProcessor {
 
@@ -15,7 +23,10 @@ public class MeasurementDlgProcessor {
     private EditText sellingPriceEd;
     private EditText supplyQtyEd;
     private EditText lastSupplyQtyEd;
+    private TextView lastSupplyDate;
     private CheckBox showCb;
+
+    private Measurement mMeasurement;
 
     public MeasurementDlgProcessor(View view) {
         nameEd = view.findViewById(R.id.ed_measure);
@@ -23,6 +34,8 @@ public class MeasurementDlgProcessor {
         sellingPriceEd = view.findViewById(R.id.ed_selling_price);
         supplyQtyEd = view.findViewById(R.id.ed_supply_qty);
         lastSupplyQtyEd = view.findViewById(R.id.ed_last_supply_qty);
+        lastSupplyDate = view.findViewById(R.id.tv_last_supply_date);
+
         showCb = view.findViewById(R.id.cb_show);
     }
 
@@ -30,11 +43,13 @@ public class MeasurementDlgProcessor {
 
         if (measurement == null) return;
 
+        mMeasurement = measurement;
+
         nameEd.setText(measurement.getName());
         supplyPriceEd.setText(String.valueOf(measurement.getSupplyPrice()));
         sellingPriceEd.setText(String.valueOf(measurement.getSellingPrice()));
-        lastSupplyQtyEd.setText(String.valueOf(measurement.getLastSupplyQty()));
-        lastSupplyQtyEd.setText(measurement.getLastSupplyDate().toLocaleString());
+        lastSupplyQtyEd.setText(String.valueOf(measurement.getSupplyQty()));
+        lastSupplyDate.setText(DateFormat.getDateInstance(DateFormat.MEDIUM).format(measurement.updatedAt));
 
         if (measurement.getShowStatus() == 1) {
             showCb.setChecked(true);
@@ -45,26 +60,30 @@ public class MeasurementDlgProcessor {
 
 
     public Measurement getUiMeasurement() {
-        Measurement measurement = new Measurement();
 
-        measurement.createdAt = new Date();
-        measurement.updatedAt = new Date();
-
-        measurement.setName(nameEd.getText().toString());
-        measurement.setSellingPrice(
-                Double.parseDouble(sellingPriceEd.getText().toString()));
-        measurement.setSupplyPrice(
-                Double.parseDouble(supplyPriceEd.getText().toString()));
-        measurement.setSupplyQty(
-                Integer.parseInt(supplyQtyEd.getText().toString()));
-
-        if (showCb.isChecked()) {
-            measurement.setShowStatus(1);
-        } else {
-            measurement.setShowStatus(0);
+        if (mMeasurement == null) {
+            mMeasurement = new Measurement();
+            mMeasurement.initDates();
         }
 
-        return measurement;
+        mMeasurement.setName(nameEd.getText().toString());
+        mMeasurement.setSellingPrice(
+                Double.parseDouble(sellingPriceEd.getText().toString()));
+        mMeasurement.setSupplyPrice(
+                Double.parseDouble(supplyPriceEd.getText().toString()));
+
+
+        int qty =  TextUtils.isEmpty(supplyQtyEd.getText().toString()) ? 0
+                : Integer.parseInt(supplyQtyEd.getText().toString());
+        mMeasurement.setSupplyQty(qty);
+
+        if (showCb.isChecked()) {
+            mMeasurement.setShowStatus(1);
+        } else {
+            mMeasurement.setShowStatus(0);
+        }
+
+        return mMeasurement;
     }
 
     public interface MeasurementHandler {

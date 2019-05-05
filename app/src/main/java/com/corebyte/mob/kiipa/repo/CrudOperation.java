@@ -13,6 +13,8 @@ public interface CrudOperation<T extends BaseModel> {
 
     void update(T model);
 
+    void update(T ... models);
+
     void delete(T model);
 
     T getById(long id);

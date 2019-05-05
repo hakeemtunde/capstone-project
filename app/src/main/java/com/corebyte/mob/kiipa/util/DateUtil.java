@@ -1,5 +1,7 @@
 package com.corebyte.mob.kiipa.util;
 
+import com.corebyte.mob.kiipa.model.BaseModel;
+
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
@@ -21,4 +23,17 @@ public class DateUtil {
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat(DATE_FORMAT_2, Locale.getDefault());
         return date == null ? null : simpleDateFormat.format(date);
     }
+
+    public static void initCreateDate(BaseModel... models) {
+        for (BaseModel model : models) {
+            model.initDates();
+        }
+    }
+
+    public static void modifyUpdateDate(BaseModel... models) {
+        for (BaseModel model : models) {
+            model.updatedAt = new Date();
+        }
+    }
+
 }

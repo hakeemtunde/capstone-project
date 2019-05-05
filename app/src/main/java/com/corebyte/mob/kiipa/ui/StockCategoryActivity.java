@@ -11,7 +11,7 @@ import android.view.View;
 import android.widget.ProgressBar;
 
 import com.corebyte.mob.kiipa.R;
-import com.corebyte.mob.kiipa.adapter.RecyclerAdapter;
+import com.corebyte.mob.kiipa.adapter.CategoryRecyclerAdapter;
 import com.corebyte.mob.kiipa.event.ProgressBarEvent;
 import com.corebyte.mob.kiipa.repo.CategoryCrudOperation;
 
@@ -32,7 +32,7 @@ public class StockCategoryActivity extends AppCompatActivity
 
     private CategoryCrudOperation categoryCrudOperation;
 
-    private RecyclerAdapter mAdapter;
+    private CategoryRecyclerAdapter mAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,7 +43,7 @@ public class StockCategoryActivity extends AppCompatActivity
 
         setSupportActionBar(toolbar);
 
-        mAdapter = new RecyclerAdapter(getApplicationContext(), this);
+        mAdapter = new CategoryRecyclerAdapter(getApplicationContext(), this);
         mCategoryRv.setHasFixedSize(true);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
         mCategoryRv.setLayoutManager(linearLayoutManager);

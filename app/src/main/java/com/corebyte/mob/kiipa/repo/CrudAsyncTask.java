@@ -19,7 +19,11 @@ public class CrudAsyncTask<T extends BaseModel> implements CrudOperation<T> {
 
     public CrudAsyncTask(Context context, CrudDao crudDao) {
         mAppDatabase = AppDatabase.getInstance(context);
-        mDao = crudDao.getDao(mAppDatabase);
+        mDao = crudDao.getCrudDao(mAppDatabase);
+    }
+
+    public BaseDao getDao() {
+        return mDao;
     }
 
     @Override
@@ -86,6 +90,19 @@ public class CrudAsyncTask<T extends BaseModel> implements CrudOperation<T> {
                 return null;
             }
         }.execute(model);
+    }
+
+    @Override
+    public void update(T... models) {
+
+        new AsyncTask<T, Void, Void>(){
+
+            @Override
+            protected Void doInBackground(T... ts) {
+                mDao.update(ts);
+                return null;
+            }
+        }.execute(models);
     }
 
     @Override
