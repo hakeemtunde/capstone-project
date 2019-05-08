@@ -8,8 +8,10 @@ import android.widget.ImageView;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.corebyte.mob.kiipa.model.Measurement;
+import com.corebyte.mob.kiipa.repo.MeasurementCrudOperation;
 import com.corebyte.mob.kiipa.ui.MeasureDialog;
 import com.corebyte.mob.kiipa.ui.StockItemActivity;
 
@@ -83,7 +85,7 @@ public class PublishMeasurementTable {
     public Measurement[] getNewMeasurements() {
         List<Measurement> newMeasurements = new ArrayList<>();
 
-        for(Measurement measurement : measurementList) {
+        for (Measurement measurement : measurementList) {
             if (measurement.id != 0) continue;
             newMeasurements.add(measurement);
         }
@@ -93,7 +95,7 @@ public class PublishMeasurementTable {
     public Measurement[] getExistingMeasurements() {
         List<Measurement> existingMeasurements = new ArrayList<>();
 
-        for(Measurement measurement : measurementList) {
+        for (Measurement measurement : measurementList) {
             if (measurement.id == 0) continue;
             existingMeasurements.add(measurement);
         }
@@ -129,11 +131,20 @@ public class PublishMeasurementTable {
 
             }
         });
+
+        mDeleteIv.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                MeasurementCrudOperation measurementCrudOperation = new MeasurementCrudOperation(mContext);
+                measurementCrudOperation.delete(measurement);
+                Toast.makeText(mContext, "Measurement deleted", Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 
     private void reAttachedEdited(Measurement measurement) {
         int index = 0;
-        for(Measurement m : measurementList) {
+        for (Measurement m : measurementList) {
             if (m.id != measurement.id) continue;
             index = measurementList.indexOf(m);
             measurementList.set(index, measurement);
@@ -142,8 +153,8 @@ public class PublishMeasurementTable {
         initTableWidgets();
         setWidgetValues(measurement);
         TableRow tableRow = createRow();
-        mTableLayout.removeViewAt(index+1);
-        mTableLayout.addView(tableRow, index+1);
+        mTableLayout.removeViewAt(index + 1);
+        mTableLayout.addView(tableRow, index + 1);
         measurementList.set(index, measurement);
     }
 

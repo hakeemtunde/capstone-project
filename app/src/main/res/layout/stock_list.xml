@@ -21,7 +21,7 @@
         android:layout_alignTop="@id/stock_iv"
         android:textSize="20sp"
         />
-    
+
     <LinearLayout
         android:layout_centerVertical="true"
         android:layout_alignParentRight="true"
