@@ -36,15 +36,6 @@ public class PublishMeasurementTable {
         mContext = mStockItemActivity.getApplicationContext();
     }
 
-//    public static PublishMeasurementTable creator(Context context, TableLayout table) {
-//
-//        if (sInstance == null) {
-//
-//            sInstance = new PublishMeasurementTable(context, table);
-//        }
-//
-//        return sInstance;
-//    }
 
     public void initTableWidgets() {
         mMeasureTv = new TextView(mContext);
