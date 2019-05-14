@@ -22,24 +22,6 @@
         android:textSize="20sp"
         />
 
-    <!--<TextView-->
-        <!--android:id="@+id/stock_price_tv"-->
-        <!--android:layout_width="wrap_content"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:layout_toRightOf="@id/stock_iv"-->
-        <!--android:layout_below="@id/stock_name_tv"-->
-        <!--android:text="Price: 200"/>-->
-
-
-    <!--<TextView-->
-        <!--android:id="@+id/stock_qty_tv"-->
-        <!--android:layout_width="wrap_content"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:layout_toRightOf="@id/stock_iv"-->
-        <!--android:layout_below="@id/stock_price_tv"-->
-        <!--android:text="Qty: 10"/>-->
-
-
     <LinearLayout
         android:layout_centerVertical="true"
         android:layout_alignParentRight="true"

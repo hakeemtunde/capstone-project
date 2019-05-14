@@ -81,6 +81,10 @@ public class StockActivity extends AppCompatActivity implements StockEvent {
 
     @Override
     public void onCartClick(Stock stock) {
-        //stockCrudOperation.delete(stock);
+        AddToCartDialogActivity dialogActivity = new AddToCartDialogActivity();
+        Bundle bundle = new Bundle();
+        bundle.putParcelable(StockItemActivity.STOCKITEM, stock);
+        dialogActivity.setArguments(bundle);
+        dialogActivity.show(getSupportFragmentManager(), "ADD_TO_CART");
     }
 }
