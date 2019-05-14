@@ -1,6 +1,7 @@
 package com.corebyte.mob.kiipa;
 
 import android.content.Context;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.RadioButton;
@@ -61,6 +62,23 @@ public class AddToCartDlgProcessor {
             mMeasurementRg.addView(radioButton);
         }
 
+    }
+
+    public Measurement getSelectedMeasurement() {
+        return mSelectedMeasurement;
+    }
+
+    public int getInputQuantity() {
+        int qty = 0;
+        if (!TextUtils.isEmpty(mInputQty.getText().toString())) {
+            try {
+                qty = Integer.parseInt(mInputQty.getText().toString());
+            }catch (NumberFormatException nfe) {
+                nfe.printStackTrace();
+            }
+        }
+
+        return qty;
     }
 
     private void init() {
