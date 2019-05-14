@@ -10,4 +10,6 @@
     <dimen name="marginRightMeasureWidget">20dp</dimen>
     <dimen name="widthMeasureWidget">180dp</dimen>
 
+    <dimen name="addToStockDlgTextLabelLeftMargin">5dp</dimen>
+
 </resources>
