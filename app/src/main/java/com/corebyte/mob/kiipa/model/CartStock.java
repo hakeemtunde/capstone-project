@@ -2,16 +2,23 @@ package com.corebyte.mob.kiipa.model;
 
 public class CartStock {
 
+    private Long mStockId;
     private Long mId;
     private int mQuantity;
     private double mCostPerStock;
     private double mTotalCost;
+    private String mStockName;
+    private String mMeasureName;
+
 
     private CartStock() {
     }
 
-    public CartStock(Long mId, double costperstock) {
+    public CartStock(Long sId, Long mId, String sName, String mName, double costperstock) {
+        mStockId = sId;
         this.mId = mId;
+        mStockName = sName;
+        mMeasureName = mName;
         this.mCostPerStock = costperstock;
     }
 

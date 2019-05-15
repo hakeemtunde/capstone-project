@@ -40,7 +40,9 @@ public class Cart {
                 mStockMeasures.put(stock, stockmeasurements);
 
                 //add to cartholder
-                CartStock cartStock = new CartStock(measurement.id, measurement.getSellingPrice());
+                CartStock cartStock = new CartStock(stock.id, measurement.id, stock.getName(),
+                        measurement.getName(), measurement.getSellingPrice());
+
                 cartStock.addQuantity(inputQty);
                 cartStock.calculateCost();
                 mMeasureCartStock.put(measurement, cartStock);
@@ -53,7 +55,9 @@ public class Cart {
             mStockMeasures.put(stock, measurements);
 
             //add to cartholder
-            CartStock cartStock = new CartStock(measurement.id, measurement.getSellingPrice());
+            CartStock cartStock = new CartStock(stock.id, measurement.id, stock.getName(),
+                    measurement.getName(), measurement.getSellingPrice());
+
             cartStock.addQuantity(inputQty);
             cartStock.calculateCost();
             mMeasureCartStock.put(measurement, cartStock);
