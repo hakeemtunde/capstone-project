@@ -25,14 +25,15 @@ public class Cart {
 
     public void add(Stock stock, Measurement measurement, int inputQty) {
 
+        if(inputQty == 0) return;
+
         if (mStockMeasures.containsKey(stock)) {
             List<Measurement> stockmeasurements = (List<Measurement>) mStockMeasures.get(stock);
             if (stockmeasurements.contains(measurement)) {
-                //Measurement existingMeasurement = measurements.get(measurement);
                 CartStock existingCartStock = (CartStock) mMeasureCartStock.get(measurement);
                 existingCartStock.addQuantity(inputQty);
                 existingCartStock.calculateCost();
-                
+
             } else {
                 stockmeasurements.add(measurement);
                 mStockMeasures.remove(stock);
@@ -65,9 +66,5 @@ public class Cart {
                     Log.i(this.getClass().getSimpleName(), " "
                 + "\n CartStock: "+ cartStock.toString());
         }
-
-
-//        Log.i(this.getClass().getSimpleName(), " "
-//                + "\n measure: "+ mMeasureCartStock.values().toString());
     }
 }

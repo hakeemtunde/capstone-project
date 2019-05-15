@@ -7,6 +7,7 @@ import android.os.Parcel;
 import android.os.Parcelable;
 
 import java.util.Date;
+import java.util.Objects;
 
 import static android.arch.persistence.room.ForeignKey.CASCADE;
 
@@ -169,5 +170,20 @@ public class Measurement extends BaseModel implements Parcelable {
         parcel.writeInt(this.showStatus);
         parcel.writeLong(this.lastSupplyDate.getTime());
 
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Measurement)) return false;
+        Measurement that = (Measurement) o;
+        return id == that.id &&
+                getStockId() == that.getStockId() &&
+                Objects.equals(getName(), that.getName());
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, getStockId(), getName());
     }
 }
