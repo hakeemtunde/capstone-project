@@ -73,6 +73,12 @@ public class StockActivity extends AppCompatActivity implements StockEvent {
             return true;
         }
 
+        if(item.getItemId() == R.id.menu_stock_cart) {
+            Intent intent = new Intent(this, CheckoutActivity.class);
+            startActivity(intent);
+            return true;
+        }
+
         return true;
 
     }
