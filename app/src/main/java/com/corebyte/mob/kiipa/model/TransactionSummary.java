@@ -8,9 +8,9 @@ public class TransactionSummary extends BaseModel {
     double total;
     int salesOrder;
 
-    public TransactionSummary(double ttl, int sorder) {
-        total = ttl;
-        salesOrder = sorder;
+    public TransactionSummary(double total, int salesOrder) {
+        this.total = total;
+        this.salesOrder = salesOrder;
     }
 
     public double getTotal() {
