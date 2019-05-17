@@ -25,6 +25,6 @@ public class CashSales {
         TransactionSummary transactionSummary = new TransactionSummary(mCartSummary.getmTotalAmount(), order);
         long txid = mTransactionSummaryCrudOp.create(transactionSummary);
 
-        
+
     }
 }

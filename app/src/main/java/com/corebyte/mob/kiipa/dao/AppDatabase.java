@@ -42,4 +42,6 @@ public abstract class AppDatabase extends RoomDatabase {
     public abstract MeasurementDao measurementDao();
 
     public abstract TransactionSummaryDao transactionSummaryDao();
+
+    public abstract TransactionBreakdownDao transactionBreakdownDao();
 }
