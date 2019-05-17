@@ -4,10 +4,12 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.corebyte.mob.kiipa.CartSummary;
 import com.corebyte.mob.kiipa.R;
@@ -17,6 +19,7 @@ import java.util.ArrayList;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 
 public class CheckoutActivity extends AppCompatActivity {
 
@@ -28,6 +31,10 @@ public class CheckoutActivity extends AppCompatActivity {
     TextView mCartTotalTv;
     @BindView(R.id.cart_item_tl)
     TableLayout mCartItemTl;
+    @BindView(R.id.cash_ib)
+    ImageButton cashBtn;
+    @BindView(R.id.creditors_ib)
+    ImageButton creditorsBtn;
 
     private CartSummary mCartSummary;
 
@@ -91,5 +98,10 @@ public class CheckoutActivity extends AppCompatActivity {
         views.add(price);
         views.add(delete);
         return views;
+    }
+
+    @OnClick(R.id.cash_ib)
+    public void onCashBtnClick() {
+
     }
 }
