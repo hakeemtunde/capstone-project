@@ -11,8 +11,6 @@ public class TransactionSummary extends BaseModel {
     public TransactionSummary(double ttl, int sorder) {
         total = ttl;
         salesOrder = sorder;
-
-        initDates();
     }
 
     public double getTotal() {
