@@ -15,17 +15,18 @@ import java.util.Set;
 
 public class Cart {
 
+    private static final String TAG = Cart.class.getSimpleName();
     private Map mStockMeasures;
     private Map mMeasureCartStock;
 
     public Cart() {
         mStockMeasures = new HashMap<Stock, List<Measurement>>();
-        mMeasureCartStock  = new HashMap<Measurement, CartStock>();
+        mMeasureCartStock = new HashMap<Measurement, CartStock>();
     }
 
     public void add(Stock stock, Measurement measurement, int inputQty) {
 
-        if(inputQty == 0) return;
+        if (inputQty == 0) return;
 
         if (mStockMeasures.containsKey(stock)) {
             List<Measurement> stockmeasurements = (List<Measurement>) mStockMeasures.get(stock);
@@ -48,7 +49,7 @@ public class Cart {
                 mMeasureCartStock.put(measurement, cartStock);
 
             }
-        }else {
+        } else {
             //first time adding stock
             List<Measurement> measurements = new ArrayList<>();
             measurements.add(measurement);
@@ -63,12 +64,25 @@ public class Cart {
             mMeasureCartStock.put(measurement, cartStock);
         }
 
-        Set set = mMeasureCartStock.keySet();
-        Iterator iterator = set.iterator();
-        while (iterator.hasNext()) {
-            CartStock cartStock = (CartStock) mMeasureCartStock.get(iterator.next());
-                    Log.i(this.getClass().getSimpleName(), " "
-                + "\n CartStock: "+ cartStock.toString());
-        }
     }
+
+    public CartSummary getCartSummary() {
+        ArrayList<CartStock> cartStocks = getCartStocks();
+        CartSummary cartSummary = new CartSummary(cartStocks);
+        return cartSummary;
+    }
+
+
+    public ArrayList<CartStock> getCartStocks() {
+        ArrayList<CartStock> cartStocks = new ArrayList<>();
+        Set<Measurement> keys = mMeasureCartStock.keySet();
+        for (Measurement measurement : keys) {
+            CartStock cartStock = (CartStock) mMeasureCartStock.get(measurement);
+            cartStocks.add(cartStock);
+        }
+        return cartStocks;
+
+    }
+
+
 }

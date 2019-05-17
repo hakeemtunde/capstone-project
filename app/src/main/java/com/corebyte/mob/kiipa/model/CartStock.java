@@ -3,9 +3,11 @@ package com.corebyte.mob.kiipa.model;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import java.util.List;
+
 public class CartStock implements Parcelable {
 
-    static Parcelable.Creator<CartStock> CREATOR = new Parcelable.Creator<CartStock>(){
+    public static Parcelable.Creator<CartStock> CREATOR = new Parcelable.Creator<CartStock>() {
 
         @Override
         public CartStock createFromParcel(Parcel parcel) {
@@ -27,7 +29,7 @@ public class CartStock implements Parcelable {
     private String mStockName;
     private String mMeasureName;
 
-    private CartStock() {
+    public CartStock() {
     }
 
     public CartStock(Parcel parcel) {
@@ -57,16 +59,6 @@ public class CartStock implements Parcelable {
     }
 
     @Override
-    public String toString() {
-        return "CartStock{" +
-                "mId=" + mId +
-                ", mQuantity=" + mQuantity +
-                ", mCostPerStock=" + mCostPerStock +
-                ", mTotalCost=" + mTotalCost +
-                '}';
-    }
-
-    @Override
     public int describeContents() {
         return 0;
     }
@@ -81,5 +73,42 @@ public class CartStock implements Parcelable {
         parcel.writeDouble(mTotalCost);
         parcel.writeString(mStockName);
         parcel.writeString(mMeasureName);
+    }
+
+    @Override
+    public String toString() {
+        return "CartStock{" +
+                "mStockId=" + mStockId +
+                ", mId=" + mId +
+                ", mQuantity=" + mQuantity +
+                ", mCostPerStock=" + mCostPerStock +
+                ", mTotalCost=" + mTotalCost +
+                ", mStockName='" + mStockName + '\'' +
+                ", mMeasureName='" + mMeasureName + '\'' +
+                '}';
+    }
+
+    public double getTotalCost() {
+        return mTotalCost;
+    }
+
+    public int getmQuantity() {
+        return mQuantity;
+    }
+
+    public double getmCostPerStock() {
+        return mCostPerStock;
+    }
+
+    public double getmTotalCost() {
+        return mTotalCost;
+    }
+
+    public String getmStockName() {
+        return mStockName;
+    }
+
+    public String getmMeasureName() {
+        return mMeasureName;
     }
 }

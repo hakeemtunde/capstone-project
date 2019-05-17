@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.net.LocalServerSocket;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -16,10 +17,12 @@ import com.corebyte.mob.kiipa.Cart;
 import com.corebyte.mob.kiipa.R;
 import com.corebyte.mob.kiipa.adapter.StockRecyclerAdapter;
 import com.corebyte.mob.kiipa.event.StockEvent;
+import com.corebyte.mob.kiipa.model.CartStock;
 import com.corebyte.mob.kiipa.model.Measurement;
 import com.corebyte.mob.kiipa.model.Stock;
 import com.corebyte.mob.kiipa.repo.StockCrudOperation;
 
+import java.util.ArrayList;
 import java.util.StringTokenizer;
 
 import butterknife.BindView;
@@ -75,6 +78,7 @@ public class StockActivity extends AppCompatActivity implements StockEvent {
 
         if(item.getItemId() == R.id.menu_stock_cart) {
             Intent intent = new Intent(this, CheckoutActivity.class);
+            intent.putExtra(CheckoutActivity.CART_STOCK_TAG, mCart.getCartSummary());
             startActivity(intent);
             return true;
         }
