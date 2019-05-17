@@ -60,22 +60,24 @@ public class CheckoutActivity extends AppCompatActivity {
             tableRow.addView(views.get(1));
             tableRow.addView(views.get(2));
             tableRow.addView(views.get(3));
+            tableRow.addView(views.get(4));
 
             mCartItemTl.addView(tableRow);
         }
-
 
     }
 
     private ArrayList<View> initTableRowViews(CartStock cartStock) {
         ArrayList<View> views = new ArrayList<>();
         TextView stockName = new TextView(getApplicationContext());
+        TextView measureName = new TextView(getApplicationContext());
         TextView cost = new TextView(getApplicationContext());
         TextView price = new TextView(getApplicationContext());
         ImageView delete = new ImageView(getApplicationContext());
         delete.setImageResource(R.drawable.ic_delete_black_24dp);
 
         stockName.setText(cartStock.getmStockName());
+        measureName.setText(cartStock.getmMeasureName());
 
         String quantityxcost = String.valueOf(cartStock.getmQuantity())
                 + " x " + String.valueOf(cartStock.getmCostPerStock());
@@ -83,9 +85,8 @@ public class CheckoutActivity extends AppCompatActivity {
 
         price.setText(String.valueOf(cartStock.getmTotalCost()));
 
-
-
         views.add(stockName);
+        views.add(measureName);
         views.add(cost);
         views.add(price);
         views.add(delete);

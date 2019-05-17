@@ -77,6 +77,9 @@
                 android:text="@string/str_item"/>
 
             <TextView
+                android:text="Type"/>
+
+            <TextView
                 android:text="@string/str_cost"/>
 
             <TextView
@@ -88,6 +91,32 @@
         </TableRow>
 
     </TableLayout>
+
+    <LinearLayout
+        android:layout_alignParentBottom="true"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:weightSum="2">
+
+        <ImageButton
+            android:id="@+id/cash_ib"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:autofillHints="Cash"
+            android:layout_weight="1"
+            android:src="@drawable/ic_playlist_add_check_black_24dp"/>
+        <ImageButton
+            android:id="@+id/creditors_ib"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:autofillHints="Creditor"
+            android:layout_weight="1"
+            android:src="@drawable/ic_people_black_24dp"/>
+
+    </LinearLayout>
+
+
 
 
 </RelativeLayout>
