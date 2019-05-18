@@ -186,4 +186,8 @@ public class Measurement extends BaseModel implements Parcelable {
     public int hashCode() {
         return Objects.hash(id, getStockId(), getName());
     }
+
+    public void reduceQuantity(int soldQty) {
+        this.supplyQty -= getSupplyQty() - soldQty;
+    }
 }

@@ -12,6 +12,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.corebyte.mob.kiipa.CartSummary;
+import com.corebyte.mob.kiipa.CashSales;
 import com.corebyte.mob.kiipa.R;
 import com.corebyte.mob.kiipa.model.CartStock;
 
@@ -102,6 +103,13 @@ public class CheckoutActivity extends AppCompatActivity {
 
     @OnClick(R.id.cash_ib)
     public void onCashBtnClick() {
+        CashSales cashSales = new CashSales(getApplicationContext(), mCartSummary);
+        cashSales.checkoutCart();
+        Toast.makeText(getApplicationContext(), "Item(s) checkout successfully.",
+                Toast.LENGTH_SHORT).show();
 
+        Intent intent = new Intent(this, StockActivity.class);
+        startActivity(intent);
+        
     }
 }

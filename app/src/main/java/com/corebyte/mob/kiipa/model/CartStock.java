@@ -111,4 +111,12 @@ public class CartStock implements Parcelable {
     public String getmMeasureName() {
         return mMeasureName;
     }
+
+    public Long getmStockId() {
+        return mStockId;
+    }
+
+    public Long getmId() {
+        return mId;
+    }
 }

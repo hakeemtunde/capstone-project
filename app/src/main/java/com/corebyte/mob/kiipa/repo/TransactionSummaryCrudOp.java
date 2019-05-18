@@ -77,12 +77,12 @@ public class TransactionSummaryCrudOp implements CrudDao<TransactionSummary> {
 
             @Override
             protected Integer doInBackground(Date... dates) {
-                int transactions = ((TransactionSummaryDao)mCrudAsyn.getDao()).countTransactionByDate(dates[0]);
+
+                int transactions = ((TransactionSummaryDao)mCrudAsyn.getDao())
+                        .countTransactionByDate(dates[0]);
                 return transactions;
             }
-        };
-
-        asyncTask.execute(date);
+        }.execute(date);
 
         try {
             txcounts = (int) asyncTask.get();
