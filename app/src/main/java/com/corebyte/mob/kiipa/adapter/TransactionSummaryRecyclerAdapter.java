@@ -63,7 +63,7 @@ public class TransactionSummaryRecyclerAdapter extends RecyclerView.Adapter<Tran
         }
 
         public void bind(TransactionSummary transactionSummary) {
-            orderTv.setText(transactionSummary.getSalesOrder());
+            orderTv.setText(String.valueOf(transactionSummary.getSalesOrder()));
             dateTv.setText(DateUtil.getDateFormat(transactionSummary.createdAt));
             amountTv.setText(String.valueOf(transactionSummary.getTotal()));
         }

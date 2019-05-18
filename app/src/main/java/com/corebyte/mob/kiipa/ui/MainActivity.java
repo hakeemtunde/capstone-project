@@ -35,6 +35,12 @@ public class MainActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
+    @OnClick(R.id.daily_transaction_btn)
+    public void lunchDailyTransactionActivity() {
+        Intent intent = new Intent(this, TransactionSummaryActivity.class);
+        startActivity(intent);
+    }
+
 
 
 }
