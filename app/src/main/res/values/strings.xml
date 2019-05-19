@@ -23,6 +23,11 @@
     <string name="show_on_sale">Show on sale</string>
     <string name="add_measurements">Add Measurements</string>
     <string name="save">Save</string>
+    <string name="str_amount">Amount:</string>
+    <string name="str_item">Item</string>
+    <string name="str_cost">Cost</string>
+    <string name="str_price">Price</string>
+    <string name="str_items">Items:</string>
 
 </resources>
 

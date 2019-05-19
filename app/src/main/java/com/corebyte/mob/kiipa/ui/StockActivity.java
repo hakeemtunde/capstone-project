@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.net.LocalServerSocket;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -12,12 +13,16 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import com.corebyte.mob.kiipa.Cart;
 import com.corebyte.mob.kiipa.R;
 import com.corebyte.mob.kiipa.adapter.StockRecyclerAdapter;
 import com.corebyte.mob.kiipa.event.StockEvent;
+import com.corebyte.mob.kiipa.model.CartStock;
+import com.corebyte.mob.kiipa.model.Measurement;
 import com.corebyte.mob.kiipa.model.Stock;
 import com.corebyte.mob.kiipa.repo.StockCrudOperation;
 
+import java.util.ArrayList;
 import java.util.StringTokenizer;
 
 import butterknife.BindView;
@@ -35,6 +40,9 @@ public class StockActivity extends AppCompatActivity implements StockEvent {
 
     StockCrudOperation stockCrudOperation;
 
+    Cart mCart;
+    Stock mStockSelected;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -43,6 +51,8 @@ public class StockActivity extends AppCompatActivity implements StockEvent {
         ButterKnife.bind(this);
 
         setSupportActionBar(toolbar);
+
+        mCart = new Cart();
 
         stockCrudOperation = new StockCrudOperation(getApplicationContext());
         StockRecyclerAdapter adapter = new StockRecyclerAdapter(stockCrudOperation.getAll(), this);
@@ -66,6 +76,13 @@ public class StockActivity extends AppCompatActivity implements StockEvent {
             return true;
         }
 
+        if(item.getItemId() == R.id.menu_stock_cart) {
+            Intent intent = new Intent(this, CheckoutActivity.class);
+            intent.putExtra(CheckoutActivity.CART_STOCK_TAG, mCart.getCartSummary());
+            startActivity(intent);
+            return true;
+        }
+
         return true;
 
     }
@@ -81,10 +98,20 @@ public class StockActivity extends AppCompatActivity implements StockEvent {
 
     @Override
     public void onCartClick(Stock stock) {
+
+        mStockSelected = stock;
+
         AddToCartDialogActivity dialogActivity = new AddToCartDialogActivity();
+        dialogActivity.setOnStockEventHandler(this);
         Bundle bundle = new Bundle();
         bundle.putParcelable(StockItemActivity.STOCKITEM, stock);
         dialogActivity.setArguments(bundle);
         dialogActivity.show(getSupportFragmentManager(), "ADD_TO_CART");
+    }
+
+    @Override
+    public void onAddToCart(Measurement measurement, int qty) {
+        Log.i(this.getClass().getSimpleName(), measurement.toString() + " qty: "+ qty);
+        mCart.add(mStockSelected, measurement, qty);
     }
 }

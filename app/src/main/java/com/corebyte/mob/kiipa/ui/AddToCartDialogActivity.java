@@ -9,12 +9,14 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatDialogFragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Toast;
 
 import com.corebyte.mob.kiipa.AddToCartDlgProcessor;
 import com.corebyte.mob.kiipa.R;
+import com.corebyte.mob.kiipa.event.StockEvent;
 import com.corebyte.mob.kiipa.model.Measurement;
 import com.corebyte.mob.kiipa.model.Stock;
 import com.corebyte.mob.kiipa.repo.MeasurementCrudOperation;
@@ -23,6 +25,9 @@ import com.corebyte.mob.kiipa.repo.StockCrudOperation;
 import java.util.List;
 
 public class AddToCartDialogActivity extends DialogFragment implements AlertDialog.OnClickListener{
+
+    AddToCartDlgProcessor mDlgProcessor;
+    StockEvent mStockEvent;
 
     @NonNull
     @Override
@@ -44,8 +49,8 @@ public class AddToCartDialogActivity extends DialogFragment implements AlertDial
         MeasurementCrudOperation measurementCrudOperation = new MeasurementCrudOperation(getContext());
         List<Measurement> measurements = measurementCrudOperation.findByStockId(stock.id);
 
-        AddToCartDlgProcessor processor = new AddToCartDlgProcessor(getContext(), view, stock);
-        processor.attachMeasurements(measurements);
+        mDlgProcessor = new AddToCartDlgProcessor(getContext(), view, stock);
+        mDlgProcessor.attachMeasurements(measurements);
 
         dialog.setPositiveButton(getString(R.string.ok_string), this);
         dialog.setNegativeButton(getString(R.string.cancel_string), null);
@@ -56,5 +61,12 @@ public class AddToCartDialogActivity extends DialogFragment implements AlertDial
     @Override
     public void onClick(DialogInterface dialogInterface, int i) {
         Toast.makeText(getContext(), "Add to Cart!", Toast.LENGTH_SHORT).show();
+        Measurement measurement = mDlgProcessor.getSelectedMeasurement();
+        int qty = mDlgProcessor.getInputQuantity();
+        mStockEvent.onAddToCart(measurement, qty);
+    }
+
+    public void setOnStockEventHandler(StockEvent eventHandler) {
+        mStockEvent = eventHandler;
     }
 }
