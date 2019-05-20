@@ -41,6 +41,12 @@ public class MainActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
+    @OnClick(R.id.customer_btn)
+    public void lunchCustomerActivity() {
+        Intent intent = new Intent(this, CustomerActivity.class);
+        startActivity(intent);
+    }
+
 
 
 }
