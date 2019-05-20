@@ -11,6 +11,7 @@ import android.support.annotation.NonNull;
 import android.util.Log;
 
 import com.corebyte.mob.kiipa.model.Category;
+import com.corebyte.mob.kiipa.model.Customer;
 import com.corebyte.mob.kiipa.model.Measurement;
 import com.corebyte.mob.kiipa.model.Stock;
 import com.corebyte.mob.kiipa.model.TransactionBreakdown;
@@ -19,7 +20,10 @@ import com.corebyte.mob.kiipa.util.DateConverter;
 
 @Database(entities =
         {Category.class, Stock.class, Measurement.class,
-                TransactionSummary.class, TransactionBreakdown.class},
+                TransactionSummary.class,
+                TransactionBreakdown.class,
+                Customer.class
+        },
         version = 1,
         exportSchema = false)
 @TypeConverters(DateConverter.class)
@@ -50,4 +54,6 @@ public abstract class AppDatabase extends RoomDatabase {
     public abstract TransactionSummaryDao transactionSummaryDao();
 
     public abstract TransactionBreakdownDao transactionBreakdownDao();
+
+    public abstract CustomerDao customerDao();
 }
