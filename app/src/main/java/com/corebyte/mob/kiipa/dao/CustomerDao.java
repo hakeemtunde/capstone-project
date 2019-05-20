@@ -1,11 +1,13 @@
 package com.corebyte.mob.kiipa.dao;
 
+import android.arch.persistence.room.Dao;
 import android.arch.persistence.room.Query;
 
 import com.corebyte.mob.kiipa.model.Customer;
 
 import java.util.List;
 
+@Dao
 public interface CustomerDao extends BaseDao<Customer> {
 
     @Override
