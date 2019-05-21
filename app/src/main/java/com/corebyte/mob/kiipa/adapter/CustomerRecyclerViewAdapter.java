@@ -83,7 +83,6 @@ public class CustomerRecyclerViewAdapter extends RecyclerView.Adapter<CustomerRe
                 @Override
                 public void onClick(View view) {
                     mEventHandler.delete(customer);
-                    refreshAdapter();
 
                 }
             });

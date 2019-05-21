@@ -46,6 +46,7 @@ public class CustomerEventHandler implements EventHandler<Customer> {
     @Override
     public void delete(Customer model) {
         mCrudOperation.delete(model);
+        mAdapter.refreshAdapter();
     }
 
     @Override
