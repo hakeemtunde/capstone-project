@@ -28,6 +28,7 @@
     <string name="str_cost">Cost</string>
     <string name="str_price">Price</string>
     <string name="str_items">Items:</string>
+    <string name="phone_str">Phone</string>
 
 </resources>
 

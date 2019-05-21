@@ -16,7 +16,6 @@ public class CustomerRecyclerViewAdapter extends RecyclerView.Adapter<CustomerRe
 
     private List<Customer> mCustomers;
 
-
     public CustomerRecyclerViewAdapter(List<Customer> customerList) {
         mCustomers = customerList;
     }
@@ -26,20 +25,19 @@ public class CustomerRecyclerViewAdapter extends RecyclerView.Adapter<CustomerRe
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
         View view = LayoutInflater.from(viewGroup.getContext())
                 .inflate(R.layout.layout_customer_list, viewGroup, false);
-
-        return new ViewHolder(view);
+        ViewHolder viewHolder = new ViewHolder(view);
+        return viewHolder;
     }
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder viewHolder, int position) {
-
         Customer customer = mCustomers.get(position);
         viewHolder.bind(customer);
     }
 
     @Override
     public int getItemCount() {
-        return mCustomers.size();
+        return mCustomers == null ? 0 : mCustomers.size();
     }
 
     class ViewHolder extends RecyclerView.ViewHolder {
@@ -49,9 +47,8 @@ public class CustomerRecyclerViewAdapter extends RecyclerView.Adapter<CustomerRe
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
-
             mNameTv = itemView.findViewById(R.id.customer_name_tv);
-            mPhoneTv = itemView.findViewById(R.id.customer_phone);
+            mPhoneTv = itemView.findViewById(R.id.customer_phone_tv);
         }
 
         public void bind(Customer customer) {

@@ -3,6 +3,7 @@ package com.corebyte.mob.kiipa.event;
 import android.content.Context;
 
 import com.corebyte.mob.kiipa.adapter.AdapterDataLoader;
+import com.corebyte.mob.kiipa.model.BaseModel;
 import com.corebyte.mob.kiipa.model.Category;
 import com.corebyte.mob.kiipa.repo.CategoryCrudOperation;
 
@@ -44,5 +45,10 @@ public interface StockDialogAction {
         public boolean isValid(String name) {
             return true;
         }
+    }
+
+    public interface StockDialogGenericAction<T> {
+        void create(String... params);
+        void update(T model);
     }
 }

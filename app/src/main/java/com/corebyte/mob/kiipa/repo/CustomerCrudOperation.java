@@ -8,7 +8,6 @@ import com.corebyte.mob.kiipa.event.CrudDao;
 import com.corebyte.mob.kiipa.model.Customer;
 import com.corebyte.mob.kiipa.util.DateUtil;
 
-import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 public class CustomerCrudOperation implements CrudDao<Customer> {

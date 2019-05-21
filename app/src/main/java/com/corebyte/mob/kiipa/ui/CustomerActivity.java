@@ -6,11 +6,13 @@ import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 
 import com.corebyte.mob.kiipa.R;
 import com.corebyte.mob.kiipa.adapter.CustomerRecyclerViewAdapter;
+import com.corebyte.mob.kiipa.event.StockDialogAction;
 import com.corebyte.mob.kiipa.model.Customer;
 import com.corebyte.mob.kiipa.repo.CustomerCrudOperation;
 
@@ -19,12 +21,12 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class CustomerActivity extends AppCompatActivity {
+public class CustomerActivity extends AppCompatActivity implements StockDialogAction.StockDialogGenericAction<Customer> {
 
     @BindView(R.id.appToolbar)
-    Toolbar toolbar;
+    public Toolbar toolbar;
     @BindView(R.id.customer_rv)
-    RecyclerView mCustomerRv;
+    public RecyclerView mCustomerRv;
 
     CustomerCrudOperation mCustomerCrudOperation;
 
@@ -62,9 +64,24 @@ public class CustomerActivity extends AppCompatActivity {
 
         if (item.getItemId() == R.id.customer_add) {
 
+            CustomerDialogActivity dialogActivity = new CustomerDialogActivity();
+            dialogActivity.setDialogAction(this);
+            dialogActivity.show(getSupportFragmentManager(), "ADD_CUSTOMER");
+
             return true;
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void create(String... params) {
+        Customer customer = new Customer(params[0], params[1]);
+        mCustomerCrudOperation.create(customer);
+    }
+
+    @Override
+    public void update(Customer model) {
+        mCustomerCrudOperation.update(model);
     }
 }
