@@ -5,19 +5,28 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.corebyte.mob.kiipa.R;
+import com.corebyte.mob.kiipa.event.DialogEditEvent;
 import com.corebyte.mob.kiipa.model.Customer;
+import com.corebyte.mob.kiipa.repo.CustomerCrudOperation;
 
 import java.util.List;
 
 public class CustomerRecyclerViewAdapter extends RecyclerView.Adapter<CustomerRecyclerViewAdapter.ViewHolder> {
 
     private List<Customer> mCustomers;
+    private CustomerCrudOperation mCustomerCrudOperation;
+    private DialogEditEvent mDialogEditEvent;
 
-    public CustomerRecyclerViewAdapter(List<Customer> customerList) {
+    public CustomerRecyclerViewAdapter(List<Customer> customerList,
+                                       CustomerCrudOperation crudOperation,
+                                       DialogEditEvent dialogEditEvent) {
         mCustomers = customerList;
+        mCustomerCrudOperation = crudOperation;
+        mDialogEditEvent = dialogEditEvent;
     }
 
     @NonNull
@@ -40,20 +49,49 @@ public class CustomerRecyclerViewAdapter extends RecyclerView.Adapter<CustomerRe
         return mCustomers == null ? 0 : mCustomers.size();
     }
 
+    public void refreshAdapter() {
+        mCustomers = mCustomerCrudOperation.getAll();
+        notifyDataSetChanged();
+    }
+
     class ViewHolder extends RecyclerView.ViewHolder {
 
         private TextView mNameTv;
         private TextView mPhoneTv;
+        private ImageView mEditIv;
+        private ImageView mDeleteIv;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             mNameTv = itemView.findViewById(R.id.customer_name_tv);
             mPhoneTv = itemView.findViewById(R.id.customer_phone_tv);
+            mEditIv = itemView.findViewById(R.id.customer_edit_btn);
+            mDeleteIv = itemView.findViewById(R.id.customer_del_btn);
         }
 
         public void bind(Customer customer) {
             mNameTv.setText(customer.getName());
             mPhoneTv.setText(customer.getPhone());
+            onButtonClick(customer);
         }
+
+        private void onButtonClick(final Customer customer) {
+            mEditIv.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    mDialogEditEvent.onEditButtonClicked(customer);
+                }
+            });
+
+            mDeleteIv.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    mCustomerCrudOperation.delete(customer);
+                    refreshAdapter();
+                }
+            });
+        }
+
     }
+
 }

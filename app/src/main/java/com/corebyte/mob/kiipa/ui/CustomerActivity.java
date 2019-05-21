@@ -12,7 +12,8 @@ import android.view.MenuItem;
 
 import com.corebyte.mob.kiipa.R;
 import com.corebyte.mob.kiipa.adapter.CustomerRecyclerViewAdapter;
-import com.corebyte.mob.kiipa.event.StockDialogAction;
+import com.corebyte.mob.kiipa.event.DialogEditEvent;
+import com.corebyte.mob.kiipa.event.StockDialogAction.StockDialogGenericAction;
 import com.corebyte.mob.kiipa.model.Customer;
 import com.corebyte.mob.kiipa.repo.CustomerCrudOperation;
 
@@ -21,7 +22,8 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class CustomerActivity extends AppCompatActivity implements StockDialogAction.StockDialogGenericAction<Customer> {
+public class CustomerActivity extends AppCompatActivity
+        implements StockDialogGenericAction<Customer>, DialogEditEvent<Customer> {
 
     @BindView(R.id.appToolbar)
     public Toolbar toolbar;
@@ -29,6 +31,8 @@ public class CustomerActivity extends AppCompatActivity implements StockDialogAc
     public RecyclerView mCustomerRv;
 
     CustomerCrudOperation mCustomerCrudOperation;
+
+    CustomerRecyclerViewAdapter mAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,15 +45,15 @@ public class CustomerActivity extends AppCompatActivity implements StockDialogAc
 
         mCustomerCrudOperation = new CustomerCrudOperation(getApplicationContext());
         List<Customer> customers = mCustomerCrudOperation.getAll();
-        CustomerRecyclerViewAdapter adapter = new CustomerRecyclerViewAdapter(customers);
+        mAdapter = new CustomerRecyclerViewAdapter(
+                customers, mCustomerCrudOperation, this);
 
         LinearLayoutManager layoutManager = new LinearLayoutManager(this);
         mCustomerRv.addItemDecoration(
                 new DividerItemDecoration(mCustomerRv.getContext(), layoutManager.getOrientation()));
         mCustomerRv.setLayoutManager(layoutManager);
         mCustomerRv.setHasFixedSize(true);
-        mCustomerRv.setAdapter(adapter);
-
+        mCustomerRv.setAdapter(mAdapter);
 
     }
 
@@ -84,4 +88,23 @@ public class CustomerActivity extends AppCompatActivity implements StockDialogAc
     public void update(Customer model) {
         mCustomerCrudOperation.update(model);
     }
+
+    public void lunchEditDialog(Customer customer) {
+        CustomerDialogActivity dialogActivity = new CustomerDialogActivity();
+        dialogActivity.setDialogAction(this);
+        Bundle bundle = new Bundle();
+        bundle.putParcelable(CustomerDialogActivity.CUSTOMER_KEY, customer);
+        dialogActivity.setArguments(bundle);
+        dialogActivity.show(getSupportFragmentManager(), "EDIT_CUSTOMER");
+    }
+
+    @Override
+    public void onEditButtonClicked(Customer model) {
+        lunchEditDialog(model);
+    }
+
+    public CustomerRecyclerViewAdapter getAdapter() {return mAdapter; }
+
 }
+
+
