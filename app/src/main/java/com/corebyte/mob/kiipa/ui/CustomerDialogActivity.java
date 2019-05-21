@@ -7,22 +7,19 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.DialogFragment;
 import android.support.v7.app.AlertDialog;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.EditText;
 
 import com.corebyte.mob.kiipa.R;
-import com.corebyte.mob.kiipa.adapter.CustomerRecyclerViewAdapter;
-import com.corebyte.mob.kiipa.event.StockDialogAction.StockDialogGenericAction;
+import com.corebyte.mob.kiipa.event.EventHandler;
 import com.corebyte.mob.kiipa.model.Customer;
 
 public class CustomerDialogActivity extends DialogFragment {
 
-    private static final String TAG = CustomerDialogActivity.class.getSimpleName();
     public static final String CUSTOMER_KEY = "customer_key";
-    private StockDialogGenericAction mDialogAction;
+    private static final String TAG = CustomerDialogActivity.class.getSimpleName();
+    private EventHandler mEventHandler;
     private Customer mCustomer;
     private String mDlgTitle;
     private String mPositiveBtnText;
@@ -64,18 +61,15 @@ public class CustomerDialogActivity extends DialogFragment {
             public void onClick(DialogInterface dialogInterface, int i) {
 
                 //validate
-                String[] params = new String[2];
-                params[0] = nameEt.getText().toString();
-                params[1] = phoneEt.getText().toString();
+                String[] params = new String[]{nameEt.getText().toString(),
+                        phoneEt.getText().toString()};
 
                 if (mCustomer == null) {
-                    mDialogAction.create(params);
+                    mEventHandler.create(params);
                 } else {
                     mCustomer.setParameters(params);
-                    mDialogAction.update(mCustomer);
+                    mEventHandler.update(mCustomer);
 
-                    //refresh
-                    ((CustomerActivity)mDialogAction).getAdapter().refreshAdapter();
                 }
 
             }
@@ -86,7 +80,7 @@ public class CustomerDialogActivity extends DialogFragment {
         return dialogBuilder.create();
     }
 
-    public void setDialogAction(StockDialogGenericAction action) {
-        mDialogAction = action;
+    public void setEventHandler(EventHandler action) {
+        mEventHandler = action;
     }
 }

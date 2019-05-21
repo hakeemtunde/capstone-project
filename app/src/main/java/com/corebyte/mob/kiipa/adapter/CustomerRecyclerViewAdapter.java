@@ -9,24 +9,19 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.corebyte.mob.kiipa.R;
-import com.corebyte.mob.kiipa.event.DialogEditEvent;
+import com.corebyte.mob.kiipa.event.EventHandler;
 import com.corebyte.mob.kiipa.model.Customer;
-import com.corebyte.mob.kiipa.repo.CustomerCrudOperation;
 
 import java.util.List;
 
 public class CustomerRecyclerViewAdapter extends RecyclerView.Adapter<CustomerRecyclerViewAdapter.ViewHolder> {
 
     private List<Customer> mCustomers;
-    private CustomerCrudOperation mCustomerCrudOperation;
-    private DialogEditEvent mDialogEditEvent;
+    private EventHandler mEventHandler;
+    public CustomerRecyclerViewAdapter(EventHandler handler) {
+        mEventHandler = handler;
+        mCustomers = handler.fetchAll();
 
-    public CustomerRecyclerViewAdapter(List<Customer> customerList,
-                                       CustomerCrudOperation crudOperation,
-                                       DialogEditEvent dialogEditEvent) {
-        mCustomers = customerList;
-        mCustomerCrudOperation = crudOperation;
-        mDialogEditEvent = dialogEditEvent;
     }
 
     @NonNull
@@ -49,8 +44,9 @@ public class CustomerRecyclerViewAdapter extends RecyclerView.Adapter<CustomerRe
         return mCustomers == null ? 0 : mCustomers.size();
     }
 
+
     public void refreshAdapter() {
-        mCustomers = mCustomerCrudOperation.getAll();
+        mCustomers = mEventHandler.fetchAll();
         notifyDataSetChanged();
     }
 
@@ -79,15 +75,16 @@ public class CustomerRecyclerViewAdapter extends RecyclerView.Adapter<CustomerRe
             mEditIv.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    mDialogEditEvent.onEditButtonClicked(customer);
+                    mEventHandler.onEditButtonClicked(customer);
                 }
             });
 
             mDeleteIv.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    mCustomerCrudOperation.delete(customer);
+                    mEventHandler.delete(customer);
                     refreshAdapter();
+
                 }
             });
         }
