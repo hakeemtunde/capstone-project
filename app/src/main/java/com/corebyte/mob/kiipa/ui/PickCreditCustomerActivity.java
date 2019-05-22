@@ -73,7 +73,6 @@ public class PickCreditCustomerActivity extends AppCompatActivity
 
     @Override
     public void onClick(Customer customer) {
-        Log.i(this.getClass().getSimpleName(), "Clickedddddddd: " + customer.getName());
         mMenuItem.setEnabled(true);
         mMenuItem.setIcon(tintIcon(getApplicationContext(), mMenuItem, R.color.colorText));
 
