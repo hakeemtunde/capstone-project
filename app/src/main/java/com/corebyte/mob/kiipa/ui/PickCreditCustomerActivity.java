@@ -22,6 +22,8 @@ import com.corebyte.mob.kiipa.model.Customer;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
+import static com.corebyte.mob.kiipa.util.AppUtil.tintIcon;
+
 public class PickCreditCustomerActivity extends AppCompatActivity
         implements PickCreditCustomerEvent.OnClickCreditor {
 
@@ -78,11 +80,5 @@ public class PickCreditCustomerActivity extends AppCompatActivity
 
     }
 
-    private Drawable tintIcon(Context context, MenuItem menuItem, int resource_id) {
 
-        Drawable normalDraw = menuItem.getIcon();
-        Drawable wrap = DrawableCompat.wrap(normalDraw);
-        DrawableCompat.setTint(wrap, ContextCompat.getColor(context, resource_id));
-        return wrap;
-    }
 }
