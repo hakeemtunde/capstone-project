@@ -112,4 +112,10 @@ public class CheckoutActivity extends AppCompatActivity {
         startActivity(intent);
         
     }
+
+    @OnClick(R.id.creditors_ib)
+    public void onCreditorBtnClick() {
+        Intent intent = new Intent(this, PickCreditCustomerActivity.class);
+        startActivity(intent);
+    }
 }
