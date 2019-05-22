@@ -21,11 +21,13 @@ public class PickCreditCustomerRecyclerAdapter extends RecyclerView.Adapter<Pick
     private PickCreditCustomerEvent mEventHandler;
     private List<Customer> mCustomers;
     private int mSelectedItem = -1;
-    private View mView;
+    private PickCreditCustomerEvent.OnClickCreditor mOnClickCreditor;
 
-    public PickCreditCustomerRecyclerAdapter(PickCreditCustomerEvent handler) {
+
+    public PickCreditCustomerRecyclerAdapter(PickCreditCustomerEvent handler, PickCreditCustomerEvent.OnClickCreditor onClickCreditor) {
         mEventHandler = handler;
         mCustomers = handler.fetchAll();
+        mOnClickCreditor = onClickCreditor;
     }
 
     @NonNull
@@ -87,6 +89,7 @@ public class PickCreditCustomerRecyclerAdapter extends RecyclerView.Adapter<Pick
         @Override
         public void onClick(View view) {
             mSelectedItem = getAdapterPosition();
+            mOnClickCreditor.onClick(mCustomers.get(mSelectedItem));
             notifyDataSetChanged();
 
         }

@@ -21,4 +21,8 @@ public class PickCreditCustomerEvent {
     }
 
     public Context getContext() {return mContext;}
+
+    public interface OnClickCreditor {
+        void onClick(Customer customer);
+    }
 }
