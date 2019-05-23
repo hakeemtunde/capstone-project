@@ -13,6 +13,8 @@ import java.util.List;
 
 public class CustomerEventHandler implements EventHandler<Customer> {
 
+    public static final String CUSTOMER_DLG_TAG = "UPDATE_CUSTOMER_DEFAULT";
+
     CustomerCrudOperation mCrudOperation;
     FragmentManager mFragmentManager;
     CustomerRecyclerViewAdapter mAdapter;
@@ -64,13 +66,22 @@ public class CustomerEventHandler implements EventHandler<Customer> {
         Bundle bundle = new Bundle();
         bundle.putParcelable(CustomerDialogActivity.CUSTOMER_KEY, customer);
         dialogActivity.setArguments(bundle);
-        dialogActivity.show(mFragmentManager, "EDIT_CUSTOMER");
+        dialogActivity.show(mFragmentManager, CUSTOMER_DLG_TAG);
 
     }
 
     @Override
     public boolean isValid(String... params) {
         return true;
+    }
+
+    public void createOrUpdate(Customer customer, String... params) {
+        if (customer == null) {
+            create(params);
+        } else {
+            customer.setParameters(params);
+            update(customer);
+        }
     }
 
 

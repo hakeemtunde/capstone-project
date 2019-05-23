@@ -6,12 +6,16 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.DialogFragment;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AlertDialog;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.EditText;
 
 import com.corebyte.mob.kiipa.R;
+import com.corebyte.mob.kiipa.event.CustomerEventHandler;
 import com.corebyte.mob.kiipa.event.EventHandler;
 import com.corebyte.mob.kiipa.model.Customer;
 
@@ -23,6 +27,7 @@ public class CustomerDialogActivity extends DialogFragment {
     private Customer mCustomer;
     private String mDlgTitle;
     private String mPositiveBtnText;
+    private boolean mIsDefault;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -30,6 +35,8 @@ public class CustomerDialogActivity extends DialogFragment {
 
         mDlgTitle = "Add Customer";
         mPositiveBtnText = "ADD";
+        mCustomer = null;
+        mIsDefault = true;
 
         Bundle bundle = getArguments();
         if (bundle != null && bundle.containsKey(CUSTOMER_KEY)) {
@@ -37,6 +44,10 @@ public class CustomerDialogActivity extends DialogFragment {
             mDlgTitle = "Update Customer";
             mPositiveBtnText = "Update";
         }
+
+        Fragment fragment = getActivity().getSupportFragmentManager()
+                .findFragmentByTag(CustomerEventHandler.CUSTOMER_DLG_TAG);
+        if (fragment == null) { mIsDefault = false; }
 
     }
 
@@ -62,15 +73,12 @@ public class CustomerDialogActivity extends DialogFragment {
 
                 //validate
                 String[] params = new String[]{nameEt.getText().toString(),
-                        phoneEt.getText().toString()};
+                        phoneEt.getText().toString() };
 
-                if (mCustomer == null) {
-                    mEventHandler.create(params);
-                } else {
-                    mCustomer.setParameters(params);
-                    mEventHandler.update(mCustomer);
-
+                if(mIsDefault) {
+                    ((CustomerEventHandler)mEventHandler).createOrUpdate(mCustomer, params);
                 }
+
 
             }
         });

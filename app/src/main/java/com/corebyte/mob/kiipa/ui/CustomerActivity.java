@@ -25,6 +25,7 @@ public class CustomerActivity extends AppCompatActivity {
 
     CustomerEventHandler mEventHandler;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -62,7 +63,7 @@ public class CustomerActivity extends AppCompatActivity {
 
             CustomerDialogActivity dialogActivity = new CustomerDialogActivity();
             dialogActivity.setEventHandler(mEventHandler);
-            dialogActivity.show(getSupportFragmentManager(), "ADD_CUSTOMER");
+            dialogActivity.show(getSupportFragmentManager(), CustomerEventHandler.CUSTOMER_DLG_TAG);
 
             return true;
         }
