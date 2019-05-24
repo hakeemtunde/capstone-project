@@ -1,21 +1,16 @@
 package com.corebyte.mob.kiipa.ui;
 
-import android.content.Context;
-import android.graphics.drawable.Drawable;
-import android.graphics.drawable.DrawableWrapper;
 import android.os.Bundle;
-import android.support.v4.content.ContextCompat;
-import android.support.v4.graphics.drawable.DrawableCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 
 import com.corebyte.mob.kiipa.R;
 import com.corebyte.mob.kiipa.adapter.PickCreditCustomerRecyclerAdapter;
+import com.corebyte.mob.kiipa.event.CustomerEventHandler;
 import com.corebyte.mob.kiipa.event.PickCreditCustomerEvent;
 import com.corebyte.mob.kiipa.model.Customer;
 
@@ -27,6 +22,8 @@ import static com.corebyte.mob.kiipa.util.AppUtil.tintIcon;
 public class PickCreditCustomerActivity extends AppCompatActivity
         implements PickCreditCustomerEvent.OnClickCreditor {
 
+    public static final String CUSTOMER_DLG_TAG = "CUSTOMER_QUICK_DLG";
+
     @BindView(R.id.appToolbar)
     Toolbar toolbar;
 
@@ -34,6 +31,10 @@ public class PickCreditCustomerActivity extends AppCompatActivity
     RecyclerView mCreditCustomerRv;
 
     MenuItem mMenuItem;
+    private CustomerEventHandler mCustomerEventHandler;
+
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,9 +45,12 @@ public class PickCreditCustomerActivity extends AppCompatActivity
 
         setSupportActionBar(toolbar);
 
+        mCustomerEventHandler = new CustomerEventHandler(getApplicationContext());
         PickCreditCustomerEvent creditCustomerEvent = new PickCreditCustomerEvent(getApplicationContext());
         PickCreditCustomerRecyclerAdapter adapter = new PickCreditCustomerRecyclerAdapter(creditCustomerEvent,
                 this);
+        mCustomerEventHandler.setAdapter(adapter);
+
         LinearLayoutManager layoutManager = new LinearLayoutManager(this);
         mCreditCustomerRv.setLayoutManager(layoutManager);
         mCreditCustomerRv.setHasFixedSize(true);
@@ -70,6 +74,13 @@ public class PickCreditCustomerActivity extends AppCompatActivity
 
             return true;
         }
+
+        if (item.getItemId() == R.id.add_creditor) {
+            CustomerDialogActivity dialogActivity = new CustomerDialogActivity();
+            dialogActivity.setEventHandler(mCustomerEventHandler);
+            dialogActivity.show(getSupportFragmentManager(), CUSTOMER_DLG_TAG);
+        }
+
         return true;
     }
 

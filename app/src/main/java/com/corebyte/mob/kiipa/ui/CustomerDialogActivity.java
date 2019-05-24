@@ -15,6 +15,7 @@ import android.view.View;
 import android.widget.EditText;
 
 import com.corebyte.mob.kiipa.R;
+import com.corebyte.mob.kiipa.adapter.PickCreditCustomerRecyclerAdapter;
 import com.corebyte.mob.kiipa.event.CustomerEventHandler;
 import com.corebyte.mob.kiipa.event.EventHandler;
 import com.corebyte.mob.kiipa.model.Customer;
@@ -77,6 +78,8 @@ public class CustomerDialogActivity extends DialogFragment {
 
                 if(mIsDefault) {
                     ((CustomerEventHandler)mEventHandler).createOrUpdate(mCustomer, params);
+                } else {
+                    ((CustomerEventHandler)mEventHandler).createAndRefreshAdapter(params);
                 }
 
 
@@ -90,5 +93,9 @@ public class CustomerDialogActivity extends DialogFragment {
 
     public void setEventHandler(EventHandler action) {
         mEventHandler = action;
+    }
+
+    public void setPickCreditCustomerAdapter(PickCreditCustomerRecyclerAdapter adapter) {
+
     }
 }

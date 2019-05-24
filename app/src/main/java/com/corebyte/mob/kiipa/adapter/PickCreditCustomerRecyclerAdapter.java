@@ -1,6 +1,5 @@
 package com.corebyte.mob.kiipa.adapter;
 
-import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.RecyclerView;
@@ -11,12 +10,14 @@ import android.widget.RadioButton;
 import android.widget.TextView;
 
 import com.corebyte.mob.kiipa.R;
+import com.corebyte.mob.kiipa.event.AdapterAction;
 import com.corebyte.mob.kiipa.event.PickCreditCustomerEvent;
 import com.corebyte.mob.kiipa.model.Customer;
 
 import java.util.List;
 
-public class PickCreditCustomerRecyclerAdapter extends RecyclerView.Adapter<PickCreditCustomerRecyclerAdapter.ViewHolder> {
+public class PickCreditCustomerRecyclerAdapter
+        extends RecyclerView.Adapter<PickCreditCustomerRecyclerAdapter.ViewHolder> implements AdapterAction<Customer> {
 
     private PickCreditCustomerEvent mEventHandler;
     private List<Customer> mCustomers;
@@ -50,14 +51,24 @@ public class PickCreditCustomerRecyclerAdapter extends RecyclerView.Adapter<Pick
         return mCustomers == null ? 0 : mCustomers.size();
     }
 
+    @Override
+    public void appendModel(Customer model) {
+        mCustomers.add(model);
+    }
+
+    @Override
+    public void refreshAdapter() {
+        notifyDataSetChanged();
+    }
+
 
     class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
+        View mItemView;
         private TextView mNameTv;
         private TextView mPhoneTv;
         private TextView mCreditTv;
         private RadioButton mPickRb;
-        View mItemView;
 
 
         public ViewHolder(@NonNull View itemView) {
@@ -80,8 +91,9 @@ public class PickCreditCustomerRecyclerAdapter extends RecyclerView.Adapter<Pick
                     .getColor(mEventHandler.getContext(), R.color.cardview_light_background));
 
             mPickRb.setChecked(position == mSelectedItem);
-            if(position == mSelectedItem ) {
-                mItemView.setBackgroundColor(ContextCompat.getColor(mEventHandler.getContext(), R.color.colorLightGray));;
+            if (position == mSelectedItem) {
+                mItemView.setBackgroundColor(ContextCompat.getColor(mEventHandler.getContext(), R.color.colorLightGray));
+                ;
             }
 
         }

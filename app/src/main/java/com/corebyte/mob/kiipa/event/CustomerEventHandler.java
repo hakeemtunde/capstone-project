@@ -4,7 +4,9 @@ import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.FragmentManager;
 
+import com.corebyte.mob.kiipa.adapter.AdapterDataLoader;
 import com.corebyte.mob.kiipa.adapter.CustomerRecyclerViewAdapter;
+import com.corebyte.mob.kiipa.adapter.PickCreditCustomerRecyclerAdapter;
 import com.corebyte.mob.kiipa.model.Customer;
 import com.corebyte.mob.kiipa.repo.CustomerCrudOperation;
 import com.corebyte.mob.kiipa.ui.CustomerDialogActivity;
@@ -13,11 +15,13 @@ import java.util.List;
 
 public class CustomerEventHandler implements EventHandler<Customer> {
 
-    public static final String CUSTOMER_DLG_TAG = "UPDATE_CUSTOMER_DEFAULT";
+    public static final String CUSTOMER_DLG_TAG = "CUSTOMER_DEFAULT_DLG";
 
     CustomerCrudOperation mCrudOperation;
     FragmentManager mFragmentManager;
     CustomerRecyclerViewAdapter mAdapter;
+    AdapterAction mAdapterAction;
+
 
     public CustomerEventHandler(Context context) {
         mCrudOperation = new CustomerCrudOperation(context);
@@ -30,6 +34,8 @@ public class CustomerEventHandler implements EventHandler<Customer> {
     public void setAdapter(CustomerRecyclerViewAdapter adapter) {
         mAdapter = adapter;
     }
+
+    public void setAdapter(AdapterAction aAction) { mAdapterAction = aAction; }
 
     @Override
     public void create(String... params) {
@@ -82,6 +88,17 @@ public class CustomerEventHandler implements EventHandler<Customer> {
             customer.setParameters(params);
             update(customer);
         }
+    }
+
+    public Customer createAndRefreshAdapter(String ...params) {
+        Customer customer = new Customer(params[0], params[1]);
+        long id = mCrudOperation.create(customer);
+        customer.id = id;
+
+        mAdapterAction.appendModel(customer);
+        mAdapterAction.refreshAdapter();
+
+        return customer;
     }
 
 
