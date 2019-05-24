@@ -4,9 +4,6 @@ import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.FragmentManager;
 
-import com.corebyte.mob.kiipa.adapter.AdapterDataLoader;
-import com.corebyte.mob.kiipa.adapter.CustomerRecyclerViewAdapter;
-import com.corebyte.mob.kiipa.adapter.PickCreditCustomerRecyclerAdapter;
 import com.corebyte.mob.kiipa.model.Customer;
 import com.corebyte.mob.kiipa.repo.CustomerCrudOperation;
 import com.corebyte.mob.kiipa.ui.CustomerDialogActivity;
@@ -19,7 +16,6 @@ public class CustomerEventHandler implements EventHandler<Customer> {
 
     CustomerCrudOperation mCrudOperation;
     FragmentManager mFragmentManager;
-    CustomerRecyclerViewAdapter mAdapter;
     AdapterAction mAdapterAction;
 
 
@@ -31,30 +27,28 @@ public class CustomerEventHandler implements EventHandler<Customer> {
         mFragmentManager = manager;
     }
 
-    public void setAdapter(CustomerRecyclerViewAdapter adapter) {
-        mAdapter = adapter;
+    public void setAdapter(AdapterAction aAction) {
+        mAdapterAction = aAction;
     }
-
-    public void setAdapter(AdapterAction aAction) { mAdapterAction = aAction; }
 
     @Override
     public void create(String... params) {
         Customer customer = new Customer(params[0], params[1]);
         mCrudOperation.create(customer);
-        mAdapter.refreshAdapter();
+        mAdapterAction.refreshAdapter();
 
     }
 
     @Override
     public void update(Customer model) {
         mCrudOperation.update(model);
-        mAdapter.refreshAdapter();
+        mAdapterAction.refreshAdapter();
     }
 
     @Override
     public void delete(Customer model) {
         mCrudOperation.delete(model);
-        mAdapter.refreshAdapter();
+        mAdapterAction.refreshAdapter();
     }
 
     @Override
@@ -90,7 +84,7 @@ public class CustomerEventHandler implements EventHandler<Customer> {
         }
     }
 
-    public Customer createAndRefreshAdapter(String ...params) {
+    public Customer createAndRefreshAdapter(String... params) {
         Customer customer = new Customer(params[0], params[1]);
         long id = mCrudOperation.create(customer);
         customer.id = id;

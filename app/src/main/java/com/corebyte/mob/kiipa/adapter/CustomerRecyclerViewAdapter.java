@@ -9,12 +9,14 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.corebyte.mob.kiipa.R;
+import com.corebyte.mob.kiipa.event.AdapterAction;
 import com.corebyte.mob.kiipa.event.EventHandler;
 import com.corebyte.mob.kiipa.model.Customer;
 
 import java.util.List;
 
-public class CustomerRecyclerViewAdapter extends RecyclerView.Adapter<CustomerRecyclerViewAdapter.ViewHolder> {
+public class CustomerRecyclerViewAdapter
+        extends RecyclerView.Adapter<CustomerRecyclerViewAdapter.ViewHolder> implements AdapterAction<Customer> {
 
     private List<Customer> mCustomers;
     private EventHandler mEventHandler;
@@ -45,6 +47,12 @@ public class CustomerRecyclerViewAdapter extends RecyclerView.Adapter<CustomerRe
     }
 
 
+    @Override
+    public void appendModel(Customer model) {
+
+    }
+
+    @Override
     public void refreshAdapter() {
         mCustomers = mEventHandler.fetchAll();
         notifyDataSetChanged();
