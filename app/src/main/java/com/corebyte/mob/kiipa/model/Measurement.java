@@ -188,6 +188,6 @@ public class Measurement extends BaseModel implements Parcelable {
     }
 
     public void reduceQuantity(int soldQty) {
-        this.supplyQty -= getSupplyQty() - soldQty;
+        this.supplyQty = getSupplyQty() - soldQty;
     }
 }
