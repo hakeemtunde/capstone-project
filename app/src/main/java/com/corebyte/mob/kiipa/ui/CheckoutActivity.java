@@ -13,7 +13,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.corebyte.mob.kiipa.CartSummary;
-import com.corebyte.mob.kiipa.CashSales;
+import com.corebyte.mob.kiipa.SalesCheckout;
 import com.corebyte.mob.kiipa.R;
 import com.corebyte.mob.kiipa.model.CartStock;
 import com.corebyte.mob.kiipa.model.Customer;
@@ -42,7 +42,7 @@ public class CheckoutActivity extends AppCompatActivity {
     ImageButton cashBtn;
     @BindView(R.id.creditors_ib)
     ImageButton creditorsBtn;
-    CashSales mCashSales;
+    SalesCheckout mSalesCheckout;
     private CartSummary mCartSummary;
 
     @Override
@@ -58,7 +58,7 @@ public class CheckoutActivity extends AppCompatActivity {
             mCartSummary = intent.getParcelableExtra(CART_STOCK_TAG);
             initUi();
 
-            mCashSales = new CashSales(getApplicationContext(), mCartSummary);
+            mSalesCheckout = new SalesCheckout(getApplicationContext(), mCartSummary);
         }
 
     }
@@ -112,7 +112,7 @@ public class CheckoutActivity extends AppCompatActivity {
 
     @OnClick(R.id.cash_ib)
     public void onCashBtnClick() {
-        mCashSales.checkoutCart();
+        mSalesCheckout.checkoutCart();
         Toast.makeText(getApplicationContext(), "Item(s) checkout successfully.",
                 Toast.LENGTH_SHORT).show();
 
@@ -133,7 +133,7 @@ public class CheckoutActivity extends AppCompatActivity {
 
         if (requestCode == REQUEST_CODE && resultCode == RESULT_OK && data.hasExtra(CUSTOMER_KEY)) {
             Customer customer = data.getParcelableExtra(CUSTOMER_KEY);
-            mCashSales.saveAsCreditSales(customer);
+            mSalesCheckout.saveAsCreditSales(customer);
 
             Toast.makeText(getApplicationContext(), "Item(s) checkout successfully.",
                     Toast.LENGTH_SHORT).show();

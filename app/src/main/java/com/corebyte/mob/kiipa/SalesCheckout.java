@@ -15,7 +15,7 @@ import com.corebyte.mob.kiipa.repo.TransactionSummaryCrudOp;
 
 import java.util.List;
 
-public class CashSales {
+public class SalesCheckout {
 
     private TransactionSummaryCrudOp mTransactionSummaryCrudOp;
     private TransactionBreakdownCrudOp mTransactionBreakdownCruOp;
@@ -26,7 +26,7 @@ public class CashSales {
 
     private CartSummary mCartSummary;
 
-    public CashSales(Context context, CartSummary cartSummary) {
+    public SalesCheckout(Context context, CartSummary cartSummary) {
         this.mCartSummary = cartSummary;
         this.mTransactionSummaryCrudOp = new TransactionSummaryCrudOp(context);
         this.mTransactionBreakdownCruOp = new TransactionBreakdownCrudOp(context);
