@@ -113,13 +113,8 @@ public class CheckoutActivity extends AppCompatActivity {
     @OnClick(R.id.cash_ib)
     public void onCashBtnClick() {
         mSalesCheckout.checkoutCart();
-        Toast.makeText(getApplicationContext(), "Item(s) checkout successfully.",
-                Toast.LENGTH_SHORT).show();
-
+        setResult(RESULT_OK);
         finish();
-
-
-
     }
 
     @OnClick(R.id.creditors_ib)
@@ -134,11 +129,7 @@ public class CheckoutActivity extends AppCompatActivity {
         if (requestCode == REQUEST_CODE && resultCode == RESULT_OK && data.hasExtra(CUSTOMER_KEY)) {
             Customer customer = data.getParcelableExtra(CUSTOMER_KEY);
             mSalesCheckout.saveAsCreditSales(customer);
-
-            Toast.makeText(getApplicationContext(), "Item(s) checkout successfully.",
-                    Toast.LENGTH_SHORT).show();
-
-            finish();
+            setResult(RESULT_OK);
         }
 
     }
