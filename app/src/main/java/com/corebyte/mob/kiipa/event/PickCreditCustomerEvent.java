@@ -2,6 +2,7 @@ package com.corebyte.mob.kiipa.event;
 
 import android.content.Context;
 
+import com.corebyte.mob.kiipa.CashSales;
 import com.corebyte.mob.kiipa.model.Customer;
 import com.corebyte.mob.kiipa.repo.CustomerCrudOperation;
 
@@ -14,6 +15,10 @@ public class PickCreditCustomerEvent {
     public PickCreditCustomerEvent(Context context) {
         mCrudOperation = new CustomerCrudOperation(context);
         mContext = context;
+    }
+
+    public void saveCreditorsTransaction(Customer customer, CashSales cashSales) {
+
     }
 
     public List<Customer> fetchAll() {

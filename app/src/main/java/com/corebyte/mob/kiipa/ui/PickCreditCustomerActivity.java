@@ -1,5 +1,6 @@
 package com.corebyte.mob.kiipa.ui;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
@@ -12,17 +13,21 @@ import com.corebyte.mob.kiipa.R;
 import com.corebyte.mob.kiipa.adapter.PickCreditCustomerRecyclerAdapter;
 import com.corebyte.mob.kiipa.event.CustomerEventHandler;
 import com.corebyte.mob.kiipa.event.PickCreditCustomerEvent;
+import com.corebyte.mob.kiipa.model.CreditorsTransaction;
 import com.corebyte.mob.kiipa.model.Customer;
+import com.corebyte.mob.kiipa.repo.CreditorsTransactionCrudOp;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
+import static com.corebyte.mob.kiipa.ui.CustomerDialogActivity.CUSTOMER_KEY;
 import static com.corebyte.mob.kiipa.util.AppUtil.tintIcon;
 
 public class PickCreditCustomerActivity extends AppCompatActivity
         implements PickCreditCustomerEvent.OnClickCreditor {
 
     public static final String CUSTOMER_DLG_TAG = "CUSTOMER_QUICK_DLG";
+    Customer mSelectedCreditor;
 
     @BindView(R.id.appToolbar)
     Toolbar toolbar;
@@ -33,8 +38,7 @@ public class PickCreditCustomerActivity extends AppCompatActivity
     MenuItem mMenuItem;
     private CustomerEventHandler mCustomerEventHandler;
 
-
-
+    CreditorsTransactionCrudOp mCreditorsTransactionsCrudOp;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,7 +50,10 @@ public class PickCreditCustomerActivity extends AppCompatActivity
         setSupportActionBar(toolbar);
 
         mCustomerEventHandler = new CustomerEventHandler(getApplicationContext());
+
+        mCreditorsTransactionsCrudOp = new CreditorsTransactionCrudOp(getApplicationContext());
         PickCreditCustomerEvent creditCustomerEvent = new PickCreditCustomerEvent(getApplicationContext());
+
         PickCreditCustomerRecyclerAdapter adapter = new PickCreditCustomerRecyclerAdapter(creditCustomerEvent,
                 this);
         mCustomerEventHandler.setAdapter(adapter);
@@ -72,6 +79,11 @@ public class PickCreditCustomerActivity extends AppCompatActivity
     public boolean onOptionsItemSelected(MenuItem item) {
         if (item.getItemId() == R.id.done_it) {
 
+            Intent intent = new Intent();
+            intent.putExtra(CUSTOMER_KEY, mSelectedCreditor);
+            setResult(RESULT_OK, intent);
+            finish();
+
             return true;
         }
 
@@ -88,6 +100,7 @@ public class PickCreditCustomerActivity extends AppCompatActivity
     public void onClick(Customer customer) {
         mMenuItem.setEnabled(true);
         mMenuItem.setIcon(tintIcon(getApplicationContext(), mMenuItem, R.color.colorText));
+        mSelectedCreditor = customer;
 
     }
 

@@ -2,6 +2,7 @@ package com.corebyte.mob.kiipa.ui;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.ImageButton;
@@ -15,6 +16,7 @@ import com.corebyte.mob.kiipa.CartSummary;
 import com.corebyte.mob.kiipa.CashSales;
 import com.corebyte.mob.kiipa.R;
 import com.corebyte.mob.kiipa.model.CartStock;
+import com.corebyte.mob.kiipa.model.Customer;
 
 import java.util.ArrayList;
 
@@ -22,10 +24,14 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
+import static com.corebyte.mob.kiipa.ui.CustomerDialogActivity.CUSTOMER_KEY;
+
 public class CheckoutActivity extends AppCompatActivity {
 
     public static final String CART_STOCK_TAG = "CART_STOCKS";
     private static final String TAG = CheckoutActivity.class.getSimpleName();
+    private static final int REQUEST_CODE = 101;
+
     @BindView(R.id.cart_item_tv)
     TextView mCartItemTv;
     @BindView(R.id.amount_tv)
@@ -36,7 +42,7 @@ public class CheckoutActivity extends AppCompatActivity {
     ImageButton cashBtn;
     @BindView(R.id.creditors_ib)
     ImageButton creditorsBtn;
-
+    CashSales mCashSales;
     private CartSummary mCartSummary;
 
     @Override
@@ -46,10 +52,13 @@ public class CheckoutActivity extends AppCompatActivity {
 
         ButterKnife.bind(this);
 
+
         Intent intent = getIntent();
         if (intent != null && intent.hasExtra(CART_STOCK_TAG)) {
             mCartSummary = intent.getParcelableExtra(CART_STOCK_TAG);
             initUi();
+
+            mCashSales = new CashSales(getApplicationContext(), mCartSummary);
         }
 
     }
@@ -103,19 +112,34 @@ public class CheckoutActivity extends AppCompatActivity {
 
     @OnClick(R.id.cash_ib)
     public void onCashBtnClick() {
-        CashSales cashSales = new CashSales(getApplicationContext(), mCartSummary);
-        cashSales.checkoutCart();
+        mCashSales.checkoutCart();
         Toast.makeText(getApplicationContext(), "Item(s) checkout successfully.",
                 Toast.LENGTH_SHORT).show();
 
-        Intent intent = new Intent(this, StockActivity.class);
-        startActivity(intent);
-        
+        finish();
+
+
+
     }
 
     @OnClick(R.id.creditors_ib)
     public void onCreditorBtnClick() {
         Intent intent = new Intent(this, PickCreditCustomerActivity.class);
-        startActivity(intent);
+        startActivityForResult(intent, REQUEST_CODE);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+
+        if (requestCode == REQUEST_CODE && resultCode == RESULT_OK && data.hasExtra(CUSTOMER_KEY)) {
+            Customer customer = data.getParcelableExtra(CUSTOMER_KEY);
+            mCashSales.saveAsCreditSales(customer);
+
+            Toast.makeText(getApplicationContext(), "Item(s) checkout successfully.",
+                    Toast.LENGTH_SHORT).show();
+
+            finish();
+        }
+
     }
 }
