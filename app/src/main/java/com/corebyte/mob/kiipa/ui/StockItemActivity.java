@@ -160,7 +160,7 @@ public class StockItemActivity extends AppCompatActivity implements MeasurementH
     private void displayStock(Stock stock) {
 
         nameEt.setText(stock.getName());
-        expireDateEt.setText(DateUtil.getDateFormat2(stock.getExpireDate()));
+        expireDateEt.setText(DateUtil.getSlashDateFormat(stock.getExpireDate()));
         Category category = mCategoryCrudOperation.getById(stock.getCategoryId());
         categoryEt.setText(category.getName());
 
@@ -181,7 +181,7 @@ public class StockItemActivity extends AppCompatActivity implements MeasurementH
                 calendar.set(Calendar.DAY_OF_MONTH, day);
 //                String date = DateFormat.getDateInstance(DateFormat.MEDIUM).format(calendar.getTime());
                 mExpireDate = calendar.getTime();
-                expireDateEt.setText(DateUtil.getDateFormat2(mExpireDate));
+                expireDateEt.setText(DateUtil.getSlashDateFormat(mExpireDate));
             }
         };
         DatePickerDialog datePickerDialog = new DatePickerDialog(this, dateSetListener,
