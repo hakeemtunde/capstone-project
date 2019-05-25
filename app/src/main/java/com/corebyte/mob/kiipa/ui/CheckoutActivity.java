@@ -130,6 +130,7 @@ public class CheckoutActivity extends AppCompatActivity {
             Customer customer = data.getParcelableExtra(CUSTOMER_KEY);
             mSalesCheckout.saveAsCreditSales(customer);
             setResult(RESULT_OK);
+            finish();
         }
 
     }
