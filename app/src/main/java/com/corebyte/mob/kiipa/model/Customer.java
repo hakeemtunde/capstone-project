@@ -25,7 +25,15 @@ public class Customer extends BaseModel implements Parcelable {
 
     private String mName;
     private String mPhone;
+    private double mOwnCredit;
 
+    public Customer(String mName, String mPhone, double mOwnCredit) {
+        this.mName = mName;
+        this.mPhone = mPhone;
+        this.mOwnCredit = mOwnCredit;
+    }
+
+    @Ignore
     public Customer(String mName, String mPhone) {
         this.mName = mName;
         this.mPhone = mPhone;
@@ -38,6 +46,7 @@ public class Customer extends BaseModel implements Parcelable {
         updatedAt = new Date(parcel.readLong());
         mName = parcel.readString();
         mPhone = parcel.readString();
+        mOwnCredit = parcel.readDouble();
     }
 
     public String getName() {
@@ -78,6 +87,13 @@ public class Customer extends BaseModel implements Parcelable {
         parcel.writeLong(updatedAt.getTime());
         parcel.writeString(mName);
         parcel.writeString(mPhone);
+        parcel.writeDouble(mOwnCredit);
 
+    }
+
+    public double getOwnCredit() { return mOwnCredit; }
+
+    public void updateCredit(double credit) {
+        mOwnCredit =+ credit;
     }
 }

@@ -7,15 +7,21 @@
 
     <TextView
         android:id="@+id/customer_name_tv"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
 
     <TextView
         android:id="@+id/customer_phone_tv"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="3dp"
         android:layout_below="@+id/customer_name_tv"/>
+
+    <TextView
+        android:id="@+id/customer_credit_value"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"/>
 
     <LinearLayout
         android:layout_alignParentEnd="true"

@@ -29,6 +29,7 @@ import static com.corebyte.mob.kiipa.ui.CustomerDialogActivity.CUSTOMER_KEY;
 public class CheckoutActivity extends AppCompatActivity {
 
     public static final String CART_STOCK_TAG = "CART_STOCKS";
+    public static final String CART_TOTAL_KEY = "CART_TOTAL_AMOUNT";
     private static final String TAG = CheckoutActivity.class.getSimpleName();
     private static final int REQUEST_CODE = 101;
 
@@ -120,6 +121,7 @@ public class CheckoutActivity extends AppCompatActivity {
     @OnClick(R.id.creditors_ib)
     public void onCreditorBtnClick() {
         Intent intent = new Intent(this, PickCreditCustomerActivity.class);
+        intent.putExtra(CART_TOTAL_KEY, mCartSummary.getmTotalAmount());
         startActivityForResult(intent, REQUEST_CODE);
     }
 

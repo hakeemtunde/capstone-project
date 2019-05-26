@@ -9,6 +9,7 @@ import com.corebyte.mob.kiipa.model.Measurement;
 import com.corebyte.mob.kiipa.model.TransactionBreakdown;
 import com.corebyte.mob.kiipa.model.TransactionSummary;
 import com.corebyte.mob.kiipa.repo.CreditorsTransactionCrudOp;
+import com.corebyte.mob.kiipa.repo.CustomerCrudOperation;
 import com.corebyte.mob.kiipa.repo.MeasurementCrudOperation;
 import com.corebyte.mob.kiipa.repo.TransactionBreakdownCrudOp;
 import com.corebyte.mob.kiipa.repo.TransactionSummaryCrudOp;
@@ -23,8 +24,9 @@ public class SalesCheckout {
     private CreditorsTransactionCrudOp mCreditorsTransactionCrudOp;
 
     private long transactionSummaryId;
-
     private CartSummary mCartSummary;
+
+    private Context mContext;
 
     public SalesCheckout(Context context, CartSummary cartSummary) {
         this.mCartSummary = cartSummary;
@@ -32,8 +34,7 @@ public class SalesCheckout {
         this.mTransactionBreakdownCruOp = new TransactionBreakdownCrudOp(context);
         this.mMeasurementCrudOp = new MeasurementCrudOperation(context);
         mCreditorsTransactionCrudOp = new CreditorsTransactionCrudOp(context);
-
-
+        mContext = context;
     }
 
     public void checkoutCart() {
@@ -80,5 +81,11 @@ public class SalesCheckout {
         checkoutCart();
         CreditorsTransaction creditorsTransaction = new CreditorsTransaction(customer.id, transactionSummaryId, 1);
         mCreditorsTransactionCrudOp.create(creditorsTransaction);
+
+        //update customers credit
+        CustomerCrudOperation customerCrudOp = new CustomerCrudOperation(mContext);
+        customer.updateCredit(mCartSummary.getmTotalAmount());
+        customerCrudOp.update(customer);
+
     }
 }

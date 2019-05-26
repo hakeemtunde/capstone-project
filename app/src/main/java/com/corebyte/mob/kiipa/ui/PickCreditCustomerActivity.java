@@ -49,6 +49,11 @@ public class PickCreditCustomerActivity extends AppCompatActivity
 
         setSupportActionBar(toolbar);
 
+        double cartTotalSum = 0;
+        if (getIntent() !=null && getIntent().hasExtra(CheckoutActivity.CART_TOTAL_KEY)) {
+            cartTotalSum = getIntent().getDoubleExtra((CheckoutActivity.CART_TOTAL_KEY), 0);
+        }
+
         mCustomerEventHandler = new CustomerEventHandler(getApplicationContext());
 
         mCreditorsTransactionsCrudOp = new CreditorsTransactionCrudOp(getApplicationContext());
@@ -56,6 +61,7 @@ public class PickCreditCustomerActivity extends AppCompatActivity
 
         PickCreditCustomerRecyclerAdapter adapter = new PickCreditCustomerRecyclerAdapter(creditCustomerEvent,
                 this);
+        adapter.setCartTotalSum(cartTotalSum);
         mCustomerEventHandler.setAdapter(adapter);
 
         LinearLayoutManager layoutManager = new LinearLayoutManager(this);

@@ -64,6 +64,7 @@ public class CustomerRecyclerViewAdapter
         private TextView mPhoneTv;
         private ImageView mEditIv;
         private ImageView mDeleteIv;
+        private TextView mCreditTv;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -71,11 +72,15 @@ public class CustomerRecyclerViewAdapter
             mPhoneTv = itemView.findViewById(R.id.customer_phone_tv);
             mEditIv = itemView.findViewById(R.id.customer_edit_btn);
             mDeleteIv = itemView.findViewById(R.id.customer_del_btn);
+            mCreditTv = itemView.findViewById(R.id.customer_credit_value);
+
         }
 
         public void bind(Customer customer) {
             mNameTv.setText(customer.getName());
             mPhoneTv.setText(customer.getPhone());
+            mCreditTv.setText(String.valueOf(customer.getOwnCredit()));
+
             onButtonClick(customer);
         }
 

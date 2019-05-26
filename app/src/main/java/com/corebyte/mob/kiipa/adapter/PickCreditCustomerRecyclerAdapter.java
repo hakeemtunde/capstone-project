@@ -23,7 +23,7 @@ public class PickCreditCustomerRecyclerAdapter
     private List<Customer> mCustomers;
     private int mSelectedItem = -1;
     private PickCreditCustomerEvent.OnClickCreditor mOnClickCreditor;
-
+    private double mCartTotalSum;
 
     public PickCreditCustomerRecyclerAdapter(PickCreditCustomerEvent handler, PickCreditCustomerEvent.OnClickCreditor onClickCreditor) {
         mEventHandler = handler;
@@ -61,6 +61,10 @@ public class PickCreditCustomerRecyclerAdapter
         notifyDataSetChanged();
     }
 
+    public void setCartTotalSum(double sum) {
+        mCartTotalSum = sum;
+    }
+
 
     class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
@@ -85,15 +89,28 @@ public class PickCreditCustomerRecyclerAdapter
         }
 
         public void bind(Customer customer, int position) {
+            double ownCredit = customer.getOwnCredit();
+
             mNameTv.setText(customer.getName());
             mPhoneTv.setText(customer.getPhone());
+            mCreditTv.setText(String.valueOf(ownCredit));
+            mCreditTv.setTextColor(ContextCompat.getColor(mEventHandler.getContext(),
+                    R.color.colorTextPrimary));
             mItemView.setBackgroundColor(ContextCompat
                     .getColor(mEventHandler.getContext(), R.color.cardview_light_background));
 
             mPickRb.setChecked(position == mSelectedItem);
             if (position == mSelectedItem) {
-                mItemView.setBackgroundColor(ContextCompat.getColor(mEventHandler.getContext(), R.color.colorLightGray));
-                ;
+                mItemView.setBackgroundColor(ContextCompat.getColor(mEventHandler.getContext(),
+                        R.color.colorLightGray));
+
+                double total = ownCredit + mCartTotalSum;
+                mCreditTv.setText(String.valueOf(ownCredit)
+                        + " + " + String.valueOf(mCartTotalSum) + " = "
+                        + String.valueOf(total));
+                mCreditTv.setTextColor(ContextCompat.getColor(mEventHandler.getContext(),
+                        R.color.colorAccent));
+
             }
 
         }
