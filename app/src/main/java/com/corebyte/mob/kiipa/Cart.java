@@ -37,6 +37,8 @@ public class Cart {
 
             } else {
                 stockmeasurements.add(measurement);
+                //replace require API 24
+                //this a workaround
                 mStockMeasures.remove(stock);
                 mStockMeasures.put(stock, stockmeasurements);
 

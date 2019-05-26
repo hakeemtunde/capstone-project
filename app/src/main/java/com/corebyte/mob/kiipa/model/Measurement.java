@@ -37,9 +37,10 @@ public class Measurement extends BaseModel implements Parcelable {
     private int lastSupplyQty;
     private int showStatus;
     private Date lastSupplyDate;
+    private int availableQty;
 
     public Measurement(long stockId, String name, double supplyPrice, double sellingPrice, int supplyQty,
-                       int lastSupplyQty, int showStatus, Date lastSupplyDate) {
+                       int lastSupplyQty, int showStatus, Date lastSupplyDate, int availableQty) {
         this.stockId = stockId;
         this.name = name;
         this.supplyPrice = supplyPrice;
@@ -48,6 +49,7 @@ public class Measurement extends BaseModel implements Parcelable {
         this.lastSupplyQty = lastSupplyQty;
         this.showStatus = showStatus;
         this.lastSupplyDate = lastSupplyDate;
+        this.availableQty = availableQty;
     }
 
     @Ignore
@@ -67,6 +69,7 @@ public class Measurement extends BaseModel implements Parcelable {
         this.lastSupplyQty = parcel.readInt();
         this.showStatus = parcel.readInt();
         this.lastSupplyDate = new Date(parcel.readLong());
+        this.availableQty = parcel.readInt();
     }
 
     public long getStockId() {
@@ -169,6 +172,7 @@ public class Measurement extends BaseModel implements Parcelable {
         parcel.writeInt(this.lastSupplyQty);
         parcel.writeInt(this.showStatus);
         parcel.writeLong(this.lastSupplyDate.getTime());
+        parcel.writeInt(this.availableQty);
 
     }
 
@@ -188,6 +192,12 @@ public class Measurement extends BaseModel implements Parcelable {
     }
 
     public void reduceQuantity(int soldQty) {
-        this.supplyQty = getSupplyQty() - soldQty;
+        this.availableQty = getAvailableQty() - soldQty;
+    }
+
+    public int getAvailableQty() { return availableQty; }
+
+    public void updateAvailableQty() {
+        this.availableQty += getSupplyQty();
     }
 }
