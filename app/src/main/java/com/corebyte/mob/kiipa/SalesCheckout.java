@@ -37,7 +37,7 @@ public class SalesCheckout {
     }
 
     public void checkoutCart() {
-        int order = mTransactionSummaryCrudOp.getTransactionCount(null);
+        int order = mTransactionSummaryCrudOp.getTransactionCount(null) + 1;
 
         TransactionSummary transactionSummary = new TransactionSummary(mCartSummary.getmTotalAmount(), order);
         transactionSummaryId = mTransactionSummaryCrudOp.create(transactionSummary);
