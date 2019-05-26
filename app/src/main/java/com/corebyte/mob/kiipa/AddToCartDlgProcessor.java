@@ -45,9 +45,9 @@ public class AddToCartDlgProcessor {
                 @Override
                 public void onClick(View view) {
                     mPriceTv.setText(String.valueOf(measurement.getSupplyPrice()));
-                    mAvailableQtyTv.setText(String.valueOf(measurement.getSupplyQty()));
+                    mAvailableQtyTv.setText(String.valueOf(measurement.getAvailableQty()));
 
-                    if (measurement.getSupplyQty() == 0) {
+                    if (measurement.getAvailableQty() == 0) {
                         mInputQty.setEnabled(false);
                     } else {
                         if (!mInputQty.isEnabled())
@@ -75,6 +75,7 @@ public class AddToCartDlgProcessor {
                 qty = Integer.parseInt(mInputQty.getText().toString());
             }catch (NumberFormatException nfe) {
                 nfe.printStackTrace();
+                return 0;
             }
         }
 

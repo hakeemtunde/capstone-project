@@ -53,7 +53,8 @@
         android:layout_height="wrap_content"
         android:hint="@string/last_qty"
         android:layout_marginTop="@dimen/marginMeasureWidget"
-        android:inputType="numberDecimal"/>
+        android:inputType="numberDecimal"
+        android:enabled="false" />
 
 
     <TextView
@@ -61,7 +62,6 @@
         android:layout_below="@+id/ed_supply_qty"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Tue 16 April, 2019"
         android:layout_marginTop="@dimen/marginMeasureWidget"/>
 
     <CheckBox

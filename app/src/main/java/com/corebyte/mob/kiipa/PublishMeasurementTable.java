@@ -109,7 +109,7 @@ public class PublishMeasurementTable {
         mMeasureTv.setText(measurement.getName());
         mSupplyPriceTv.setText(String.valueOf(measurement.getSupplyPrice()));
         mSellingPriceTv.setText(String.valueOf(measurement.getSellingPrice()));
-        mQuantityTv.setText(String.valueOf(measurement.getSupplyQty()));
+        mQuantityTv.setText(String.valueOf(measurement.getAvailableQty()));
 
         mEditIv.setOnClickListener(new View.OnClickListener() {
 

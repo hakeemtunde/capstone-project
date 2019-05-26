@@ -5,6 +5,7 @@ import android.net.LocalServerSocket;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Parcelable;
+import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -12,6 +13,7 @@ import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Toast;
 
 import com.corebyte.mob.kiipa.Cart;
 import com.corebyte.mob.kiipa.R;
@@ -31,6 +33,8 @@ import butterknife.ButterKnife;
 public class StockActivity extends AppCompatActivity implements StockEvent {
 
     private static final String TAG = StockActivity.class.getSimpleName();
+
+    private static final int REQUEST_CODE = 100;
 
     @BindView(R.id.appToolbar)
     public Toolbar toolbar;
@@ -79,7 +83,7 @@ public class StockActivity extends AppCompatActivity implements StockEvent {
         if(item.getItemId() == R.id.menu_stock_cart) {
             Intent intent = new Intent(this, CheckoutActivity.class);
             intent.putExtra(CheckoutActivity.CART_STOCK_TAG, mCart.getCartSummary());
-            startActivity(intent);
+            startActivityForResult(intent, REQUEST_CODE);
             return true;
         }
 
@@ -113,5 +117,16 @@ public class StockActivity extends AppCompatActivity implements StockEvent {
     public void onAddToCart(Measurement measurement, int qty) {
         Log.i(this.getClass().getSimpleName(), measurement.toString() + " qty: "+ qty);
         mCart.add(mStockSelected, measurement, qty);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+
+        if (requestCode == REQUEST_CODE && resultCode == RESULT_OK) {
+
+            Toast.makeText(getApplicationContext(), "Item(s) checkout successfully.",
+                    Toast.LENGTH_SHORT).show();
+        }
+
     }
 }

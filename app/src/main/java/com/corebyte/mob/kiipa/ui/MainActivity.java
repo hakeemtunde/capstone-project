@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.view.Menu;
 
 import com.corebyte.mob.kiipa.R;
 
@@ -22,6 +23,12 @@ public class MainActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
     }
 
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_settings, menu);
+        return true;
+    }
+
     @OnClick(R.id.category_btn)
     public void lunchStockCategoryActivity() {
         Intent intent = new Intent(this, StockCategoryActivity.class);
@@ -38,6 +45,12 @@ public class MainActivity extends AppCompatActivity {
     @OnClick(R.id.daily_transaction_btn)
     public void lunchDailyTransactionActivity() {
         Intent intent = new Intent(this, TransactionSummaryActivity.class);
+        startActivity(intent);
+    }
+
+    @OnClick(R.id.customer_btn)
+    public void lunchCustomerActivity() {
+        Intent intent = new Intent(this, CustomerActivity.class);
         startActivity(intent);
     }
 

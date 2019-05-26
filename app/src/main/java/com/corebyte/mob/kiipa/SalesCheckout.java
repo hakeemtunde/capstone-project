@@ -3,43 +3,52 @@ package com.corebyte.mob.kiipa;
 import android.content.Context;
 
 import com.corebyte.mob.kiipa.model.CartStock;
+import com.corebyte.mob.kiipa.model.CreditorsTransaction;
+import com.corebyte.mob.kiipa.model.Customer;
 import com.corebyte.mob.kiipa.model.Measurement;
 import com.corebyte.mob.kiipa.model.TransactionBreakdown;
 import com.corebyte.mob.kiipa.model.TransactionSummary;
+import com.corebyte.mob.kiipa.repo.CreditorsTransactionCrudOp;
+import com.corebyte.mob.kiipa.repo.CustomerCrudOperation;
 import com.corebyte.mob.kiipa.repo.MeasurementCrudOperation;
 import com.corebyte.mob.kiipa.repo.TransactionBreakdownCrudOp;
 import com.corebyte.mob.kiipa.repo.TransactionSummaryCrudOp;
 
 import java.util.List;
 
-public class CashSales {
+public class SalesCheckout {
 
     private TransactionSummaryCrudOp mTransactionSummaryCrudOp;
     private TransactionBreakdownCrudOp mTransactionBreakdownCruOp;
     private MeasurementCrudOperation mMeasurementCrudOp;
+    private CreditorsTransactionCrudOp mCreditorsTransactionCrudOp;
 
+    private long transactionSummaryId;
     private CartSummary mCartSummary;
 
-    public CashSales(Context context, CartSummary cartSummary) {
+    private Context mContext;
+
+    public SalesCheckout(Context context, CartSummary cartSummary) {
         this.mCartSummary = cartSummary;
         this.mTransactionSummaryCrudOp = new TransactionSummaryCrudOp(context);
         this.mTransactionBreakdownCruOp = new TransactionBreakdownCrudOp(context);
         this.mMeasurementCrudOp = new MeasurementCrudOperation(context);
-
+        mCreditorsTransactionCrudOp = new CreditorsTransactionCrudOp(context);
+        mContext = context;
     }
 
     public void checkoutCart() {
-        int order = mTransactionSummaryCrudOp.getTransactionCount(null);
+        int order = mTransactionSummaryCrudOp.getTransactionCount(null) + 1;
 
         TransactionSummary transactionSummary = new TransactionSummary(mCartSummary.getmTotalAmount(), order);
-        long txid = mTransactionSummaryCrudOp.create(transactionSummary);
+        transactionSummaryId = mTransactionSummaryCrudOp.create(transactionSummary);
 
         TransactionBreakdown[] transactionBreakdowns = new TransactionBreakdown[mCartSummary.getmCartStocks().size()];
 
         for (int i = 0; i < mCartSummary.getmCartStocks().size(); i++) {
             CartStock cartStock = mCartSummary.getmCartStocks().get(i);
             TransactionBreakdown txbrk = new TransactionBreakdown(
-                    cartStock.getmStockId(), cartStock.getmId(), txid, cartStock.getmQuantity(),
+                    cartStock.getmStockId(), cartStock.getmId(), transactionSummaryId, cartStock.getmQuantity(),
                     cartStock.getmCostPerStock(), cartStock.getmTotalCost());
 
             transactionBreakdowns[i] = txbrk;
@@ -65,6 +74,18 @@ public class CashSales {
         }
 
         mMeasurementCrudOp.update(measurements);
+
+    }
+
+    public void saveAsCreditSales(Customer customer) {
+        checkoutCart();
+        CreditorsTransaction creditorsTransaction = new CreditorsTransaction(customer.id, transactionSummaryId, 1);
+        mCreditorsTransactionCrudOp.create(creditorsTransaction);
+
+        //update customers credit
+        CustomerCrudOperation customerCrudOp = new CustomerCrudOperation(mContext);
+        customer.updateCredit(mCartSummary.getmTotalAmount());
+        customerCrudOp.update(customer);
 
     }
 }

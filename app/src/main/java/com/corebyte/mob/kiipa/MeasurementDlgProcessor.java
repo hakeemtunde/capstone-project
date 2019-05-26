@@ -63,7 +63,6 @@ public class MeasurementDlgProcessor {
 
         if (mMeasurement == null) {
             mMeasurement = new Measurement();
-            mMeasurement.initDates();
         }
 
         mMeasurement.setName(nameEd.getText().toString());
@@ -76,6 +75,8 @@ public class MeasurementDlgProcessor {
         int qty =  TextUtils.isEmpty(supplyQtyEd.getText().toString()) ? 0
                 : Integer.parseInt(supplyQtyEd.getText().toString());
         mMeasurement.setSupplyQty(qty);
+        mMeasurement.setLastSupplyQty(qty);
+        mMeasurement.updateAvailableQty();
 
         if (showCb.isChecked()) {
             mMeasurement.setShowStatus(1);
