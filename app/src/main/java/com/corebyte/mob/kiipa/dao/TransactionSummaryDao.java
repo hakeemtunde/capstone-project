@@ -9,7 +9,7 @@ import java.util.Date;
 import java.util.List;
 
 @Dao
-public interface TransactionSummaryDao extends BaseDao<TransactionSummary>{
+public interface TransactionSummaryDao extends BaseDao<TransactionSummary> {
 
     @Override
     @Query("SELECT * FROM transaction_summary")
@@ -19,9 +19,9 @@ public interface TransactionSummaryDao extends BaseDao<TransactionSummary>{
     @Query("SELECT * FROM transaction_summary WHERE id = :id")
     TransactionSummary findById(long id);
 
-    @Query("SELECT * FROM transaction_summary WHERE created_at = :date")
+    @Query("SELECT * FROM transaction_summary WHERE date(created_at) = date(:date)")
     List<TransactionSummary> findByDate(Date date);
 
-    @Query("SELECT COUNT() FROM transaction_summary WHERE created_at = :date")
+    @Query("SELECT COUNT(*) FROM transaction_summary WHERE date(created_at) = date(:date)")
     int countTransactionByDate(Date date);
 }

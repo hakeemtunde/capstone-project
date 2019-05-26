@@ -12,7 +12,7 @@ public class DateConverter {
     }
 
     @TypeConverter
-    public static String toTimestamp(Date date) {
+    public static String fromDate(Date date) {
         return date == null ? null : DateUtil.getDbDateIn24Hrs(date);
     }
 }
