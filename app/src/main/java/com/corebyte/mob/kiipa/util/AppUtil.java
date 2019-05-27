@@ -10,6 +10,7 @@ import android.view.MenuItem;
 public class AppUtil {
 
     public static final String CURRENCY_SYMBOL = "currency_symbol";
+    public static final String APP_MODE = "use_app_as_store_keeper";
 
     public static Drawable tintIcon(Context context, MenuItem menuItem, int resource_id) {
 
@@ -27,5 +28,10 @@ public class AppUtil {
     public static String formatPriceWithCurrencySymbol(Context context, Double price) {
         String currencySymbol = getPreferenceSettings(context, CURRENCY_SYMBOL, "");
         return String.valueOf(" "+currencySymbol + " " +price);
+    }
+
+    public static boolean getPreferenceSettings(Context context, String key, boolean defaultVal) {
+        return PreferenceManager.getDefaultSharedPreferences(context)
+                .getBoolean(key, defaultVal);
     }
 }

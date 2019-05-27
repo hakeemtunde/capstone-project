@@ -30,6 +30,8 @@
     <string name="str_items">Items:</string>
     <string name="phone_str">Phone</string>
 
+    <string name="str_qty">Qty</string>
+
     <!-- Strings related to Settings -->
     <string name="title_activity_settings">Settings</string>
     <string name="title_customer_credit_limit">Customers credit limit</string>

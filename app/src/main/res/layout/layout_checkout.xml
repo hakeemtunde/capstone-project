@@ -30,7 +30,6 @@
         android:layout_height="wrap_content"
         android:layout_toRightOf="@+id/cart_item_label_tv"
         android:layout_toEndOf="@+id/cart_item_label_tv"
-        android:text="3"
         android:layout_marginTop="10dp"
 
         />
@@ -42,7 +41,8 @@
         android:text="@string/str_amount"
         android:layout_toRightOf="@+id/cart_iv"
         android:layout_toEndOf="@+id/cart_iv"
-        android:layout_below="@+id/cart_item_label_tv"/>
+        android:layout_below="@+id/cart_item_label_tv"
+        android:visibility="invisible"/>
 
     <TextView
         android:id="@+id/amount_tv"
@@ -50,7 +50,8 @@
         android:layout_height="wrap_content"
         android:layout_toRightOf="@+id/amount_label_tv"
         android:layout_toEndOf="@+id/amount_label_tv"
-        android:layout_below="@+id/cart_item_tv" />
+        android:layout_below="@+id/cart_item_tv"
+        android:visibility="invisible"/>
 
     <LinearLayout
         android:id="@+id/ll_divider1"
@@ -64,6 +65,7 @@
 
     <TableLayout
         android:id="@+id/cart_item_tl"
+        android:visibility="gone"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/ll_divider1"
@@ -89,6 +91,29 @@
 
         </TableRow>
 
+    </TableLayout>
+
+    <TableLayout
+        android:id="@+id/store_item_tl"
+        android:visibility="gone"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/ll_divider1"
+        android:layout_marginTop="10dp"
+        android:padding="5dp"
+        android:stretchColumns="*">
+        <TableRow>
+            <TextView
+                android:text="@string/str_item"/>
+
+            <TextView
+                android:text="@string/str_qty"/>
+
+
+            <TextView
+                android:text=""/>
+
+        </TableRow>
     </TableLayout>
 
     <LinearLayout

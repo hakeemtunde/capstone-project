@@ -13,6 +13,7 @@ import com.corebyte.mob.kiipa.R;
 import com.corebyte.mob.kiipa.event.AdapterAction;
 import com.corebyte.mob.kiipa.event.PickCreditCustomerEvent;
 import com.corebyte.mob.kiipa.model.Customer;
+import com.corebyte.mob.kiipa.util.AppUtil;
 
 import java.util.List;
 
@@ -24,11 +25,15 @@ public class PickCreditCustomerRecyclerAdapter
     private int mSelectedItem = -1;
     private PickCreditCustomerEvent.OnClickCreditor mOnClickCreditor;
     private double mCartTotalSum;
+    private boolean mIsStoreKeeper;
 
     public PickCreditCustomerRecyclerAdapter(PickCreditCustomerEvent handler, PickCreditCustomerEvent.OnClickCreditor onClickCreditor) {
         mEventHandler = handler;
         mCustomers = handler.fetchAll();
         mOnClickCreditor = onClickCreditor;
+
+        mIsStoreKeeper = AppUtil.getPreferenceSettings(mEventHandler.getContext(),
+                AppUtil.APP_MODE, false);
     }
 
     @NonNull
@@ -89,27 +94,44 @@ public class PickCreditCustomerRecyclerAdapter
         }
 
         public void bind(Customer customer, int position) {
-            double ownCredit = customer.getOwnCredit();
+
+            double ownCredit = 0;
+
+            //selling
+            if (!mIsStoreKeeper ) {
+
+                ownCredit = customer.getOwnCredit();
+                mCreditTv.setText(String.valueOf(ownCredit));
+
+                mCreditTv.setTextColor(ContextCompat.getColor(mEventHandler.getContext(),
+                        R.color.colorTextPrimary));
+            }
+
 
             mNameTv.setText(customer.getName());
             mPhoneTv.setText(customer.getPhone());
-            mCreditTv.setText(String.valueOf(ownCredit));
-            mCreditTv.setTextColor(ContextCompat.getColor(mEventHandler.getContext(),
-                    R.color.colorTextPrimary));
+
+
             mItemView.setBackgroundColor(ContextCompat
                     .getColor(mEventHandler.getContext(), R.color.cardview_light_background));
 
             mPickRb.setChecked(position == mSelectedItem);
+
             if (position == mSelectedItem) {
+
                 mItemView.setBackgroundColor(ContextCompat.getColor(mEventHandler.getContext(),
                         R.color.colorLightGray));
 
-                double total = ownCredit + mCartTotalSum;
-                mCreditTv.setText(String.valueOf(ownCredit)
-                        + " + " + String.valueOf(mCartTotalSum) + " = "
-                        + String.valueOf(total));
-                mCreditTv.setTextColor(ContextCompat.getColor(mEventHandler.getContext(),
-                        R.color.colorAccent));
+                //selling
+                if(!mIsStoreKeeper) {
+                    double total = ownCredit + mCartTotalSum;
+                    mCreditTv.setText(String.valueOf(ownCredit)
+                            + " + " + String.valueOf(mCartTotalSum) + " = "
+                            + String.valueOf(total));
+                    mCreditTv.setTextColor(ContextCompat.getColor(mEventHandler.getContext(),
+                            R.color.colorAccent));
+
+                }
 
             }
 
