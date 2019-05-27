@@ -10,6 +10,7 @@ import android.widget.TextView;
 
 import com.corebyte.mob.kiipa.model.Measurement;
 import com.corebyte.mob.kiipa.model.Stock;
+import com.corebyte.mob.kiipa.util.AppUtil;
 
 import java.util.List;
 
@@ -38,13 +39,16 @@ public class AddToCartDlgProcessor {
 
     public void attachMeasurements(List<Measurement> measurements) {
 
-        for (final Measurement measurement : measurements ) {
+        for (final Measurement measurement : measurements) {
             RadioButton radioButton = new RadioButton(mContext);
             radioButton.setText(measurement.getName());
             radioButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    mPriceTv.setText(String.valueOf(measurement.getSupplyPrice()));
+                    String strPrice = AppUtil.formatPriceWithCurrencySymbol(
+                            mContext, measurement.getSellingPrice());
+
+                    mPriceTv.setText(strPrice);
                     mAvailableQtyTv.setText(String.valueOf(measurement.getAvailableQty()));
 
                     if (measurement.getAvailableQty() == 0) {
@@ -53,7 +57,6 @@ public class AddToCartDlgProcessor {
                         if (!mInputQty.isEnabled())
                             mInputQty.setEnabled(true);
                     }
-
 
 
                     mSelectedMeasurement = measurement;
@@ -73,7 +76,7 @@ public class AddToCartDlgProcessor {
         if (!TextUtils.isEmpty(mInputQty.getText().toString())) {
             try {
                 qty = Integer.parseInt(mInputQty.getText().toString());
-            }catch (NumberFormatException nfe) {
+            } catch (NumberFormatException nfe) {
                 nfe.printStackTrace();
                 return 0;
             }

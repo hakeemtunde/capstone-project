@@ -12,6 +12,7 @@ import com.corebyte.mob.kiipa.R;
 import com.corebyte.mob.kiipa.event.AdapterAction;
 import com.corebyte.mob.kiipa.event.EventHandler;
 import com.corebyte.mob.kiipa.model.Customer;
+import com.corebyte.mob.kiipa.util.AppUtil;
 
 import java.util.List;
 
@@ -77,9 +78,12 @@ public class CustomerRecyclerViewAdapter
         }
 
         public void bind(Customer customer) {
+            String ownCredit = AppUtil.formatPriceWithCurrencySymbol(
+                    mEventHandler.getContext(), customer.getOwnCredit());
+
             mNameTv.setText(customer.getName());
             mPhoneTv.setText(customer.getPhone());
-            mCreditTv.setText(String.valueOf(customer.getOwnCredit()));
+            mCreditTv.setText(ownCredit);
 
             onButtonClick(customer);
         }

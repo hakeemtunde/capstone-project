@@ -17,10 +17,12 @@ public class CustomerEventHandler implements EventHandler<Customer> {
     CustomerCrudOperation mCrudOperation;
     FragmentManager mFragmentManager;
     AdapterAction mAdapterAction;
+    private Context mContext;
 
 
     public CustomerEventHandler(Context context) {
         mCrudOperation = new CustomerCrudOperation(context);
+        mContext = context;
     }
 
     public void setFragmentManager(FragmentManager manager) {
@@ -95,5 +97,7 @@ public class CustomerEventHandler implements EventHandler<Customer> {
         return customer;
     }
 
+    @Override
+    public Context getContext() { return mContext; }
 
 }

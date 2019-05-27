@@ -1,0 +1,41 @@
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <EditTextPreference
+        android:key="@string/key_currency_symbol"
+        android:title="@string/title_currency_symbol"
+        android:summary="@string/desc_currency_symbol"
+        android:defaultValue="N"
+        android:inputType="text"
+        android:maxLines="1"
+        android:maxLength="1"
+        android:singleLine="true" />
+
+    <EditTextPreference
+        android:key="@string/key_customer_credit_limit"
+        android:title="@string/title_customer_credit_limit"
+        android:summary="@string/desc_customer_credit_limit"
+        android:defaultValue="5000"
+        android:inputType="number"
+        android:maxLines="1"
+        android:singleLine="true" />
+
+    <SwitchPreference
+        android:key="@string/key_alert_on_low_stock"
+        android:title="@string/title_alert_on_low_stock"
+        android:summary="@string/desc_alert_on_low_stock"
+        android:defaultValue="true"/>
+
+    <SwitchPreference
+        android:key="@string/key_notify_on_expire_stock"
+        android:title="@string/title_notify_on_expire_stock"
+        android:summary="@string/desc_notify_on_expire_stock"
+        android:defaultValue="true" />
+
+
+    <SwitchPreference
+        android:key="@string/key_use_app_as_store_keeper"
+        android:title="@string/title_use_app_as_store_keeper"
+        android:summary="@string/desc_use_app_as_store_keeper"
+        android:defaultValue="true"/>
+
+</PreferenceScreen>

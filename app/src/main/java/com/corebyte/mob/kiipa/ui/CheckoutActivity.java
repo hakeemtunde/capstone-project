@@ -10,13 +10,13 @@ import android.widget.ImageView;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.corebyte.mob.kiipa.CartSummary;
-import com.corebyte.mob.kiipa.SalesCheckout;
 import com.corebyte.mob.kiipa.R;
+import com.corebyte.mob.kiipa.SalesCheckout;
 import com.corebyte.mob.kiipa.model.CartStock;
 import com.corebyte.mob.kiipa.model.Customer;
+import com.corebyte.mob.kiipa.util.AppUtil;
 
 import java.util.ArrayList;
 
@@ -44,7 +44,12 @@ public class CheckoutActivity extends AppCompatActivity {
     @BindView(R.id.creditors_ib)
     ImageButton creditorsBtn;
     SalesCheckout mSalesCheckout;
+    @BindView(R.id.store_item_tl)
+    TableLayout mStoreItemTl;
+    @BindView(R.id.amount_label_tv)
+    TextView mAmountLabelTv;
     private CartSummary mCartSummary;
+    private boolean isStoreKeeperMode;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,6 +58,8 @@ public class CheckoutActivity extends AppCompatActivity {
 
         ButterKnife.bind(this);
 
+        isStoreKeeperMode = AppUtil.getPreferenceSettings(getApplicationContext(),
+                AppUtil.APP_MODE, false);
 
         Intent intent = getIntent();
         if (intent != null && intent.hasExtra(CART_STOCK_TAG)) {
@@ -64,16 +71,48 @@ public class CheckoutActivity extends AppCompatActivity {
 
     }
 
-    private void initUi() {
+    public void initUi() {
 
+        if (isStoreKeeperMode) {
+            initUiForStoreKeeper();
+            mStoreItemTl.setVisibility(View.VISIBLE);
+        } else {
+            initUiForSalesCheckout();
+            mCartTotalTv.setVisibility(View.VISIBLE);
+            mAmountLabelTv.setVisibility(View.VISIBLE);
+            mCartItemTl.setVisibility(View.VISIBLE);
+        }
+    }
+
+    private void initUiForStoreKeeper() {
         mCartItemTv.setText(String.valueOf(mCartSummary.getmTotalItems()));
-        mCartTotalTv.setText(String.valueOf(mCartSummary.getmTotalAmount()));
 
         for (CartStock cartStock : mCartSummary.getmCartStocks()) {
 
             TableRow tableRow = new TableRow(getApplicationContext());
 
-            ArrayList<View> views = initTableRowViews(cartStock);
+            ArrayList<View> views = initStoreKeeperTableRowViews(cartStock);
+            tableRow.addView(views.get(0));
+            tableRow.addView(views.get(1));
+            tableRow.addView(views.get(2));
+
+            mStoreItemTl.addView(tableRow);
+        }
+
+    }
+
+    private void initUiForSalesCheckout() {
+
+        mCartItemTv.setText(String.valueOf(mCartSummary.getmTotalItems()));
+        mCartTotalTv.setText(
+                AppUtil.formatPriceWithCurrencySymbol(getApplicationContext(),
+                        mCartSummary.getmTotalAmount()));
+
+        for (CartStock cartStock : mCartSummary.getmCartStocks()) {
+
+            TableRow tableRow = new TableRow(getApplicationContext());
+
+            ArrayList<View> views = initSalesTableRowViews(cartStock);
             tableRow.addView(views.get(0));
             tableRow.addView(views.get(1));
             tableRow.addView(views.get(2));
@@ -85,7 +124,23 @@ public class CheckoutActivity extends AppCompatActivity {
 
     }
 
-    private ArrayList<View> initTableRowViews(CartStock cartStock) {
+    private ArrayList<View> initStoreKeeperTableRowViews(CartStock cartStock) {
+        ArrayList<View> views = new ArrayList<>();
+        TextView stockName = new TextView(getApplicationContext());
+        TextView quantity = new TextView(getApplicationContext());
+        ImageView delete = new ImageView(getApplicationContext());
+        delete.setImageResource(R.drawable.ic_delete_black_24dp);
+
+        stockName.setText(cartStock.getmStockName());
+        quantity.setText(cartStock.getmQuantity() + " " + cartStock.getmMeasureName());
+
+        views.add(stockName);
+        views.add(quantity);
+        views.add(delete);
+        return views;
+    }
+
+    private ArrayList<View> initSalesTableRowViews(CartStock cartStock) {
         ArrayList<View> views = new ArrayList<>();
         TextView stockName = new TextView(getApplicationContext());
         TextView measureName = new TextView(getApplicationContext());
