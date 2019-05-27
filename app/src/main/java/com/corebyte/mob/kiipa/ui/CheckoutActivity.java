@@ -17,6 +17,7 @@ import com.corebyte.mob.kiipa.SalesCheckout;
 import com.corebyte.mob.kiipa.R;
 import com.corebyte.mob.kiipa.model.CartStock;
 import com.corebyte.mob.kiipa.model.Customer;
+import com.corebyte.mob.kiipa.util.AppUtil;
 
 import java.util.ArrayList;
 
@@ -67,7 +68,9 @@ public class CheckoutActivity extends AppCompatActivity {
     private void initUi() {
 
         mCartItemTv.setText(String.valueOf(mCartSummary.getmTotalItems()));
-        mCartTotalTv.setText(String.valueOf(mCartSummary.getmTotalAmount()));
+        mCartTotalTv.setText(
+                AppUtil.formatPriceWithCurrencySymbol(getApplicationContext(),
+                mCartSummary.getmTotalAmount()));
 
         for (CartStock cartStock : mCartSummary.getmCartStocks()) {
 

@@ -50,8 +50,7 @@
         android:layout_height="wrap_content"
         android:layout_toRightOf="@+id/amount_label_tv"
         android:layout_toEndOf="@+id/amount_label_tv"
-        android:layout_below="@+id/cart_item_tv"
-        android:text="3000"/>
+        android:layout_below="@+id/cart_item_tv" />
 
     <LinearLayout
         android:id="@+id/ll_divider1"
