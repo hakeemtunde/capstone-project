@@ -11,6 +11,7 @@ public class AppUtil {
 
     public static final String CURRENCY_SYMBOL = "currency_symbol";
     public static final String APP_MODE = "use_app_as_store_keeper";
+    public static final String CREDIT_LIMIT = "customer_credit_limit";
 
     public static Drawable tintIcon(Context context, MenuItem menuItem, int resource_id) {
 

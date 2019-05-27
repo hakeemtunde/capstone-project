@@ -125,12 +125,26 @@ public class PickCreditCustomerRecyclerAdapter
                 //selling
                 if(!mIsStoreKeeper) {
                     double total = ownCredit + mCartTotalSum;
-                    mCreditTv.setText(String.valueOf(ownCredit)
-                            + " + " + String.valueOf(mCartTotalSum) + " = "
-                            + String.valueOf(total));
-                    mCreditTv.setTextColor(ContextCompat.getColor(mEventHandler.getContext(),
-                            R.color.colorAccent));
 
+                    StringBuilder sb = new StringBuilder();
+                    sb.append(ownCredit).append(" + ").append(mCartTotalSum).append(" = ")
+                            .append(total);
+
+                    String sCreditLimit = AppUtil.getPreferenceSettings(mEventHandler.getContext(),
+                            AppUtil.CREDIT_LIMIT, "0");
+                    int nCreditLimit = Integer.valueOf(sCreditLimit);
+
+                    //credit limit hit
+                    if (total >= nCreditLimit) {
+                        sb.append("\nCredit limit hit");
+                        mCreditTv.setTextColor(ContextCompat.getColor(mEventHandler.getContext(),
+                                R.color.colorRed));
+                    } else {
+                        mCreditTv.setTextColor(ContextCompat.getColor(mEventHandler.getContext(),
+                                R.color.colorAccent));
+                    }
+
+                    mCreditTv.setText(sb.toString());
                 }
 
             }
