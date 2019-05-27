@@ -29,79 +29,28 @@
     <string name="str_price">Price</string>
     <string name="str_items">Items:</string>
     <string name="phone_str">Phone</string>
-    <string name="title_activity_settings">Settings</string>
 
     <!-- Strings related to Settings -->
+    <string name="title_activity_settings">Settings</string>
+    <string name="title_customer_credit_limit">Customers credit limit</string>
+    <string name="desc_customer_credit_limit">Specify customer credit limit</string>
+    <string name="key_customer_credit_limit">customer_credit_limit</string>
 
-    <!-- Example General settings -->
-    <string name="pref_header_general">General</string>
+    <string name="title_currency_symbol">Currency Symbol</string>
+    <string name="desc_currency_symbol">Input currency symbol</string>
+    <string name="key_currency_symbol">currency_symbol</string>
 
-    <string name="pref_title_social_recommendations">Enable social recommendations</string>
-    <string name="pref_description_social_recommendations">Recommendations for people to contact
-        based on your message history
-    </string>
+    <string name="title_alert_on_low_stock">Alert on low stock</string>
+    <string name="desc_alert_on_low_stock">Turn on to get notification on low stock</string>
+    <string name="key_alert_on_low_stock">alert_on_low_stock</string>
 
-    <string name="pref_title_display_name">Display name</string>
-    <string name="pref_default_display_name">John Smith</string>
+    <string name="title_notify_on_expire_stock">Stock Expiry notification</string>
+    <string name="desc_notify_on_expire_stock">Show notification on stock expiration</string>
+    <string name="key_notify_on_expire_stock">notify_on_expire_stock</string>
 
-    <string name="pref_title_add_friends_to_messages">Add friends to messages</string>
-    <string-array name="pref_example_list_titles">
-        <item>Always</item>
-        <item>When possible</item>
-        <item>Never</item>
-    </string-array>
-    <string-array name="pref_example_list_values">
-        <item>1</item>
-        <item>0</item>
-        <item>-1</item>
-    </string-array>
-
-    <!-- Example settings for Data & Sync -->
-    <string name="pref_header_data_sync">Data &amp; sync</string>
-
-    <string name="pref_title_sync_frequency">Sync frequency</string>
-    <string-array name="pref_sync_frequency_titles">
-        <item>15 minutes</item>
-        <item>30 minutes</item>
-        <item>1 hour</item>
-        <item>3 hours</item>
-        <item>6 hours</item>
-        <item>Never</item>
-    </string-array>
-    <string-array name="pref_sync_frequency_values">
-        <item>15</item>
-        <item>30</item>
-        <item>60</item>
-        <item>180</item>
-        <item>360</item>
-        <item>-1</item>
-    </string-array>
-
-    <string-array name="list_preference_entries">
-        <item>Entry 1</item>
-        <item>Entry 2</item>
-        <item>Entry 3</item>
-    </string-array>
-
-    <string-array name="list_preference_entry_values">
-        <item>1</item>
-        <item>2</item>
-        <item>3</item>
-    </string-array>
-
-    <string-array name="multi_select_list_preference_default_value" />
-
-    <string name="pref_title_system_sync_settings">System sync settings</string>
-
-    <!-- Example settings for Notifications -->
-    <string name="pref_header_notifications">Notifications</string>
-
-    <string name="pref_title_new_message_notifications">New message notifications</string>
-
-    <string name="pref_title_ringtone">Ringtone</string>
-    <string name="pref_ringtone_silent">Silent</string>
-
-    <string name="pref_title_vibrate">Vibrate</string>
+    <string name="title_use_app_as_store_keeper">Switch to store keeper mode</string>
+    <string name="desc_use_app_as_store_keeper">Control app to be use for store keeping</string>
+    <string name="key_use_app_as_store_keeper">use_app_as_store_keeper</string>
 
 </resources>
 
