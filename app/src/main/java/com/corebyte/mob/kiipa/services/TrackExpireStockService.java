@@ -2,7 +2,6 @@ package com.corebyte.mob.kiipa.services;
 
 import android.app.IntentService;
 import android.content.Intent;
-import android.content.Context;
 
 /**
  * An {@link IntentService} subclass for handling asynchronous task requests in
@@ -23,7 +22,7 @@ public class TrackExpireStockService extends IntentService {
     protected void onHandleIntent(Intent intent) {
         if (intent != null) {
 //            int daysInterval = intent.getIntExtra(EXPIRE_DAYS_INTERVAL, 0);
-            TrackExpireStock.trackExpireStockIn(this, 10);
+            TrackStock.trackExpireStockIn(this, 10);
         }
     }
 

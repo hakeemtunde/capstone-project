@@ -1,34 +1,16 @@
 package com.corebyte.mob.kiipa.ui;
 
-import android.annotation.TargetApi;
-import android.app.AlarmManager;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
-import android.app.PendingIntent;
-import android.app.job.JobInfo;
-import android.app.job.JobScheduler;
-import android.content.ComponentName;
-import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Build;
-import android.os.PersistableBundle;
-import android.os.SystemClock;
-import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 
 import com.corebyte.mob.kiipa.R;
-import com.corebyte.mob.kiipa.services.TrackExpireStock;
-import com.corebyte.mob.kiipa.services.TrackExpireStockJobService;
-import com.corebyte.mob.kiipa.services.TrackExpireStockReceiver;
-import com.corebyte.mob.kiipa.util.AppUtil;
-
-import java.util.Map;
 
 import butterknife.ButterKnife;
 import butterknife.OnClick;

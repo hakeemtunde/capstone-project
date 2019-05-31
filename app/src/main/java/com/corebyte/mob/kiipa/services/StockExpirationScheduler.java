@@ -22,7 +22,7 @@ public class StockExpirationScheduler {
 
             JobScheduler jobScheduler = (JobScheduler) context.getSystemService(JOB_SCHEDULER_SERVICE);
 //            PersistableBundle extras = new PersistableBundle();
-//            extras.putInt(TrackExpireStock.EXPIRE_DAYS_INTERVAL, 2);
+//            extras.putInt(TrackStock.EXPIRE_DAYS_INTERVAL, 2);
 
             if (enabled) {
                 ComponentName componentName = new ComponentName(context, TrackExpireStockJobService.class);

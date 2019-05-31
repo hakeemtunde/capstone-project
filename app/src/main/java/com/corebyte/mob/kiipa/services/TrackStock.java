@@ -10,13 +10,13 @@ import com.corebyte.mob.kiipa.repo.StockCrudOperation;
 
 import java.util.List;
 
-public class TrackExpireStock {
+public class TrackStock {
 
     public static final String EXPIRE_DAYS_INTERVAL = "extra.DAYS_INTERVAL";
 //    private Context mContext;
 //    private StockCrudOperation mStockCrudOperation;
 //
-//    public TrackExpireStock(Context context) {
+//    public TrackStock(Context context) {
 //        mContext = context;
 //        mStockCrudOperation = new StockCrudOperation(context);
 //    }
