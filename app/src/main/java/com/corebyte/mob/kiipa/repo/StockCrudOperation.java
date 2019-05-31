@@ -1,16 +1,24 @@
 package com.corebyte.mob.kiipa.repo;
 
 import android.content.Context;
+import android.os.AsyncTask;
+import android.util.Log;
 
 import com.corebyte.mob.kiipa.dao.AppDatabase;
 import com.corebyte.mob.kiipa.dao.BaseDao;
+import com.corebyte.mob.kiipa.dao.StockDao;
 import com.corebyte.mob.kiipa.event.CrudDao;
 import com.corebyte.mob.kiipa.model.Stock;
+import com.corebyte.mob.kiipa.services.TrackExpireStock;
 import com.corebyte.mob.kiipa.util.DateUtil;
 
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 public class StockCrudOperation implements CrudDao<Stock> {
+
+    private static final String TAG = StockCrudOperation.class.getSimpleName();
 
     private CrudAsyncTask<Stock> mCrudAsync;
 
@@ -61,4 +69,55 @@ public class StockCrudOperation implements CrudDao<Stock> {
     public List<Stock> getAll() {
         return mCrudAsync.getAll();
     }
+
+    public List<Stock> getExpireStockIn(int days) {
+
+        final List<Stock> expireStocks = new ArrayList<>();
+
+        AsyncTask asyncTask = new AsyncTask<Integer, Void, List<Stock>>(){
+
+            @Override
+            protected List<Stock> doInBackground(Integer... integers) {
+                return ((StockDao)mCrudAsync.getDao()).findExpireStockIn(integers[0]);
+            }
+
+            @Override
+            protected void onPostExecute(List<Stock> stocks) {
+                expireStocks.addAll(stocks);
+                Log.i(TAG, " expire stocks "+ expireStocks.toString());
+            }
+        }.execute(days);
+
+
+        return expireStocks;
+
+    }
+
+    public List<Stock> findExpireStockIn2(int days, final boolean shownotification) {
+
+        final List<Stock> expireStocks = new ArrayList<>();
+
+        AsyncTask asyncTask = new AsyncTask<Integer, Void, List<Stock>>(){
+
+            @Override
+            protected List<Stock> doInBackground(Integer... integers) {
+                return ((StockDao)mCrudAsync.getDao()).findExpireStockIn2(integers[0]);
+            }
+
+            @Override
+            protected void onPostExecute(List<Stock> stocks) {
+                expireStocks.addAll(stocks);
+                if (shownotification) {
+                    TrackExpireStock.notification(mCrudAsync.getContext(), expireStocks);
+                }
+                Log.i(TAG, " expire stocks "+ expireStocks.toString());
+            }
+        }.execute(days);
+
+
+        return expireStocks;
+
+    }
+
+
 }

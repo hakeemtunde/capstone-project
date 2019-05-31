@@ -16,12 +16,15 @@ public class CrudAsyncTask<T extends BaseModel> implements CrudOperation<T> {
 
     private final AppDatabase mAppDatabase;
     private BaseDao mDao;
+    private Context mContext;
 
     public CrudAsyncTask(Context context, CrudDao crudDao) {
         mAppDatabase = AppDatabase.getInstance(context);
         mDao = crudDao.getCrudDao(mAppDatabase);
+        mContext = context;
     }
 
+    public Context getContext() { return mContext; }
     public BaseDao getDao() {
         return mDao;
     }
