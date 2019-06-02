@@ -10,6 +10,20 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <service
+            android:name=".services.widget.StockTransAppWidgetRemoteViewService"
+            android:permission="android.permission.BIND_REMOTEVIEWS" />
+
+        <receiver android:name=".services.widget.StockTransactionAppWidgetProvider">
+            <intent-filter>
+                <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
+            </intent-filter>
+
+            <meta-data
+                android:name="android.appwidget.provider"
+                android:resource="@xml/stock_transaction_app_widget_info" />
+        </receiver>
+
+        <service
             android:name=".services.LowStockIntentService"
             android:enabled="true"
             android:exported="false"

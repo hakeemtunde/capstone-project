@@ -10,6 +10,7 @@ import com.corebyte.mob.kiipa.event.CrudDao;
 import com.corebyte.mob.kiipa.model.TransactionSummary;
 import com.corebyte.mob.kiipa.util.DateUtil;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.concurrent.ExecutionException;
@@ -94,5 +95,34 @@ public class TransactionSummaryCrudOp implements CrudDao<TransactionSummary> {
 
 
         return txcounts;
+    }
+
+    public List<TransactionSummary> getTransactionsByDate(Date date) {
+        List<TransactionSummary> transactionSummaries = new ArrayList<>();
+
+        if (date == null) {
+            date = new Date();
+        }
+
+        AsyncTask asyncTask = new AsyncTask<Date, Void, List<TransactionSummary>>(){
+
+            @Override
+            protected List<TransactionSummary> doInBackground(Date... dates) {
+
+                List<TransactionSummary> transactions = ((TransactionSummaryDao)mCrudAsyn.getDao())
+                        .findByDate(dates[0]);
+                return transactions;
+            }
+        }.execute(date);
+
+        try {
+            transactionSummaries = (List<TransactionSummary>) asyncTask.get();
+        }catch (InterruptedException ie  ) {
+            ie.printStackTrace();
+        }catch (ExecutionException ee){
+            ee.printStackTrace();
+        }
+
+        return transactionSummaries;
     }
 }

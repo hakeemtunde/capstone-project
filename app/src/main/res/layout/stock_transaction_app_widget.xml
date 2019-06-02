@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="#09C">
+
+    <TextView
+        android:text="Current Transactions List"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:textColor="#F8F8F8"
+        android:textSize="14sp"/>
+
+    <ListView
+        android:id="@+id/widget_app_list_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#ffffff"
+        android:dividerHeight="1dp"
+        android:divider="#eeeeee"
+        tools:listitem="@layout/widget_transaction_list"
+        />
+
+    <TextView
+        android:id="@+id/tv_no_transactions"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#fff"
+        android:gravity="center"
+        android:text="No Transactions yet"
+        android:visibility="gone"/>
+
+
+
+
+
+</LinearLayout>

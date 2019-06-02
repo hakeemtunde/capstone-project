@@ -53,6 +53,8 @@
     <string name="title_use_app_as_store_keeper">Switch to store keeper mode</string>
     <string name="desc_use_app_as_store_keeper">Control app to be use for store keeping</string>
     <string name="key_use_app_as_store_keeper">use_app_as_store_keeper</string>
+    <string name="appwidget_text">EXAMPLE</string>
+    <string name="add_widget">Add widget</string>
 
 </resources>
 
