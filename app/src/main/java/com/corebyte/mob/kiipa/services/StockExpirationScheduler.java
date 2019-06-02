@@ -11,6 +11,7 @@ import android.os.Build;
 
 import static android.content.Context.ALARM_SERVICE;
 import static android.content.Context.JOB_SCHEDULER_SERVICE;
+import static com.corebyte.mob.kiipa.services.TrackExpireStockReceiver.TRIGGER_LOW_STOCK;
 
 public class StockExpirationScheduler {
 
@@ -61,5 +62,23 @@ public class StockExpirationScheduler {
             pendingIntent.cancel();
         }
 
+    }
+
+    public static void setUpAlarmServiceOnStockLow(Context context, boolean enabled) {
+        AlarmManager alarmManager = (AlarmManager)context.getSystemService(ALARM_SERVICE);
+        Intent intent = new Intent(context, TrackExpireStockReceiver.class);
+        intent.setAction(TRIGGER_LOW_STOCK);
+
+        PendingIntent pendingIntent = PendingIntent.getBroadcast(context, 0, intent,
+                PendingIntent.FLAG_UPDATE_CURRENT);
+
+        if (enabled) {
+
+            alarmManager.setRepeating(AlarmManager.ELAPSED_REALTIME,
+                    AlarmManager.INTERVAL_FIFTEEN_MINUTES, AlarmManager.INTERVAL_HALF_HOUR, pendingIntent);
+        } else {
+            alarmManager.cancel(pendingIntent);
+            pendingIntent.cancel();
+        }
     }
 }

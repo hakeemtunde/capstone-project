@@ -106,7 +106,7 @@ public class StockCrudOperation implements CrudDao<Stock> {
             @Override
             protected void onPostExecute(List<Stock> stocks) {
                 expireStocks.addAll(stocks);
-                if (shownotification) {
+                if (shownotification && !expireStocks.isEmpty()) {
                     TrackStock.notification(mCrudAsync.getContext(), expireStocks);
                 }
                 Log.i(TAG, " expire stocks "+ expireStocks.toString());

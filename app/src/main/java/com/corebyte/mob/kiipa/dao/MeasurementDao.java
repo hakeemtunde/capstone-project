@@ -20,4 +20,7 @@ public interface MeasurementDao extends BaseDao<Measurement> {
 
     @Query("SELECT * FROM measurements WHERE stockId = :stockId")
     List<Measurement> findByStockId(long stockId);
+
+    @Query("SELECT * FROM measurements WHERE availableQty <= :level")
+    List<Measurement> findStockLevel(int level);
 }

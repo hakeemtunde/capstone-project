@@ -81,6 +81,23 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
                     return true;
                 }
             });
+
+            SwitchPreference alertNotificationOnLowStrockPref = (SwitchPreference)findPreference(
+                    getString(R.string.key_alert_on_low_stock));
+
+            alertNotificationOnLowStrockPref.setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener() {
+                @Override
+                public boolean onPreferenceChange(Preference preference, Object o) {
+
+                    boolean enabled = (boolean) o;
+                    StockExpirationScheduler.setUpAlarmServiceOnStockLow(
+                            getActivity().getApplicationContext(), enabled
+                    );
+
+                    return true;
+                }
+            });
+
         }
     }
 

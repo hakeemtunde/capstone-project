@@ -11,6 +11,9 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 import com.corebyte.mob.kiipa.R;
+import com.corebyte.mob.kiipa.services.StockExpirationScheduler;
+import com.corebyte.mob.kiipa.services.TrackStock;
+import com.corebyte.mob.kiipa.util.AppUtil;
 
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -28,8 +31,9 @@ public class MainActivity extends AppCompatActivity {
 
         createNotificationChannel();
 
-//        boolean notificaionstatus = AppUtil.getPreferenceSettings(getApplicationContext(),
-//                getString(R.string.key_notify_on_expire_stock), false);
+        boolean notificaionstatus = AppUtil.getPreferenceSettings(getApplicationContext(),
+                getString(R.string.key_alert_on_low_stock), false);
+        StockExpirationScheduler.setUpAlarmServiceOnStockLow(getApplicationContext(), notificaionstatus);
 
     }
 
