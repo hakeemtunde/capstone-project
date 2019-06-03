@@ -11,6 +11,8 @@ import com.corebyte.mob.kiipa.R;
 import com.corebyte.mob.kiipa.adapter.TransactionSummaryRecyclerAdapter;
 import com.corebyte.mob.kiipa.repo.TransactionSummaryCrudOp;
 
+import java.util.Date;
+
 public class TransactionSummaryActivity extends AppCompatActivity {
 
     private TransactionSummaryCrudOp mTransactionSummaryCrudOp;
@@ -23,7 +25,7 @@ public class TransactionSummaryActivity extends AppCompatActivity {
 
         mTransactionSummaryCrudOp = new TransactionSummaryCrudOp(getApplicationContext());
         TransactionSummaryRecyclerAdapter adapter = new TransactionSummaryRecyclerAdapter(
-                mTransactionSummaryCrudOp.getAll());
+                mTransactionSummaryCrudOp.getTransactionsByDate(new Date()));
 
         mTransactionSummaryRecyclerView = findViewById(R.id.transaction_summary_rv);
         LinearLayoutManager layoutManager = new LinearLayoutManager(this);
