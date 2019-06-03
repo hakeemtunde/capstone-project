@@ -42,6 +42,11 @@ public class StockRecyclerAdapter extends RecyclerView.Adapter<StockRecyclerAdap
         viewHolder.bind(stock);
     }
 
+    public void setDataAndFresh(List<Stock> stocks) {
+        mStockList = stocks;
+        notifyDataSetChanged();
+    }
+
     @Override
     public int getItemCount() {
         return mStockList.size();

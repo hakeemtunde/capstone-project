@@ -38,6 +38,7 @@ public class StockActivity extends AppCompatActivity implements StockEvent {
     private static final String TAG = StockActivity.class.getSimpleName();
 
     private static final int REQUEST_CODE = 100;
+    public static final int REQUEST_CODE_ADD_STOCK_ITEM = 1001;
 
     @BindView(R.id.appToolbar)
     public Toolbar toolbar;
@@ -53,6 +54,8 @@ public class StockActivity extends AppCompatActivity implements StockEvent {
     Cart mCart;
     Stock mStockSelected;
 
+    private StockRecyclerAdapter mStockAdapter;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -65,10 +68,10 @@ public class StockActivity extends AppCompatActivity implements StockEvent {
         mCart = new Cart();
 
         stockCrudOperation = new StockCrudOperation(getApplicationContext());
-        StockRecyclerAdapter adapter = new StockRecyclerAdapter(stockCrudOperation.getAll(), this);
+        mStockAdapter = new StockRecyclerAdapter(stockCrudOperation.getAll(), this);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setHasFixedSize(true);
-        recyclerView.setAdapter(adapter);
+        recyclerView.setAdapter(mStockAdapter);
 
     }
 
@@ -82,7 +85,7 @@ public class StockActivity extends AppCompatActivity implements StockEvent {
     public boolean onOptionsItemSelected(MenuItem item) {
         if (item.getItemId() == R.id.menu_add_stock) {
             Intent intent = new Intent(this, StockItemActivity.class);
-            startActivity(intent);
+            startActivityForResult(intent, REQUEST_CODE_ADD_STOCK_ITEM);
             return true;
         }
 
@@ -130,7 +133,12 @@ public class StockActivity extends AppCompatActivity implements StockEvent {
 
             Toast.makeText(getApplicationContext(), "Item(s) checkout successfully.",
                     Toast.LENGTH_SHORT).show();
+        } else if (requestCode == REQUEST_CODE_ADD_STOCK_ITEM && resultCode == RESULT_OK) {
+            //Refresh adapter
+            mStockAdapter.setDataAndFresh(stockCrudOperation.getAll());
         }
+
+
 
     }
 
