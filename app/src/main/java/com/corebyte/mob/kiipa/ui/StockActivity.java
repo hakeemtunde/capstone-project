@@ -6,6 +6,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.os.Parcelable;
 import android.support.annotation.Nullable;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -13,6 +14,7 @@ import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.Toast;
 
 import com.corebyte.mob.kiipa.Cart;
@@ -29,6 +31,7 @@ import java.util.StringTokenizer;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 
 public class StockActivity extends AppCompatActivity implements StockEvent {
 
@@ -41,6 +44,9 @@ public class StockActivity extends AppCompatActivity implements StockEvent {
 
     @BindView(R.id.rc_stock)
     public RecyclerView recyclerView;
+
+    @BindView(R.id.fab)
+    public FloatingActionButton floatingActionButton;
 
     StockCrudOperation stockCrudOperation;
 
@@ -81,9 +87,7 @@ public class StockActivity extends AppCompatActivity implements StockEvent {
         }
 
         if(item.getItemId() == R.id.menu_stock_cart) {
-            Intent intent = new Intent(this, CheckoutActivity.class);
-            intent.putExtra(CheckoutActivity.CART_STOCK_TAG, mCart.getCartSummary());
-            startActivityForResult(intent, REQUEST_CODE);
+            lunchCartCheckoutActivity();
             return true;
         }
 
@@ -128,5 +132,16 @@ public class StockActivity extends AppCompatActivity implements StockEvent {
                     Toast.LENGTH_SHORT).show();
         }
 
+    }
+
+    @OnClick(R.id.fab)
+    public void onClickFloatingActionButton(View view) {
+        lunchCartCheckoutActivity();
+    }
+
+    private void lunchCartCheckoutActivity() {
+        Intent intent = new Intent(this, CheckoutActivity.class);
+        intent.putExtra(CheckoutActivity.CART_STOCK_TAG, mCart.getCartSummary());
+        startActivityForResult(intent, REQUEST_CODE);
     }
 }
