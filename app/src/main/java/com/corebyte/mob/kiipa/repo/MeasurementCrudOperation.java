@@ -1,6 +1,7 @@
 package com.corebyte.mob.kiipa.repo;
 
 import android.content.Context;
+import android.os.AsyncTask;
 
 import com.corebyte.mob.kiipa.dao.AppDatabase;
 import com.corebyte.mob.kiipa.dao.BaseDao;
@@ -8,6 +9,7 @@ import com.corebyte.mob.kiipa.dao.MeasurementDao;
 import com.corebyte.mob.kiipa.event.CrudDao;
 import com.corebyte.mob.kiipa.model.Measurement;
 import com.corebyte.mob.kiipa.repo.CustomAsyncTask.AsyncCallback;
+import com.corebyte.mob.kiipa.services.TrackStock;
 import com.corebyte.mob.kiipa.util.DateUtil;
 
 import java.util.ArrayList;
@@ -89,6 +91,28 @@ public class MeasurementCrudOperation implements CrudDao<Measurement> {
             ee.printStackTrace();
         }
 
+
+        return measurements;
+    }
+
+    public List<Measurement> getStockLevel(final TrackStock.TrackStockHandler handler,
+                                           int level) {
+        final List<Measurement> measurements = new ArrayList<>();
+
+        new AsyncTask<Integer, Void, List<Measurement>>(){
+
+            @Override
+            protected List<Measurement> doInBackground(Integer... integers) {
+                return ((MeasurementDao)mCrudAsync.getDao()).findStockLevel(integers[0]);
+            }
+
+            @Override
+            protected void onPostExecute(List<Measurement> result) {
+                measurements.addAll(result);
+
+                handler.handler(result);
+            }
+        }.execute(level);
 
         return measurements;
     }

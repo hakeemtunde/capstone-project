@@ -6,6 +6,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.os.Parcelable;
 import android.support.annotation.Nullable;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -13,6 +14,7 @@ import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.Toast;
 
 import com.corebyte.mob.kiipa.Cart;
@@ -29,12 +31,14 @@ import java.util.StringTokenizer;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 
 public class StockActivity extends AppCompatActivity implements StockEvent {
 
     private static final String TAG = StockActivity.class.getSimpleName();
 
     private static final int REQUEST_CODE = 100;
+    public static final int REQUEST_CODE_ADD_STOCK_ITEM = 1001;
 
     @BindView(R.id.appToolbar)
     public Toolbar toolbar;
@@ -42,10 +46,15 @@ public class StockActivity extends AppCompatActivity implements StockEvent {
     @BindView(R.id.rc_stock)
     public RecyclerView recyclerView;
 
+    @BindView(R.id.fab)
+    public FloatingActionButton floatingActionButton;
+
     StockCrudOperation stockCrudOperation;
 
     Cart mCart;
     Stock mStockSelected;
+
+    private StockRecyclerAdapter mStockAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,10 +68,10 @@ public class StockActivity extends AppCompatActivity implements StockEvent {
         mCart = new Cart();
 
         stockCrudOperation = new StockCrudOperation(getApplicationContext());
-        StockRecyclerAdapter adapter = new StockRecyclerAdapter(stockCrudOperation.getAll(), this);
+        mStockAdapter = new StockRecyclerAdapter(stockCrudOperation.getAll(), this);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setHasFixedSize(true);
-        recyclerView.setAdapter(adapter);
+        recyclerView.setAdapter(mStockAdapter);
 
     }
 
@@ -76,14 +85,12 @@ public class StockActivity extends AppCompatActivity implements StockEvent {
     public boolean onOptionsItemSelected(MenuItem item) {
         if (item.getItemId() == R.id.menu_add_stock) {
             Intent intent = new Intent(this, StockItemActivity.class);
-            startActivity(intent);
+            startActivityForResult(intent, REQUEST_CODE_ADD_STOCK_ITEM);
             return true;
         }
 
         if(item.getItemId() == R.id.menu_stock_cart) {
-            Intent intent = new Intent(this, CheckoutActivity.class);
-            intent.putExtra(CheckoutActivity.CART_STOCK_TAG, mCart.getCartSummary());
-            startActivityForResult(intent, REQUEST_CODE);
+            lunchCartCheckoutActivity();
             return true;
         }
 
@@ -115,8 +122,15 @@ public class StockActivity extends AppCompatActivity implements StockEvent {
 
     @Override
     public void onAddToCart(Measurement measurement, int qty) {
-        Log.i(this.getClass().getSimpleName(), measurement.toString() + " qty: "+ qty);
+        if (measurement == null || qty > measurement.getAvailableQty() ) {
+            Toast.makeText(getApplicationContext(), "" +
+                    "Stock cannot be added. select measurement and the quantity shouldn't be more than available quantity",
+                    Toast.LENGTH_LONG).show();
+            return;
+        }
+
         mCart.add(mStockSelected, measurement, qty);
+        Toast.makeText(getApplicationContext(), "Add to Cart!", Toast.LENGTH_SHORT).show();
     }
 
     @Override
@@ -126,7 +140,23 @@ public class StockActivity extends AppCompatActivity implements StockEvent {
 
             Toast.makeText(getApplicationContext(), "Item(s) checkout successfully.",
                     Toast.LENGTH_SHORT).show();
+        } else if (requestCode == REQUEST_CODE_ADD_STOCK_ITEM && resultCode == RESULT_OK) {
+            //Refresh adapter
+            mStockAdapter.setDataAndFresh(stockCrudOperation.getAll());
         }
 
+
+
+    }
+
+    @OnClick(R.id.fab)
+    public void onClickFloatingActionButton(View view) {
+        lunchCartCheckoutActivity();
+    }
+
+    private void lunchCartCheckoutActivity() {
+        Intent intent = new Intent(this, CheckoutActivity.class);
+        intent.putExtra(CheckoutActivity.CART_STOCK_TAG, mCart.getCartSummary());
+        startActivityForResult(intent, REQUEST_CODE);
     }
 }

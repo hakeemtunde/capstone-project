@@ -6,6 +6,7 @@ import android.os.Parcel;
 import android.os.Parcelable;
 
 import java.util.Date;
+import java.util.Objects;
 
 @Entity(tableName = "stocks")
 public class Stock extends BaseModel implements Parcelable {
@@ -88,5 +89,23 @@ public class Stock extends BaseModel implements Parcelable {
         parcel.writeLong(this.expireDate.getTime());
         parcel.writeLong(this.categoryId);
 
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Stock)) return false;
+        Stock stock = (Stock) o;
+
+        return id == stock.id && categoryId == stock.getCategoryId();
+
+//        return categoryId == stock.categoryId &&
+//                Objects.equals(name, stock.name) &&
+//                Objects.equals(expireDate, stock.expireDate);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, categoryId);
     }
 }

@@ -1,18 +1,34 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.design.widget.CoordinatorLayout
+
+<RelativeLayout xmlns:tools="http://schemas.android.com/tools"
     xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".ui.MainActivity">
 
-    <include layout="@layout/main_toolbar"/>
+
+        <include
+            android:id="@+id/maintoolbar"
+            layout="@layout/main_toolbar" />
 
 
-    <include
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="300dp"
-        layout="@layout/main_layout" />
+        <include
+            android:id="@+id/buttonpanel"
+            layout="@layout/main_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/maintoolbar"
+            android:layout_marginTop="30dp" />
 
-</android.support.design.widget.CoordinatorLayout>
+        <include
+            layout="@layout/layout_banner_admob"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+
+            />
+
+
+    </RelativeLayout>
+
+

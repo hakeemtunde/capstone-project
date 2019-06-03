@@ -149,6 +149,8 @@ public class StockItemActivity extends AppCompatActivity implements MeasurementH
             }
 
             Toast.makeText(getApplicationContext(), "save!", Toast.LENGTH_SHORT).show();
+            setResult(RESULT_OK);
+            finish();
 
             return true;
 

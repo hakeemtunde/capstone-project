@@ -53,6 +53,16 @@
     <string name="title_use_app_as_store_keeper">Switch to store keeper mode</string>
     <string name="desc_use_app_as_store_keeper">Control app to be use for store keeping</string>
     <string name="key_use_app_as_store_keeper">use_app_as_store_keeper</string>
+    <string name="appwidget_text">EXAMPLE</string>
+    <string name="add_widget">Add widget</string>
+
+    <string name="admob_app_id">ca-app-pub-8899251241880967~6390735769</string>
+    <!--test unit id-->
+    <string name="banner_ad_unit_id">ca-app-pub-8899251241880967/4283447175</string>
+    <string name="interstitial_ad_unit_id">ca-app-pub-8899251241880967/5279520995</string>
+
+    <string name="banner_ad_test_unit_id">ca-app-pub-3940256099942544/6300978111</string>
+
 
 </resources>
 
