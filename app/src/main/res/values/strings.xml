@@ -56,5 +56,13 @@
     <string name="appwidget_text">EXAMPLE</string>
     <string name="add_widget">Add widget</string>
 
+    <string name="admob_app_id">ca-app-pub-8899251241880967~6390735769</string>
+    <!--test unit id-->
+    <string name="banner_ad_unit_id">ca-app-pub-8899251241880967/4283447175</string>
+    <string name="interstitial_ad_unit_id">ca-app-pub-8899251241880967/5279520995</string>
+
+    <string name="banner_ad_test_unit_id">ca-app-pub-3940256099942544/6300978111</string>
+
+
 </resources>
 

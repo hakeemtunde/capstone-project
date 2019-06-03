@@ -14,6 +14,9 @@ import com.corebyte.mob.kiipa.R;
 import com.corebyte.mob.kiipa.services.StockExpirationScheduler;
 import com.corebyte.mob.kiipa.services.TrackStock;
 import com.corebyte.mob.kiipa.util.AppUtil;
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdView;
+import com.google.android.gms.ads.MobileAds;
 
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -28,6 +31,12 @@ public class MainActivity extends AppCompatActivity {
         ButterKnife.bind(this);
         Toolbar toolbar = findViewById(R.id.main_toolbar);
         setSupportActionBar(toolbar);
+
+        MobileAds.initialize(this, getString(R.string.admob_app_id));
+
+        AdView adView = findViewById(R.id.adView);
+        AdRequest adRequest = new AdRequest.Builder().build();
+        adView.loadAd(adRequest);
 
         createNotificationChannel();
 
