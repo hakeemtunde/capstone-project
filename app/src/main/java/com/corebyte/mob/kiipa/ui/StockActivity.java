@@ -122,8 +122,15 @@ public class StockActivity extends AppCompatActivity implements StockEvent {
 
     @Override
     public void onAddToCart(Measurement measurement, int qty) {
-        Log.i(this.getClass().getSimpleName(), measurement.toString() + " qty: "+ qty);
+        if (measurement == null || qty > measurement.getAvailableQty() ) {
+            Toast.makeText(getApplicationContext(), "" +
+                    "Stock cannot be added. select measurement and the quantity shouldn't be more than available quantity",
+                    Toast.LENGTH_LONG).show();
+            return;
+        }
+
         mCart.add(mStockSelected, measurement, qty);
+        Toast.makeText(getApplicationContext(), "Add to Cart!", Toast.LENGTH_SHORT).show();
     }
 
     @Override

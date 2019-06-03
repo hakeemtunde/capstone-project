@@ -60,7 +60,6 @@ public class AddToCartDialogActivity extends DialogFragment implements AlertDial
 
     @Override
     public void onClick(DialogInterface dialogInterface, int i) {
-        Toast.makeText(getContext(), "Add to Cart!", Toast.LENGTH_SHORT).show();
         Measurement measurement = mDlgProcessor.getSelectedMeasurement();
         int qty = mDlgProcessor.getInputQuantity();
         mStockEvent.onAddToCart(measurement, qty);
