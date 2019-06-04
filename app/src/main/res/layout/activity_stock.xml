@@ -15,6 +15,7 @@
         android:layout_marginTop="55dp" />
 
     <android.support.design.widget.FloatingActionButton
+        android:contentDescription="@string/cart_checkout"
         android:id="@+id/fab"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

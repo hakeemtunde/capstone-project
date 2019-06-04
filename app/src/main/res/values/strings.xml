@@ -78,6 +78,7 @@
     <string name="done">Done</string>
     <string name="new_label">New</string>
     <string name="cart">Cart</string>
+    <string name="cart_checkout">Cart Checkout</string>
     <string name="stockimg">stockimg</string>
     <string name="current_transactions_list">Current Transactions List</string>
     <string name="no_transactions_yet">No Transactions yet</string>
