@@ -19,8 +19,7 @@ public class StockRecyclerAdapter extends RecyclerView.Adapter<StockRecyclerAdap
     private final StockEvent mStockEvent;
     private List<Stock> mStockList;
 
-    public StockRecyclerAdapter(List<Stock> stocks, StockEvent event) {
-        mStockList = stocks;
+    public StockRecyclerAdapter(StockEvent event) {
         mStockEvent = event;
     }
 
@@ -49,7 +48,7 @@ public class StockRecyclerAdapter extends RecyclerView.Adapter<StockRecyclerAdap
 
     @Override
     public int getItemCount() {
-        return mStockList.size();
+        return mStockList == null? 0 : mStockList.size();
     }
 
     class ViewHolder extends RecyclerView.ViewHolder {

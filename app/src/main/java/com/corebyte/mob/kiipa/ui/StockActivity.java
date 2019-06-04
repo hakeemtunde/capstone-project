@@ -1,17 +1,15 @@
 package com.corebyte.mob.kiipa.ui;
 
+import android.arch.lifecycle.Observer;
+import android.arch.lifecycle.ViewModelProviders;
 import android.content.Intent;
-import android.net.LocalServerSocket;
-import android.net.Uri;
 import android.os.Bundle;
-import android.os.Parcelable;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -21,13 +19,12 @@ import com.corebyte.mob.kiipa.Cart;
 import com.corebyte.mob.kiipa.R;
 import com.corebyte.mob.kiipa.adapter.StockRecyclerAdapter;
 import com.corebyte.mob.kiipa.event.StockEvent;
-import com.corebyte.mob.kiipa.model.CartStock;
 import com.corebyte.mob.kiipa.model.Measurement;
 import com.corebyte.mob.kiipa.model.Stock;
 import com.corebyte.mob.kiipa.repo.StockCrudOperation;
+import com.corebyte.mob.kiipa.viewmodel.StockViewModel;
 
-import java.util.ArrayList;
-import java.util.StringTokenizer;
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -35,11 +32,9 @@ import butterknife.OnClick;
 
 public class StockActivity extends AppCompatActivity implements StockEvent {
 
-    private static final String TAG = StockActivity.class.getSimpleName();
-
-    private static final int REQUEST_CODE = 100;
     public static final int REQUEST_CODE_ADD_STOCK_ITEM = 1001;
-
+    private static final String TAG = StockActivity.class.getSimpleName();
+    private static final int REQUEST_CODE = 100;
     @BindView(R.id.appToolbar)
     public Toolbar toolbar;
 
@@ -56,11 +51,12 @@ public class StockActivity extends AppCompatActivity implements StockEvent {
 
     private StockRecyclerAdapter mStockAdapter;
 
+    private StockViewModel mStockViewModel;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_stock);
-
         ButterKnife.bind(this);
 
         setSupportActionBar(toolbar);
@@ -68,11 +64,18 @@ public class StockActivity extends AppCompatActivity implements StockEvent {
         mCart = new Cart();
 
         stockCrudOperation = new StockCrudOperation(getApplicationContext());
-        mStockAdapter = new StockRecyclerAdapter(stockCrudOperation.getAll(), this);
+        mStockAdapter = new StockRecyclerAdapter(this);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setHasFixedSize(true);
         recyclerView.setAdapter(mStockAdapter);
 
+        mStockViewModel = ViewModelProviders.of(this).get(StockViewModel.class);
+        mStockViewModel.getStockList().observe(this, new Observer<List<Stock>>() {
+            @Override
+            public void onChanged(@Nullable List<Stock> stocks) {
+                mStockAdapter.setDataAndFresh(stocks);
+            }
+        });
     }
 
     @Override
@@ -89,7 +92,7 @@ public class StockActivity extends AppCompatActivity implements StockEvent {
             return true;
         }
 
-        if(item.getItemId() == R.id.menu_stock_cart) {
+        if (item.getItemId() == R.id.menu_stock_cart) {
             lunchCartCheckoutActivity();
             return true;
         }
@@ -122,9 +125,9 @@ public class StockActivity extends AppCompatActivity implements StockEvent {
 
     @Override
     public void onAddToCart(Measurement measurement, int qty) {
-        if (measurement == null || qty > measurement.getAvailableQty() ) {
+        if (measurement == null || qty > measurement.getAvailableQty()) {
             Toast.makeText(getApplicationContext(), "" +
-                    "Stock cannot be added. select measurement and the quantity shouldn't be more than available quantity",
+                            "Stock cannot be added. select measurement and the quantity shouldn't be more than available quantity",
                     Toast.LENGTH_LONG).show();
             return;
         }
@@ -142,9 +145,8 @@ public class StockActivity extends AppCompatActivity implements StockEvent {
                     Toast.LENGTH_SHORT).show();
         } else if (requestCode == REQUEST_CODE_ADD_STOCK_ITEM && resultCode == RESULT_OK) {
             //Refresh adapter
-            mStockAdapter.setDataAndFresh(stockCrudOperation.getAll());
+            //mStockAdapter.setDataAndFresh(stockCrudOperation.getAll());
         }
-
 
 
     }

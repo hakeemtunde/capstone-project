@@ -1,5 +1,6 @@
 package com.corebyte.mob.kiipa.dao;
 
+import android.arch.lifecycle.LiveData;
 import android.arch.persistence.room.Dao;
 import android.arch.persistence.room.Query;
 
@@ -13,7 +14,7 @@ public interface TransactionSummaryDao extends BaseDao<TransactionSummary> {
 
     @Override
     @Query("SELECT * FROM transaction_summary")
-    List<TransactionSummary> getAll();
+    LiveData<List<TransactionSummary>> getAll();
 
     @Override
     @Query("SELECT * FROM transaction_summary WHERE id = :id")
@@ -24,4 +25,8 @@ public interface TransactionSummaryDao extends BaseDao<TransactionSummary> {
 
     @Query("SELECT COUNT(*) FROM transaction_summary WHERE date(created_at) = date(:date)")
     int countTransactionByDate(Date date);
+
+    @Override
+    @Query("SELECT * FROM transaction_summary")
+    List<TransactionSummary> getAllRecords();
 }

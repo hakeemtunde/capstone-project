@@ -97,8 +97,4 @@ public class CustomerDialogActivity extends DialogFragment {
     public void setEventHandler(EventHandler action) {
         mEventHandler = action;
     }
-
-    public void setPickCreditCustomerAdapter(PickCreditCustomerRecyclerAdapter adapter) {
-
-    }
 }

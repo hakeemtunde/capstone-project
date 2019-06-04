@@ -29,34 +29,24 @@ public class CustomerEventHandler implements EventHandler<Customer> {
         mFragmentManager = manager;
     }
 
-    public void setAdapter(AdapterAction aAction) {
-        mAdapterAction = aAction;
-    }
+
 
     @Override
     public void create(String... params) {
         Customer customer = new Customer(params[0], params[1]);
         mCrudOperation.create(customer);
-        mAdapterAction.refreshAdapter();
-
     }
 
     @Override
     public void update(Customer model) {
         mCrudOperation.update(model);
-        mAdapterAction.refreshAdapter();
     }
 
     @Override
     public void delete(Customer model) {
         mCrudOperation.delete(model);
-        mAdapterAction.refreshAdapter();
     }
 
-    @Override
-    public List<Customer> fetchAll() {
-        return mCrudOperation.getAll();
-    }
 
     @Override
     public void onEditButtonClicked(Customer customer) {
@@ -72,10 +62,6 @@ public class CustomerEventHandler implements EventHandler<Customer> {
 
     }
 
-    @Override
-    public boolean isValid(String... params) {
-        return true;
-    }
 
     public void createOrUpdate(Customer customer, String... params) {
         if (customer == null) {
@@ -90,10 +76,6 @@ public class CustomerEventHandler implements EventHandler<Customer> {
         Customer customer = new Customer(params[0], params[1]);
         long id = mCrudOperation.create(customer);
         customer.id = id;
-
-        mAdapterAction.appendModel(customer);
-        mAdapterAction.refreshAdapter();
-
         return customer;
     }
 

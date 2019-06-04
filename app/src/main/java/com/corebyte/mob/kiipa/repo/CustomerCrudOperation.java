@@ -24,6 +24,11 @@ public class CustomerCrudOperation implements CrudDao<Customer> {
     }
 
     @Override
+    public CrudAsyncTask getAsync() {
+        return mCrudAsync;
+    }
+
+    @Override
     public long create(Customer model) {
         DateUtil.initCreateDate(model);
         return mCrudAsync.create(model);
@@ -59,7 +64,7 @@ public class CustomerCrudOperation implements CrudDao<Customer> {
     }
 
     @Override
-    public List<Customer> getAll() {
-        return mCrudAsync.getAll();
+    public List<Customer> getAllRecord() {
+        return mCrudAsync.getAllRecord();
     }
 }

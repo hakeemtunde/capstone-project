@@ -1,5 +1,6 @@
 package com.corebyte.mob.kiipa.dao;
 
+import android.arch.lifecycle.LiveData;
 import android.arch.persistence.room.Dao;
 import android.arch.persistence.room.Query;
 
@@ -13,9 +14,13 @@ public interface CategoryDao extends BaseDao<Category> {
 
     @Override
     @Query(AppQuery.CATEGORY_FETCH_ALL)
-    List<Category> getAll();
+    LiveData<List<Category>> getAll();
 
     @Override
     @Query(AppQuery.CATEGORY_FETCH_BY_ID)
     Category findById(long id);
+
+    @Override
+    @Query(AppQuery.CATEGORY_FETCH_ALL)
+    List<Category> getAllRecords();
 }

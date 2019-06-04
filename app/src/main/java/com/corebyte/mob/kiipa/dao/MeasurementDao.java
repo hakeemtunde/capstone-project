@@ -1,5 +1,6 @@
 package com.corebyte.mob.kiipa.dao;
 
+import android.arch.lifecycle.LiveData;
 import android.arch.persistence.room.Dao;
 import android.arch.persistence.room.Query;
 
@@ -12,7 +13,7 @@ public interface MeasurementDao extends BaseDao<Measurement> {
 
     @Override
     @Query("SELECT * FROM measurements")
-    List<Measurement> getAll();
+    LiveData<List<Measurement>> getAll();
 
     @Override
     @Query("SELECT * FROM measurements WHERE id = :id")
@@ -23,4 +24,8 @@ public interface MeasurementDao extends BaseDao<Measurement> {
 
     @Query("SELECT * FROM measurements WHERE availableQty <= :level")
     List<Measurement> findStockLevel(int level);
+
+    @Override
+    @Query("SELECT * FROM measurements")
+    List<Measurement> getAllRecords();
 }

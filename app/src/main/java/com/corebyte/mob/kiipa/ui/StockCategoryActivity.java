@@ -50,7 +50,7 @@ public class StockCategoryActivity extends AppCompatActivity
         mCategoryRv.setAdapter(mAdapter);
 
         categoryCrudOperation = new CategoryCrudOperation(getApplicationContext());
-        categoryCrudOperation.loadDataToAdapter(mAdapter);
+        //categoryCrudOperation.loadDataToAdapter(mAdapter);
     }
 
     @Override

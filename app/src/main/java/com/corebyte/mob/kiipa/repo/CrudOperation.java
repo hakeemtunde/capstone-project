@@ -1,5 +1,7 @@
 package com.corebyte.mob.kiipa.repo;
 
+import android.arch.lifecycle.LiveData;
+
 import com.corebyte.mob.kiipa.dao.BaseDao;
 import com.corebyte.mob.kiipa.model.BaseModel;
 
@@ -19,5 +21,7 @@ public interface CrudOperation<T extends BaseModel> {
 
     T getById(long id);
 
-    List<T> getAll();
+//    LiveData<List<T>> getAll();
+
+    List<T> getAllRecord();
 }

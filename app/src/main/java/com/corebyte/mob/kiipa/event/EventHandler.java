@@ -12,11 +12,7 @@ public interface EventHandler<T> {
 
     void delete(T model);
 
-    List<T> fetchAll();
-
     void onEditButtonClicked(T model);
-
-    boolean isValid(String... params);
 
     public Context getContext();
 

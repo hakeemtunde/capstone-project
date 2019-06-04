@@ -74,7 +74,7 @@ public class CategoryDialog extends DialogFragment {
                     dialogAction.update(mCategory);
                 }
 
-                dialogAction.refreshAdapter(mAdapterDataLoader);
+
             }
         });
         dialogBuilder.setNegativeButton(R.string.cancel_string, new DialogInterface.OnClickListener() {
