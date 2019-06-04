@@ -17,7 +17,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_toRightOf="@+id/stock_iv"
-        android:text="Stock: "
+        android:text="@string/stock"
         android:layout_marginLeft="@dimen/addToStockDlgTextLabelLeftMargin"
         />
 
@@ -26,7 +26,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_toRightOf="@+id/stock_name_label_tv"
-        android:text="Tomato"/>
+        android:text="@string/tomato"/>
 
     <TextView
         android:id="@+id/stock_price_label_tv"
@@ -34,7 +34,7 @@
         android:layout_below="@id/stock_name_label_tv"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Price: "
+        android:text="@string/price"
         android:layout_marginLeft="@dimen/addToStockDlgTextLabelLeftMargin"/>
 
     <TextView
@@ -51,7 +51,7 @@
         android:layout_below="@id/stock_price_label_tv"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Qty: "
+        android:text="@string/qty_label"
         android:layout_marginLeft="@dimen/addToStockDlgTextLabelLeftMargin"/>
 
     <TextView
@@ -70,7 +70,7 @@
         android:layout_toRightOf="@+id/stock_iv"
         android:layout_toEndOf="@+id/stock_iv"
         android:layout_below="@+id/stock_price_label_tv"
-        android:hint="Quantity"
+        android:hint="@string/quantity_hint"
         android:layout_marginTop="10dp"/>
 
     <LinearLayout

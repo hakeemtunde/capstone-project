@@ -21,7 +21,6 @@
         android:layout_height="wrap_content"
         android:hint="@string/supply_price"
         android:layout_marginEnd="@dimen/marginRightMeasureWidget"
-        android:layout_marginEnd="@dimen/marginRightMeasureWidget"
         android:inputType="number"
          />
 

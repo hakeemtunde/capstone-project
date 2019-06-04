@@ -80,7 +80,6 @@ public class CategoryRecyclerAdapter extends RecyclerView.Adapter<CategoryRecycl
 
         public void bind(final Category category) {
             mCategoryNameTv.setText(category.getName());
-            mTotalStockTv.setText("100");
 
             mEditImg.setOnClickListener(new View.OnClickListener() {
                 @Override

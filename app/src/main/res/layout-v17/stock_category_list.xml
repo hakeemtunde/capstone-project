@@ -7,13 +7,11 @@
 
     <TextView
         android:id="@+id/category_name_tv"
-        android:text="Sample"
         android:layout_width="200dp"
         android:layout_height="wrap_content" />
 
     <TextView
         android:id="@+id/stock_category_total_tv"
-        android:text="300"
         android:layout_marginStart="30dp"
         android:layout_marginEnd="30dp"
         android:layout_width="wrap_content"
@@ -23,7 +21,7 @@
 
     <ImageView
         android:id="@+id/stock_category_edit_btn"
-        android:contentDescription="edit"
+        android:contentDescription="@string/edit"
         android:layout_marginStart="30dp"
         android:src="@drawable/ic_edit_black_24dp"
         android:layout_width="24dp"
@@ -33,7 +31,7 @@
 
     <ImageView
         android:id="@+id/stock_category_del_btn"
-        android:contentDescription="delete"
+        android:contentDescription="@string/delete"
         android:src="@drawable/ic_delete_black_24dp"
         android:layout_width="24dp"
         android:layout_height="24dp"

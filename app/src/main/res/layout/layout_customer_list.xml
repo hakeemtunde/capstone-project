@@ -33,14 +33,14 @@
 
         <ImageView
             android:id="@+id/customer_edit_btn"
-            android:contentDescription="edit"
+            android:contentDescription="@string/edit"
             android:src="@drawable/ic_edit_black_24dp"
             android:layout_width="24dp"
             android:layout_height="24dp" />
 
         <ImageView
             android:id="@+id/customer_del_btn"
-            android:contentDescription="delete"
+            android:contentDescription="@string/delete"
             android:src="@drawable/ic_delete_black_24dp"
             android:layout_width="24dp"
             android:layout_height="24dp" />

@@ -78,7 +78,7 @@
                 android:text="@string/str_item"/>
 
             <TextView
-                android:text="Type"/>
+                android:text="@string/type"/>
 
             <TextView
                 android:text="@string/str_cost"/>

@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
@@ -26,7 +25,7 @@
                 android:inputType="text"/>
 
             <EditText
-                android:hint="Expiration date"
+                android:hint="@string/expiration_date"
                 android:id="@+id/ed_expiration"
                 android:layout_width="250dp"
                 android:layout_height="wrap_content"
@@ -47,7 +46,7 @@
                 />
 
             <EditText
-                android:hint="Category"
+                android:hint="@string/category"
                 android:id="@+id/ed_category"
                 android:layout_width="250dp"
                 android:layout_height="wrap_content"
@@ -123,19 +122,19 @@
 
                 <TableRow>
                     <TextView
-                        android:text="Measurement"
+                        android:text="@string/measurement"
                         />
 
                     <TextView
-                        android:text="Supply price"
+                        android:text="@string/supply_price"
                         />
 
                     <TextView
-                        android:text="Selling price"
+                        android:text="@string/selling_price"
                         />
 
                     <TextView
-                        android:text="Qty"/>
+                        android:text="@string/qty"/>
 
                     <TextView />
                     <TextView />
