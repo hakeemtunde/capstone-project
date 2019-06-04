@@ -27,7 +27,8 @@
         android:layout_width="24dp"
         android:layout_height="24dp"
         android:layout_toEndOf="@+id/stock_category_total_tv"
-        android:layout_toRightOf="@+id/stock_category_total_tv" />
+        android:layout_toRightOf="@+id/stock_category_total_tv"
+        android:layout_marginStart="30dp" />
 
     <ImageView
         android:id="@+id/stock_category_del_btn"
@@ -38,6 +39,6 @@
         android:layout_toEndOf="@+id/stock_category_edit_btn"
         android:layout_toRightOf="@+id/stock_category_edit_btn"
         android:layout_alignParentRight="true"
-        />
+        android:layout_alignParentEnd="true" />
 
 </RelativeLayout>

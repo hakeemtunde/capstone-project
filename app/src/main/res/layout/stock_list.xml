@@ -20,14 +20,15 @@
         android:layout_centerVertical="true"
         android:layout_alignTop="@id/stock_iv"
         android:textSize="20sp"
-        />
+        android:layout_toEndOf="@id/stock_iv" />
 
     <LinearLayout
         android:layout_centerVertical="true"
         android:layout_alignParentRight="true"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        android:layout_alignParentEnd="true">
 
         <ImageView
             android:id="@+id/stock_edit_btn"
@@ -37,7 +38,7 @@
             android:layout_width="24dp"
             android:layout_height="24dp"
 
-            />
+            android:layout_marginEnd="10dp" />
 
         <ImageView
             android:id="@+id/stock_cart_btn"
