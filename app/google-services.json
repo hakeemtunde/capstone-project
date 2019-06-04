@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "609334058838",
+    "firebase_url": "https://kiipa-78cdf.firebaseio.com",
+    "project_id": "kiipa-78cdf",
+    "storage_bucket": "kiipa-78cdf.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:609334058838:android:51564939c9bc5f09",
+        "android_client_info": {
+          "package_name": "com.corebyte.mob.kiipa"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "609334058838-4qi4g17vfpjlmhp66mi746n4tn0uc3fr.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBwmpM_HFUwmyO4tCjxjuxPPate5twDRDM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "609334058838-4qi4g17vfpjlmhp66mi746n4tn0uc3fr.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
