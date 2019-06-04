@@ -61,6 +61,8 @@ public class MeasurementDlgProcessor {
 
     public Measurement getUiMeasurement() {
 
+        if (!isFormValid()) return null;
+
         if (mMeasurement == null) {
             mMeasurement = new Measurement();
         }
@@ -89,5 +91,20 @@ public class MeasurementDlgProcessor {
 
     public interface MeasurementHandler {
         void attach(Measurement measurement);
+    }
+
+    private boolean isFormValid() {
+
+
+        if (TextUtils.isEmpty(nameEd.getText()) || TextUtils.isEmpty(supplyPriceEd.getText()) ||
+                !TextUtils.isDigitsOnly(supplyPriceEd.getText()) || TextUtils.isEmpty(sellingPriceEd.getText())
+            || !TextUtils.isDigitsOnly(sellingPriceEd.getText()) || TextUtils.isEmpty(supplyQtyEd.getText())
+            || !TextUtils.isDigitsOnly(supplyQtyEd.getText()) ) {
+
+            return false;
+        }
+
+        return true;
+
     }
 }

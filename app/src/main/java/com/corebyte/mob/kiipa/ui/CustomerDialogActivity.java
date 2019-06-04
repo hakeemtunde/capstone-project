@@ -9,6 +9,7 @@ import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AlertDialog;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -73,6 +74,8 @@ public class CustomerDialogActivity extends DialogFragment {
             public void onClick(DialogInterface dialogInterface, int i) {
 
                 //validate
+                if (TextUtils.isEmpty(nameEt.getText())) return;
+
                 String[] params = new String[]{nameEt.getText().toString(),
                         phoneEt.getText().toString() };
 
