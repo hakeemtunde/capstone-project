@@ -64,7 +64,8 @@
         android:layout_height="wrap_content"
         android:layout_toEndOf="@+id/stock_iv"
         android:layout_below="@+id/stock_price_label_tv"
-        android:layout_marginTop="10dp"/>
+        android:layout_marginTop="10dp"
+        android:inputType="number"/>
 
     <LinearLayout
         android:id="@+id/measure_ll"
