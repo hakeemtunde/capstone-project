@@ -1,5 +1,6 @@
 package com.corebyte.mob.kiipa.repo;
 
+import android.arch.lifecycle.LiveData;
 import android.content.Context;
 import android.os.AsyncTask;
 
@@ -148,15 +149,42 @@ public class CrudAsyncTask<T extends BaseModel> implements CrudOperation<T> {
         return model;
     }
 
-    @Override
-    public List<T> getAll() {
+//    @Override
+//    public LiveData<List<T>> getAll() {
+//
+//        LiveData<List<T>> data = new LiveData<List<T>>(){};
+//
+//        AsyncTask asyncTask = new AsyncTask<Void, Void, LiveData<List<T>>>() {
+//
+//            @Override
+//            protected LiveData<List<T>> doInBackground(Void... voids) {
+//                LiveData<List<T>> data = mDao.getAll();
+//                return data;
+//            }
+//
+//        }.execute();
+//
+//        try {
+//            data = ((LiveData<List<T>>) asyncTask.get());
+//        } catch (InterruptedException ie) {
+//            ie.printStackTrace();
+//        } catch (ExecutionException ee) {
+//            ee.printStackTrace();
+//        }
+//
+//        return data;
+//
+//    }
 
+    @Override
+    public List<T> getAllRecord() {
         List<T> data = new ArrayList<>();
+
         AsyncTask asyncTask = new AsyncTask<Void, Void, List<T>>() {
 
             @Override
             protected List<T> doInBackground(Void... voids) {
-                List<T> data = mDao.getAll();
+                List<T> data = mDao.getAllRecords();
                 return data;
             }
 
@@ -171,6 +199,5 @@ public class CrudAsyncTask<T extends BaseModel> implements CrudOperation<T> {
         }
 
         return data;
-
     }
 }

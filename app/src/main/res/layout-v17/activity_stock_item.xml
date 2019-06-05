@@ -31,20 +31,19 @@
                 android:layout_height="wrap_content"
                 android:inputType="date"
                 android:enabled="false"
-                android:layout_marginRight="10dp"
-                android:layout_below="@+id/ed_name"
-                android:layout_marginEnd="10dp" />
+                android:layout_marginEnd="10dp"
+                android:layout_below="@+id/ed_name"/>
 
             <ImageButton
                 android:id="@+id/date_picker_btn"
-                android:layout_toRightOf="@+id/ed_expiration"
+                android:layout_toEndOf="@+id/ed_expiration"
                 android:layout_below="@+id/ed_name"
                 android:layout_alignBottom="@+id/ed_expiration"
                 android:layout_width="34dp"
                 android:layout_height="34dp"
                 android:src="@drawable/ic_update_blue_24dp"
                 android:background="#fff"
-                android:layout_toEndOf="@+id/ed_expiration" />
+                />
 
             <EditText
                 android:hint="@string/category"
@@ -53,20 +52,20 @@
                 android:layout_height="wrap_content"
                 android:inputType="text"
                 android:enabled="false"
-                android:layout_marginRight="10dp"
+                android:layout_marginEnd="10dp"
                 android:layout_below="@+id/ed_expiration"
-                android:layout_marginEnd="10dp" />
+                />
 
             <ImageButton
                 android:id="@+id/show_category_btn"
                 android:layout_below="@+id/ed_expiration"
-                android:layout_toRightOf="@+id/ed_category"
+                android:layout_toEndOf="@+id/ed_category"
                 android:layout_alignBottom="@+id/ed_category"
                 android:layout_width="34dp"
                 android:layout_height="34dp"
                 android:src="@drawable/ic_card_travel_black_24dp"
                 android:background="#fff"
-                android:layout_toEndOf="@+id/ed_category" />
+                />
 
             <LinearLayout
                 android:id="@+id/ll_divider1"

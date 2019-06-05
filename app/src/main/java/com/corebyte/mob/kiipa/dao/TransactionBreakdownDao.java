@@ -1,5 +1,6 @@
 package com.corebyte.mob.kiipa.dao;
 
+import android.arch.lifecycle.LiveData;
 import android.arch.persistence.room.Dao;
 import android.arch.persistence.room.Query;
 
@@ -12,10 +13,14 @@ public interface TransactionBreakdownDao extends BaseDao<TransactionBreakdown> {
 
     @Override
     @Query("SELECT * FROM transaction_breakdowns")
-    List<TransactionBreakdown> getAll();
+    LiveData<List<TransactionBreakdown>> getAll();
 
     @Override
     @Query("SELECT * FROM transaction_breakdowns WHERE id = :id")
     TransactionBreakdown findById(long id);
+
+    @Override
+    @Query("SELECT * FROM transaction_breakdowns")
+    List<TransactionBreakdown> getAllRecords();
 
 }

@@ -17,6 +17,8 @@ public class DateUtil {
     public static final String DB_24_HRS_DATE_FORMAT = "yyyy-MM-dd HH:mm:ss";
     public static final String DEFAULT_12_HRS_DATE_FORMAT = "yyyy-MM-dd hh:mm:ss";
 
+    public static final String DASHBOARD_DATE_FORMAT = "EEE, dd MMM yyyy";
+
     public static SimpleDateFormat DATE_FORMATTER = new SimpleDateFormat(
             DEFAULT_12_HRS_DATE_FORMAT, Locale.US);
 
@@ -93,6 +95,11 @@ public class DateUtil {
         for (BaseModel model : models) {
             model.updatedAt = new Date();
         }
+    }
+
+    public static String getDashboardDateFormat(Date date) {
+        DATE_FORMATTER.applyPattern(DASHBOARD_DATE_FORMAT);
+        return date == null ? null : DATE_FORMATTER.format(date);
     }
 
 }

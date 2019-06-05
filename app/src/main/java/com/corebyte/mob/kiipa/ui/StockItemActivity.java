@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.text.TextUtils;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Button;
@@ -115,17 +116,32 @@ public class StockItemActivity extends AppCompatActivity implements MeasurementH
 
         if (item.getItemId() == R.id.save_stock) {
 
-
             String name = nameEt.getText().toString();
 
             //new stock entry
             if (stock == null) {
+
+                if (mExpireDate == null) {
+                    mExpireDate = new Date();
+                }
+
+                //validate
+                if(TextUtils.isEmpty(name) || mCategory == null) {
+                    Toast.makeText(getApplicationContext(),
+                            "Stock Name and Category must be supplied!", Toast.LENGTH_LONG).show();
+                    return true;
+                }
+
                 long stockId = mStockCrudOperation.create(new Stock(name, mExpireDate, mCategory.id));
                 measurementTable.setStockId(stockId);
                 Measurement[] measurements = measurementTable.getMeasurementsAsArray();
                 mMeasurementCrudOperation.create(measurements);
             } else {
                 //update stock/measurements
+
+                if (!TextUtils.isEmpty(name)) {
+                    stock.setName(name);
+                }
 
                 if (mCategory != null) {
                     stock.setCategoryId(mCategory.id);
@@ -225,6 +241,8 @@ public class StockItemActivity extends AppCompatActivity implements MeasurementH
         measurementTable.attachToTable(measurement);
 
     }
+
+
 
 
 }

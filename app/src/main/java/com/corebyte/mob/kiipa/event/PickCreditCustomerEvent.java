@@ -17,10 +17,6 @@ public class PickCreditCustomerEvent {
         mContext = context;
     }
 
-    public List<Customer> fetchAll() {
-        return mCrudOperation.getAll();
-    }
-
     public Context getContext() {
         return mContext;
     }

@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="supply_price">Supply price</string>
+    <string name="selling_price">Selling price</string>
+    <string name="qty">Qty</string>
+</resources>

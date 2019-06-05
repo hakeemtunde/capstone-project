@@ -1,5 +1,6 @@
 package com.corebyte.mob.kiipa.repo;
 
+import android.arch.lifecycle.LiveData;
 import android.content.Context;
 import android.os.AsyncTask;
 
@@ -26,6 +27,11 @@ public class TransactionSummaryCrudOp implements CrudDao<TransactionSummary> {
     @Override
     public BaseDao getCrudDao(AppDatabase database) {
         return database.transactionSummaryDao();
+    }
+
+    @Override
+    public CrudAsyncTask getAsync() {
+        return mCrudAsyn;
     }
 
     @Override
@@ -62,8 +68,8 @@ public class TransactionSummaryCrudOp implements CrudDao<TransactionSummary> {
     }
 
     @Override
-    public List<TransactionSummary> getAll() {
-        return mCrudAsyn.getAll();
+    public List<TransactionSummary> getAllRecord() {
+        return mCrudAsyn.getAllRecord();
     }
 
     public int getTransactionCount(Date date) {

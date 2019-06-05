@@ -1,5 +1,6 @@
 package com.corebyte.mob.kiipa.dao;
 
+import android.arch.lifecycle.LiveData;
 import android.arch.persistence.room.Delete;
 import android.arch.persistence.room.Insert;
 import android.arch.persistence.room.OnConflictStrategy;
@@ -11,7 +12,9 @@ import java.util.List;
 
 public interface BaseDao<T extends BaseModel> {
 
-    List<T> getAll();
+    LiveData<List<T>> getAll();
+
+    List<T> getAllRecords();
 
     T findById(long id);
 

@@ -1,6 +1,9 @@
 package com.corebyte.mob.kiipa.ui;
 
+import android.arch.lifecycle.Observer;
+import android.arch.lifecycle.ViewModelProviders;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -13,7 +16,11 @@ import android.widget.ProgressBar;
 import com.corebyte.mob.kiipa.R;
 import com.corebyte.mob.kiipa.adapter.CategoryRecyclerAdapter;
 import com.corebyte.mob.kiipa.event.ProgressBarEvent;
+import com.corebyte.mob.kiipa.model.Category;
 import com.corebyte.mob.kiipa.repo.CategoryCrudOperation;
+import com.corebyte.mob.kiipa.viewmodel.CategoryViewModel;
+
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -29,8 +36,6 @@ public class StockCategoryActivity extends AppCompatActivity
 
     @BindView(R.id.pb_loader)
     public ProgressBar progressBar;
-
-    private CategoryCrudOperation categoryCrudOperation;
 
     private CategoryRecyclerAdapter mAdapter;
 
@@ -49,8 +54,15 @@ public class StockCategoryActivity extends AppCompatActivity
         mCategoryRv.setLayoutManager(linearLayoutManager);
         mCategoryRv.setAdapter(mAdapter);
 
-        categoryCrudOperation = new CategoryCrudOperation(getApplicationContext());
-        categoryCrudOperation.loadDataToAdapter(mAdapter);
+        CategoryViewModel categoryViewModel = ViewModelProviders.of(this).get(CategoryViewModel.class);
+        categoryViewModel.getCategoryList().observe(this, new Observer<List<Category>>() {
+            @Override
+            public void onChanged(@Nullable List<Category> categories) {
+                mAdapter.loadData(categories);
+            }
+        });
+
+
     }
 
     @Override
@@ -64,7 +76,6 @@ public class StockCategoryActivity extends AppCompatActivity
 
         if (item.getItemId() == R.id.add_category) {
             CategoryDialog categoryDialog = new CategoryDialog();
-            categoryDialog.setAdapter(mAdapter);
             categoryDialog.show(getSupportFragmentManager(), getString(R.string.categoryDlgTag));
             return true;
         }

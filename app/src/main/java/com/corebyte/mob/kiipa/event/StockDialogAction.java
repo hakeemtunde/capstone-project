@@ -13,10 +13,6 @@ public interface StockDialogAction {
 
     void update(Category category);
 
-    void refreshAdapter(AdapterDataLoader adapterDataLoader);
-
-    boolean isValid(String name);
-
     class StockDialogActionImp implements StockDialogAction {
 
         private CategoryCrudOperation mCrudOperation;
@@ -35,20 +31,6 @@ public interface StockDialogAction {
             mCrudOperation.update(category);
         }
 
-        @Override
-        public void refreshAdapter(AdapterDataLoader adapterDataLoader) {
-            if (adapterDataLoader == null) return;
-            mCrudOperation.loadDataToAdapter(adapterDataLoader);
-        }
-
-        @Override
-        public boolean isValid(String name) {
-            return true;
-        }
     }
 
-//    public interface StockDialogGenericAction<T> {
-//        void create(String... params);
-//        void update(T model);
-//    }
 }

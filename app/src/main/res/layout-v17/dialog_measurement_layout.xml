@@ -20,20 +20,18 @@
         android:layout_width="@dimen/widthMeasureWidget"
         android:layout_height="wrap_content"
         android:hint="@string/supply_price"
-        android:layout_marginRight="@dimen/marginRightMeasureWidget"
         android:layout_marginEnd="@dimen/marginRightMeasureWidget"
         android:inputType="number"
          />
 
     <EditText
         android:id="@+id/ed_selling_price"
-        android:layout_toRightOf="@+id/ed_supply_price"
+        android:layout_toEndOf="@+id/ed_supply_price"
         android:layout_below="@+id/ed_measure"
         android:layout_width="@dimen/widthMeasureWidget"
         android:layout_height="wrap_content"
         android:hint="@string/selling_price"
-        android:inputType="numberDecimal"
-        android:layout_toEndOf="@+id/ed_supply_price" />
+        android:inputType="numberDecimal"/>
 
 
     <EditText
@@ -42,22 +40,20 @@
         android:layout_width="@dimen/widthMeasureWidget"
         android:layout_height="wrap_content"
         android:hint="@string/supply_qty"
-        android:layout_marginRight="@dimen/marginRightMeasureWidget"
+        android:layout_marginEnd="@dimen/marginRightMeasureWidget"
         android:layout_marginTop="@dimen/marginMeasureWidget"
-        android:inputType="number"
-        android:layout_marginEnd="@dimen/marginRightMeasureWidget" />
+        android:inputType="number"/>
 
     <EditText
         android:id="@+id/ed_last_supply_qty"
         android:layout_below="@+id/ed_supply_price"
-        android:layout_toRightOf="@+id/ed_supply_qty"
+        android:layout_toEndOf="@+id/ed_supply_qty"
         android:layout_width="@dimen/widthMeasureWidget"
         android:layout_height="wrap_content"
         android:hint="@string/last_qty"
         android:layout_marginTop="@dimen/marginMeasureWidget"
         android:inputType="numberDecimal"
-        android:enabled="false"
-        android:layout_toEndOf="@+id/ed_supply_qty" />
+        android:enabled="false" />
 
 
     <TextView

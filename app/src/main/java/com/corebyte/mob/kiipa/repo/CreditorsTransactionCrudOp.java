@@ -1,5 +1,6 @@
 package com.corebyte.mob.kiipa.repo;
 
+import android.arch.lifecycle.LiveData;
 import android.content.Context;
 
 import com.corebyte.mob.kiipa.dao.AppDatabase;
@@ -23,6 +24,11 @@ public class CreditorsTransactionCrudOp implements CrudDao<CreditorsTransaction>
     @Override
     public BaseDao getCrudDao(AppDatabase database) {
         return database.creditorsTransactionDao();
+    }
+
+    @Override
+    public CrudAsyncTask getAsync() {
+        return mCrudAsync;
     }
 
     @Override
@@ -60,16 +66,16 @@ public class CreditorsTransactionCrudOp implements CrudDao<CreditorsTransaction>
     }
 
     @Override
-    public List<CreditorsTransaction> getAll() {
-        return mCrudAsync.getAll();
+    public List<CreditorsTransaction> getAllRecord() {
+        return mCrudAsync.getAllRecord();
     }
 
     public int countCreditors(Date date) {
-        return ((CreditorsTransactionDao)mCrudAsync.getDao()).countCreditorsTransactionByDate(date);
+        return ((CreditorsTransactionDao) mCrudAsync.getDao()).countCreditorsTransactionByDate(date);
     }
 
     public List<CreditorsTransaction> findCreditorsByDate(Date date) {
-        return ((CreditorsTransactionDao)mCrudAsync.getDao()).findByDate(date);
+        return ((CreditorsTransactionDao) mCrudAsync.getDao()).findByDate(date);
     }
 
 }

@@ -1,7 +1,10 @@
 package com.corebyte.mob.kiipa.ui;
 
+import android.arch.lifecycle.Observer;
+import android.arch.lifecycle.ViewModelProviders;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -16,6 +19,9 @@ import com.corebyte.mob.kiipa.event.PickCreditCustomerEvent;
 import com.corebyte.mob.kiipa.model.CreditorsTransaction;
 import com.corebyte.mob.kiipa.model.Customer;
 import com.corebyte.mob.kiipa.repo.CreditorsTransactionCrudOp;
+import com.corebyte.mob.kiipa.viewmodel.CustomerViewModel;
+
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -59,15 +65,23 @@ public class PickCreditCustomerActivity extends AppCompatActivity
         mCreditorsTransactionsCrudOp = new CreditorsTransactionCrudOp(getApplicationContext());
         PickCreditCustomerEvent creditCustomerEvent = new PickCreditCustomerEvent(getApplicationContext());
 
-        PickCreditCustomerRecyclerAdapter adapter = new PickCreditCustomerRecyclerAdapter(creditCustomerEvent,
+        final PickCreditCustomerRecyclerAdapter adapter = new PickCreditCustomerRecyclerAdapter(creditCustomerEvent,
                 this);
         adapter.setCartTotalSum(cartTotalSum);
-        mCustomerEventHandler.setAdapter(adapter);
+        //mCustomerEventHandler.setAdapter(adapter);
 
         LinearLayoutManager layoutManager = new LinearLayoutManager(this);
         mCreditCustomerRv.setLayoutManager(layoutManager);
         mCreditCustomerRv.setHasFixedSize(true);
         mCreditCustomerRv.setAdapter(adapter);
+
+        CustomerViewModel CustomerViewModel = ViewModelProviders.of(this).get(CustomerViewModel.class);
+        CustomerViewModel.getCustomersList().observe(this, new Observer<List<Customer>>() {
+            @Override
+            public void onChanged(@Nullable List<Customer> customerList) {
+                adapter.setAdapterData(customerList);
+            }
+        });
 
     }
 

@@ -1,5 +1,6 @@
 package com.corebyte.mob.kiipa.repo;
 
+import android.arch.lifecycle.LiveData;
 import android.content.Context;
 import android.os.AsyncTask;
 
@@ -27,6 +28,11 @@ public class MeasurementCrudOperation implements CrudDao<Measurement> {
     @Override
     public BaseDao getCrudDao(AppDatabase database) {
         return database.measurementDao();
+    }
+
+    @Override
+    public CrudAsyncTask getAsync() {
+        return mCrudAsync;
     }
 
     @Override
@@ -64,8 +70,8 @@ public class MeasurementCrudOperation implements CrudDao<Measurement> {
     }
 
     @Override
-    public List<Measurement> getAll() {
-        return mCrudAsync.getAll();
+    public List<Measurement> getAllRecord() {
+        return mCrudAsync.getAllRecord();
     }
 
     public List<Measurement> findByStockId(long stockId) {

@@ -4,14 +4,14 @@
 
     <item
         android:id="@+id/add_creditor"
-        android:title="Add"
+        android:title="@string/add"
         android:icon="@drawable/ic_add_white_24dp"
         android:orderInCategory="100"
         app:showAsAction="always" />
 
     <item
         android:id="@+id/done_it"
-        android:title="Done"
+        android:title="@string/done"
         app:showAsAction="always"
         android:icon="@drawable/ic_check_done_mark_24dp"
         android:enabled="false"

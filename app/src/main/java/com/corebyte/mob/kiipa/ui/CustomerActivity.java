@@ -1,6 +1,9 @@
 package com.corebyte.mob.kiipa.ui;
 
+import android.arch.lifecycle.Observer;
+import android.arch.lifecycle.ViewModelProviders;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
@@ -12,6 +15,10 @@ import android.view.MenuItem;
 import com.corebyte.mob.kiipa.R;
 import com.corebyte.mob.kiipa.adapter.CustomerRecyclerViewAdapter;
 import com.corebyte.mob.kiipa.event.CustomerEventHandler;
+import com.corebyte.mob.kiipa.model.Customer;
+import com.corebyte.mob.kiipa.viewmodel.CustomerViewModel;
+
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -25,6 +32,8 @@ public class CustomerActivity extends AppCompatActivity {
 
     CustomerEventHandler mEventHandler;
 
+    CustomerViewModel mCustomerViewModel;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,9 +45,9 @@ public class CustomerActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
 
         mEventHandler = new CustomerEventHandler(getApplicationContext());
-        CustomerRecyclerViewAdapter adapter = new CustomerRecyclerViewAdapter(mEventHandler);
+        final CustomerRecyclerViewAdapter adapter = new CustomerRecyclerViewAdapter(mEventHandler);
 
-        mEventHandler.setAdapter(adapter);
+        //mEventHandler.setAdapter(adapter);
         mEventHandler.setFragmentManager(getSupportFragmentManager());
 
         LinearLayoutManager layoutManager = new LinearLayoutManager(this);
@@ -47,6 +56,16 @@ public class CustomerActivity extends AppCompatActivity {
         mCustomerRv.setLayoutManager(layoutManager);
         mCustomerRv.setHasFixedSize(true);
         mCustomerRv.setAdapter(adapter);
+
+        mCustomerViewModel = ViewModelProviders.of(this).get(CustomerViewModel.class);
+        mCustomerViewModel.getCustomersList().observe(this, new Observer<List<Customer>>() {
+            @Override
+            public void onChanged(@Nullable List<Customer> customerList) {
+                adapter.setAdapterData(customerList);
+            }
+        });
+
+
 
     }
 

@@ -23,8 +23,6 @@ public class CustomerRecyclerViewAdapter
     private EventHandler mEventHandler;
     public CustomerRecyclerViewAdapter(EventHandler handler) {
         mEventHandler = handler;
-        mCustomers = handler.fetchAll();
-
     }
 
     @NonNull
@@ -47,15 +45,9 @@ public class CustomerRecyclerViewAdapter
         return mCustomers == null ? 0 : mCustomers.size();
     }
 
-
     @Override
-    public void appendModel(Customer model) {
-
-    }
-
-    @Override
-    public void refreshAdapter() {
-        mCustomers = mEventHandler.fetchAll();
+    public void setAdapterData(List<Customer> data) {
+        mCustomers = data;
         notifyDataSetChanged();
     }
 

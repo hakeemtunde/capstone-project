@@ -16,55 +16,44 @@
         android:id="@+id/stock_name_label_tv"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_toRightOf="@+id/stock_iv"
-        android:text="@string/stock"
-        android:layout_marginLeft="@dimen/addToStockDlgTextLabelLeftMargin"
         android:layout_toEndOf="@+id/stock_iv"
-        android:layout_marginStart="@dimen/addToStockDlgTextLabelLeftMargin" />
+        android:text="@string/stock"
+        android:layout_marginStart="@dimen/addToStockDlgTextLabelLeftMargin"
+        />
 
     <TextView
         android:id="@+id/stock_name_tv"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_toRightOf="@+id/stock_name_label_tv"
-        android:text="@string/tomato"
         android:layout_toEndOf="@+id/stock_name_label_tv" />
 
     <TextView
         android:id="@+id/stock_price_label_tv"
-        android:layout_toRightOf="@id/stock_iv"
+        android:layout_toEndOf="@id/stock_iv"
         android:layout_below="@id/stock_name_label_tv"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/price"
-        android:layout_marginLeft="@dimen/addToStockDlgTextLabelLeftMargin"
-        android:layout_toEndOf="@id/stock_iv"
-        android:layout_marginStart="@dimen/addToStockDlgTextLabelLeftMargin" />
+        android:layout_marginStart="@dimen/addToStockDlgTextLabelLeftMargin"/>
 
     <TextView
         android:id="@+id/stock_price_tv"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_toRightOf="@+id/stock_price_label_tv"
         android:layout_toEndOf="@+id/stock_price_label_tv"
         android:layout_below="@id/stock_name_label_tv" />
 
     <TextView
         android:id="@+id/stock_qty_label_tv"
-        android:layout_toRightOf="@id/stock_iv"
+        android:layout_toEndOf="@id/stock_iv"
         android:layout_below="@id/stock_price_label_tv"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/qty_label"
-        android:layout_marginLeft="@dimen/addToStockDlgTextLabelLeftMargin"
-        android:layout_toEndOf="@id/stock_iv"
-        android:layout_marginStart="@dimen/addToStockDlgTextLabelLeftMargin" />
+        android:layout_marginStart="@dimen/addToStockDlgTextLabelLeftMargin"/>
 
     <TextView
         android:id="@+id/stock_qty_tv"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_toRightOf="@+id/stock_qty_label_tv"
         android:layout_toEndOf="@+id/stock_qty_label_tv"
         android:layout_below="@id/stock_price_tv" />
 
@@ -73,10 +62,8 @@
         android:id="@+id/quantity_ed"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_toRightOf="@+id/stock_iv"
         android:layout_toEndOf="@+id/stock_iv"
         android:layout_below="@+id/stock_price_label_tv"
-        android:hint="@string/quantity_hint"
         android:layout_marginTop="10dp"
         android:inputType="number"/>
 

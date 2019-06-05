@@ -1,5 +1,6 @@
 package com.corebyte.mob.kiipa.repo;
 
+import android.arch.lifecycle.LiveData;
 import android.content.Context;
 
 import com.corebyte.mob.kiipa.dao.AppDatabase;
@@ -21,6 +22,11 @@ public class TransactionBreakdownCrudOp implements CrudDao<TransactionBreakdown>
     @Override
     public BaseDao getCrudDao(AppDatabase database) {
         return database.transactionBreakdownDao();
+    }
+
+    @Override
+    public CrudAsyncTask getAsync() {
+        return mCrudAsync;
     }
 
     @Override
@@ -58,7 +64,8 @@ public class TransactionBreakdownCrudOp implements CrudDao<TransactionBreakdown>
     }
 
     @Override
-    public List<TransactionBreakdown> getAll() {
-        return mCrudAsync.getAll();
+    public List<TransactionBreakdown> getAllRecord() {
+        return mCrudAsync.getAllRecord();
+
     }
 }

@@ -57,6 +57,7 @@ public class PublishMeasurementTable {
     }
 
     public void attachToTable(Measurement measurement) {
+        if (measurement == null) return;
         initTableWidgets();
         setWidgetValues(measurement);
         generateRow();

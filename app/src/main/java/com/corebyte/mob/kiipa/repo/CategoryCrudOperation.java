@@ -1,8 +1,8 @@
 package com.corebyte.mob.kiipa.repo;
 
+import android.arch.lifecycle.LiveData;
 import android.content.Context;
 
-import com.corebyte.mob.kiipa.adapter.AdapterDataLoader;
 import com.corebyte.mob.kiipa.dao.AppDatabase;
 import com.corebyte.mob.kiipa.dao.BaseDao;
 import com.corebyte.mob.kiipa.event.CrudDao;
@@ -23,7 +23,7 @@ public class CategoryCrudOperation implements CrudDao<Category> {
     public String[] getAllAsArray() {
 
         if (mCategories == null) {
-            mCategories = getAll();
+            mCategories = getAllRecord();
         }
 
         String[] categoryArray = new String[mCategories.size()];
@@ -37,7 +37,7 @@ public class CategoryCrudOperation implements CrudDao<Category> {
 
     public Category getCategoryWithIndex(int index) {
         if (mCategories == null) {
-            mCategories = getAll();
+            mCategories = getAllRecord();
         }
 
         if (index > (mCategories.size() - 1)) return null;
@@ -82,9 +82,8 @@ public class CategoryCrudOperation implements CrudDao<Category> {
     }
 
     @Override
-    public List<Category> getAll() {
-        List<Category> data = mCrudAsyncTask.getAll();
-        return data;
+    public List<Category> getAllRecord() {
+        return mCrudAsyncTask.getAllRecord();
     }
 
     @Override
@@ -92,9 +91,9 @@ public class CategoryCrudOperation implements CrudDao<Category> {
         return database.categoryDao();
     }
 
-    public void loadDataToAdapter(AdapterDataLoader loader) {
-        List<Category> data = getAll();
-        loader.loadData(data);
+    @Override
+    public CrudAsyncTask getAsync() {
+        return mCrudAsyncTask;
     }
 
 }

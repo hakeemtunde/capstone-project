@@ -1,5 +1,6 @@
 package com.corebyte.mob.kiipa.repo;
 
+import android.arch.lifecycle.LiveData;
 import android.content.Context;
 import android.os.AsyncTask;
 import android.util.Log;
@@ -28,6 +29,11 @@ public class StockCrudOperation implements CrudDao<Stock> {
     @Override
     public BaseDao getCrudDao(AppDatabase database) {
         return database.stockDao();
+    }
+
+    @Override
+    public CrudAsyncTask getAsync() {
+        return mCrudAsync;
     }
 
     @Override
@@ -65,25 +71,25 @@ public class StockCrudOperation implements CrudDao<Stock> {
     }
 
     @Override
-    public List<Stock> getAll() {
-        return mCrudAsync.getAll();
+    public List<Stock> getAllRecord() {
+        return mCrudAsync.getAllRecord();
     }
 
     public List<Stock> getExpireStockIn(int days) {
 
         final List<Stock> expireStocks = new ArrayList<>();
 
-        AsyncTask asyncTask = new AsyncTask<Integer, Void, List<Stock>>(){
+        AsyncTask asyncTask = new AsyncTask<Integer, Void, List<Stock>>() {
 
             @Override
             protected List<Stock> doInBackground(Integer... integers) {
-                return ((StockDao)mCrudAsync.getDao()).findExpireStockIn(integers[0]);
+                return ((StockDao) mCrudAsync.getDao()).findExpireStockIn(integers[0]);
             }
 
             @Override
             protected void onPostExecute(List<Stock> stocks) {
                 expireStocks.addAll(stocks);
-                Log.i(TAG, " expire stocks "+ expireStocks.toString());
+                Log.i(TAG, " expire stocks " + expireStocks.toString());
             }
         }.execute(days);
 
@@ -96,11 +102,11 @@ public class StockCrudOperation implements CrudDao<Stock> {
 
         final List<Stock> expireStocks = new ArrayList<>();
 
-        AsyncTask asyncTask = new AsyncTask<Integer, Void, List<Stock>>(){
+        AsyncTask asyncTask = new AsyncTask<Integer, Void, List<Stock>>() {
 
             @Override
             protected List<Stock> doInBackground(Integer... integers) {
-                return ((StockDao)mCrudAsync.getDao()).findExpireStockIn(integers[0]);
+                return ((StockDao) mCrudAsync.getDao()).findExpireStockIn(integers[0]);
             }
 
             @Override
@@ -109,7 +115,7 @@ public class StockCrudOperation implements CrudDao<Stock> {
                 if (shownotification && !expireStocks.isEmpty()) {
                     TrackStock.notification(mCrudAsync.getContext(), expireStocks);
                 }
-                Log.i(TAG, " expire stocks "+ expireStocks.toString());
+                Log.i(TAG, " expire stocks " + expireStocks.toString());
             }
         }.execute(days);
 

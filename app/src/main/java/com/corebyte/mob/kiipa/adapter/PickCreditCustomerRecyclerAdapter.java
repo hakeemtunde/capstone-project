@@ -29,7 +29,6 @@ public class PickCreditCustomerRecyclerAdapter
 
     public PickCreditCustomerRecyclerAdapter(PickCreditCustomerEvent handler, PickCreditCustomerEvent.OnClickCreditor onClickCreditor) {
         mEventHandler = handler;
-        mCustomers = handler.fetchAll();
         mOnClickCreditor = onClickCreditor;
 
         mIsStoreKeeper = AppUtil.getPreferenceSettings(mEventHandler.getContext(),
@@ -57,14 +56,11 @@ public class PickCreditCustomerRecyclerAdapter
     }
 
     @Override
-    public void appendModel(Customer model) {
-        mCustomers.add(model);
-    }
-
-    @Override
-    public void refreshAdapter() {
+    public void setAdapterData(List<Customer> data) {
+        mCustomers = data;
         notifyDataSetChanged();
     }
+
 
     public void setCartTotalSum(double sum) {
         mCartTotalSum = sum;
@@ -98,7 +94,7 @@ public class PickCreditCustomerRecyclerAdapter
             double ownCredit = 0;
 
             //selling
-            if (!mIsStoreKeeper ) {
+            if (!mIsStoreKeeper) {
 
                 ownCredit = customer.getOwnCredit();
                 mCreditTv.setText(String.valueOf(ownCredit));
@@ -123,7 +119,7 @@ public class PickCreditCustomerRecyclerAdapter
                         R.color.colorLightGray));
 
                 //selling
-                if(!mIsStoreKeeper) {
+                if (!mIsStoreKeeper) {
                     double total = ownCredit + mCartTotalSum;
 
                     StringBuilder sb = new StringBuilder();

@@ -10,12 +10,14 @@
         android:id="@+id/customer_name_et"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:inputType="text"
         android:hint="@string/name_str"/>
 
     <EditText
         android:id="@+id/customer_phone_et"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:inputType="number"
         android:hint="@string/phone_str"/>
 
 </LinearLayout>

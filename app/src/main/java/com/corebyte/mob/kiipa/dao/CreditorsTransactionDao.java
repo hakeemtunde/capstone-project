@@ -1,5 +1,6 @@
 package com.corebyte.mob.kiipa.dao;
 
+import android.arch.lifecycle.LiveData;
 import android.arch.persistence.room.Dao;
 import android.arch.persistence.room.Query;
 
@@ -13,7 +14,7 @@ public interface CreditorsTransactionDao extends BaseDao<CreditorsTransaction> {
 
     @Override
     @Query("SELECT * FROM creditors_transactions")
-    List<CreditorsTransaction> getAll();
+    LiveData<List<CreditorsTransaction>> getAll();
 
     @Override
     @Query("SELECT * FROM creditors_transactions WHERE id = :id")
@@ -24,5 +25,9 @@ public interface CreditorsTransactionDao extends BaseDao<CreditorsTransaction> {
 
     @Query("SELECT COUNT(*) FROM creditors_transactions WHERE strftime('%d-%m-%Y', 'created_at') = strftime('%d-%m-%Y', :date)")
     int countCreditorsTransactionByDate(Date date);
+
+    @Override
+    @Query("SELECT * FROM creditors_transactions")
+    List<CreditorsTransaction> getAllRecords();
 
 }

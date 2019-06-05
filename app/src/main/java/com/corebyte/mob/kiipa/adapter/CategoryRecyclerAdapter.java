@@ -80,13 +80,12 @@ public class CategoryRecyclerAdapter extends RecyclerView.Adapter<CategoryRecycl
 
         public void bind(final Category category) {
             mCategoryNameTv.setText(category.getName());
-            mTotalStockTv.setText("100");
 
             mEditImg.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
                     CategoryDialog categoryDialog = new CategoryDialog();
-                    categoryDialog.setAdapter(CategoryRecyclerAdapter.this);
+
                     Bundle bundle = new Bundle();
                     bundle.putParcelable(CategoryDialog.CATEGORY_KEY, category);
                     categoryDialog.setArguments(bundle);
@@ -102,7 +101,6 @@ public class CategoryRecyclerAdapter extends RecyclerView.Adapter<CategoryRecycl
                 public void onClick(View view) {
                     CategoryCrudOperation categoryCrudOperation = new CategoryCrudOperation(mContext);
                     categoryCrudOperation.delete(category);
-                    categoryCrudOperation.loadDataToAdapter(CategoryRecyclerAdapter.this);
                     Toast.makeText(mContext, "Deleted", Toast.LENGTH_LONG).show();
                 }
             });
