@@ -9,19 +9,29 @@ import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.TextView;
 
 import com.corebyte.mob.kiipa.R;
 import com.corebyte.mob.kiipa.services.StockExpirationScheduler;
 import com.corebyte.mob.kiipa.services.TrackStock;
 import com.corebyte.mob.kiipa.util.AppUtil;
+import com.corebyte.mob.kiipa.util.DateUtil;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
 import com.google.android.gms.ads.MobileAds;
+import com.google.android.gms.common.util.DataUtils;
 
+import java.util.Date;
+
+import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 public class MainActivity extends AppCompatActivity {
+
+
+    @BindView(R.id.toolbar_date)
+    TextView largeDateTv;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,6 +41,8 @@ public class MainActivity extends AppCompatActivity {
         ButterKnife.bind(this);
         Toolbar toolbar = findViewById(R.id.main_toolbar);
         setSupportActionBar(toolbar);
+
+        largeDateTv.setText(DateUtil.getDashboardDateFormat(new Date()));
 
         MobileAds.initialize(this, getString(R.string.admob_app_id));
 
