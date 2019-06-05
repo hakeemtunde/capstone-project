@@ -85,7 +85,7 @@ public class CategoryRecyclerAdapter extends RecyclerView.Adapter<CategoryRecycl
                 @Override
                 public void onClick(View view) {
                     CategoryDialog categoryDialog = new CategoryDialog();
-                    categoryDialog.setAdapter(CategoryRecyclerAdapter.this);
+
                     Bundle bundle = new Bundle();
                     bundle.putParcelable(CategoryDialog.CATEGORY_KEY, category);
                     categoryDialog.setArguments(bundle);

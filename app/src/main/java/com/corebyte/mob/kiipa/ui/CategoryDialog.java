@@ -22,7 +22,6 @@ public class CategoryDialog extends DialogFragment {
 
     public static final String CATEGORY_KEY = "category";
     private StockDialogAction dialogAction;
-    private AdapterDataLoader mAdapterDataLoader;
     private Category mCategory;
     private String mDlgTitle;
     private String mPositiveButtonStr;
@@ -85,10 +84,6 @@ public class CategoryDialog extends DialogFragment {
         });
 
         return dialogBuilder.create();
-    }
-
-    public void setAdapter(AdapterDataLoader adapterLoader) {
-        mAdapterDataLoader = adapterLoader;
     }
 
 }

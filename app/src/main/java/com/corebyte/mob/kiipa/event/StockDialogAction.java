@@ -33,8 +33,4 @@ public interface StockDialogAction {
 
     }
 
-//    public interface StockDialogGenericAction<T> {
-//        void create(String... params);
-//        void update(T model);
-//    }
 }
