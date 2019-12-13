@@ -2,6 +2,7 @@ package com.corebyte.mob.kiipa.model;
 
 import android.arch.persistence.room.Entity;
 import android.arch.persistence.room.ForeignKey;
+import android.arch.persistence.room.Index;
 
 import static android.arch.persistence.room.ForeignKey.CASCADE;
 
@@ -9,8 +10,12 @@ import static android.arch.persistence.room.ForeignKey.CASCADE;
  foreignKeys ={
         @ForeignKey(entity = Customer.class, parentColumns = "id", childColumns = "customerId", onDelete = CASCADE),
          @ForeignKey(entity = TransactionSummary.class, parentColumns = "id", childColumns = "transactionSummaryId",
-                 onDelete = CASCADE)
- })
+                 onDelete = CASCADE)},
+        indices = {
+            @Index( value = "customerId"),
+            @Index (value = "transactionSummaryId")
+        }
+)
 public class CreditorsTransaction extends BaseModel{
 
     private long customerId;

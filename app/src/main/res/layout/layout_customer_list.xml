@@ -2,6 +2,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:padding="3dp">
 
@@ -32,16 +33,27 @@
         android:layout_centerVertical="true">
 
         <ImageView
+            android:id="@+id/post_payment_btn"
+            android:contentDescription="@string/edit"
+            app:srcCompat="@drawable/ic_attach_money_black_24dp"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:layout_marginRight="5dp"
+            android:layout_marginEnd="5dp"/>
+
+        <ImageView
             android:id="@+id/customer_edit_btn"
             android:contentDescription="@string/edit"
-            android:src="@drawable/ic_edit_black_24dp"
+            app:srcCompat="@drawable/ic_edit_black_24dp"
             android:layout_width="24dp"
-            android:layout_height="24dp" />
+            android:layout_height="24dp"
+            android:layout_marginRight="5dp"
+            android:layout_marginEnd="5dp"/>
 
         <ImageView
             android:id="@+id/customer_del_btn"
             android:contentDescription="@string/delete"
-            android:src="@drawable/ic_delete_black_24dp"
+            app:srcCompat="@drawable/ic_delete_black_24dp"
             android:layout_width="24dp"
             android:layout_height="24dp" />
 

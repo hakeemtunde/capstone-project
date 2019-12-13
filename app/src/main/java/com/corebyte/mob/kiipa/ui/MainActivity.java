@@ -44,8 +44,8 @@ public class MainActivity extends AppCompatActivity {
 
         largeDateTv.setText(DateUtil.getDashboardDateFormat(new Date()));
 
-        MobileAds.initialize(this, getString(R.string.admob_app_id));
-
+//        MobileAds.initialize(this, getString(R.string.admob_app_id));
+        MobileAds.initialize(this, getString(R.string.banner_ad_test_unit_id));
         AdView adView = findViewById(R.id.adView);
         AdRequest adRequest = new AdRequest.Builder().build();
         adView.loadAd(adRequest);

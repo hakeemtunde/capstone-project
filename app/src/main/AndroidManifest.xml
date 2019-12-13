@@ -49,7 +49,7 @@
             android:name=".ui.SettingsActivity"
             android:label="@string/title_activity_settings" />
         <activity android:name=".ui.PickCreditCustomerActivity" />
-        <activity android:name=".ui.CustomerActivity" />
+        <activity android:name=".ui.CustomerActivity"/>
         <activity android:name=".ui.TransactionSummaryActivity" />
         <activity android:name=".ui.CheckoutActivity" />
         <activity android:name=".ui.AddToCartDialogActivity" />

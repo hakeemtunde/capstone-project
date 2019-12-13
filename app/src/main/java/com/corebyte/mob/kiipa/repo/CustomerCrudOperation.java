@@ -12,10 +12,25 @@ import java.util.List;
 
 public class CustomerCrudOperation implements CrudDao<Customer> {
 
+    private static CustomerCrudOperation sInstance;
+
     private CrudAsyncTask<Customer> mCrudAsync;
+
 
     public CustomerCrudOperation(Context context) {
         mCrudAsync = new CrudAsyncTask<>(context, this);
+    }
+
+    public static CustomerCrudOperation getInstance(Context context) {
+
+        if(sInstance == null) {
+            synchronized (CustomerCrudOperation.class) {
+                if(sInstance == null) {
+                    sInstance = new CustomerCrudOperation(context);
+                }
+            }
+        }
+        return sInstance;
     }
 
     @Override

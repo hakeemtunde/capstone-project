@@ -3,6 +3,7 @@ package com.corebyte.mob.kiipa.model;
 import android.arch.persistence.room.Entity;
 import android.arch.persistence.room.ForeignKey;
 import android.arch.persistence.room.Ignore;
+import android.arch.persistence.room.Index;
 import android.os.Parcel;
 import android.os.Parcelable;
 
@@ -13,10 +14,12 @@ import static android.arch.persistence.room.ForeignKey.CASCADE;
 
 @Entity(tableName = "measurements",
         foreignKeys =
-        @ForeignKey(entity = Stock.class, parentColumns = "id", childColumns = "stockId", onDelete = CASCADE))
+        @ForeignKey(entity = Stock.class, parentColumns = "id",
+                childColumns = "stockId", onDelete = CASCADE),
+        indices = @Index("stockId"))
 public class Measurement extends BaseModel implements Parcelable {
 
-    static Parcelable.Creator<Measurement> CREATOR = new Parcelable.Creator<Measurement>() {
+    public static Parcelable.Creator<Measurement> CREATOR = new Parcelable.Creator<Measurement>() {
 
         @Override
         public Measurement createFromParcel(Parcel parcel) {

@@ -10,7 +10,7 @@ import java.util.Date;
 @Entity(tableName = "customers")
 public class Customer extends BaseModel implements Parcelable {
 
-    static Parcelable.Creator<Customer> CREATOR = new Parcelable.Creator<Customer>(){
+    public static Parcelable.Creator<Customer> CREATOR = new Parcelable.Creator<Customer>(){
 
         @Override
         public Customer createFromParcel(Parcel parcel) {
@@ -26,6 +26,9 @@ public class Customer extends BaseModel implements Parcelable {
     private String mName;
     private String mPhone;
     private double mOwnCredit;
+
+    @Ignore
+    public Customer() {}
 
     public Customer(String mName, String mPhone, double mOwnCredit) {
         this.mName = mName;
@@ -94,6 +97,18 @@ public class Customer extends BaseModel implements Parcelable {
     public double getOwnCredit() { return mOwnCredit; }
 
     public void updateCredit(double credit) {
-        mOwnCredit =+ credit;
+        mOwnCredit = mOwnCredit + credit;
+    }
+
+    public void reduceCreditBy(double amount) {
+
+        mOwnCredit = mOwnCredit - amount;
+
+//        if(amount <= mOwnCredit) {
+//            mOwnCredit = mOwnCredit - amount;
+//        }else if (amount > mOwnCredit) {
+//            mOwnCredit = amount - mOwnCredit;
+//        }
+
     }
 }

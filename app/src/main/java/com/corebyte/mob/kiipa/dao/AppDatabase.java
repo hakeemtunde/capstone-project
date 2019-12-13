@@ -11,6 +11,7 @@ import android.support.annotation.NonNull;
 import android.util.Log;
 
 import com.corebyte.mob.kiipa.model.Category;
+import com.corebyte.mob.kiipa.model.CreditorsPaymentLog;
 import com.corebyte.mob.kiipa.model.CreditorsTransaction;
 import com.corebyte.mob.kiipa.model.Customer;
 import com.corebyte.mob.kiipa.model.Measurement;
@@ -24,7 +25,8 @@ import com.corebyte.mob.kiipa.util.DateConverter;
                 TransactionSummary.class,
                 TransactionBreakdown.class,
                 Customer.class,
-                CreditorsTransaction.class
+                CreditorsTransaction.class,
+                CreditorsPaymentLog.class
         },
 
         version = 1,
@@ -32,17 +34,18 @@ import com.corebyte.mob.kiipa.util.DateConverter;
 @TypeConverters(DateConverter.class)
 public abstract class AppDatabase extends RoomDatabase {
 
-    private static final String DB_NAME = "kiipa-db";
+    private static final String DB_NAME = "kiipa-db-dev2.1";
 
     private static AppDatabase sInstance;
 
     public static AppDatabase getInstance(Context context) {
         if (sInstance == null) {
             synchronized (new Object()) {
-                Log.i(AppDatabase.class.getSimpleName(), "Creating db connection");
-                sInstance = Room.databaseBuilder(context.getApplicationContext(),
-                        AppDatabase.class, DB_NAME)
-                        .build();
+                if (sInstance == null) {
+                    sInstance = Room.databaseBuilder(context.getApplicationContext(),
+                            AppDatabase.class, DB_NAME)
+                            .build();
+                }
             }
         }
         return sInstance;
@@ -61,4 +64,6 @@ public abstract class AppDatabase extends RoomDatabase {
     public abstract CustomerDao customerDao();
 
     public abstract CreditorsTransactionDao creditorsTransactionDao();
+
+    public abstract CreditorsPaymentLogDao creditorsPaymentLogDao();
 }

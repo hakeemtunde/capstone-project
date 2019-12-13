@@ -16,4 +16,8 @@ public interface EventHandler<T> {
 
     public Context getContext();
 
+    public interface CallbackPaymentEvent {
+        void onPostPayment(int customerId, double amountPaid);
+    }
+
 }

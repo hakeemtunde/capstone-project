@@ -12,6 +12,8 @@ import com.corebyte.mob.kiipa.R;
 import com.corebyte.mob.kiipa.event.AdapterAction;
 import com.corebyte.mob.kiipa.event.EventHandler;
 import com.corebyte.mob.kiipa.model.Customer;
+import com.corebyte.mob.kiipa.ui.dlg.CreditorsPaymentDlg;
+import com.corebyte.mob.kiipa.ui.dlg.DialogPresenter;
 import com.corebyte.mob.kiipa.util.AppUtil;
 
 import java.util.List;
@@ -21,9 +23,13 @@ public class CustomerRecyclerViewAdapter
 
     private List<Customer> mCustomers;
     private EventHandler mEventHandler;
+    private DialogPresenter.ModelDialogCallback<Customer> dialogCallback;
+
     public CustomerRecyclerViewAdapter(EventHandler handler) {
         mEventHandler = handler;
     }
+
+    public void setDialogCallback(DialogPresenter.ModelDialogCallback callback) { this.dialogCallback = callback; }
 
     @NonNull
     @Override
@@ -58,6 +64,7 @@ public class CustomerRecyclerViewAdapter
         private ImageView mEditIv;
         private ImageView mDeleteIv;
         private TextView mCreditTv;
+        private ImageView postPayment;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -66,6 +73,8 @@ public class CustomerRecyclerViewAdapter
             mEditIv = itemView.findViewById(R.id.customer_edit_btn);
             mDeleteIv = itemView.findViewById(R.id.customer_del_btn);
             mCreditTv = itemView.findViewById(R.id.customer_credit_value);
+            postPayment = itemView.findViewById(R.id.post_payment_btn);
+
 
         }
 
@@ -93,6 +102,13 @@ public class CustomerRecyclerViewAdapter
                 public void onClick(View view) {
                     mEventHandler.delete(customer);
 
+                }
+            });
+
+            postPayment.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    dialogCallback.click(customer);
                 }
             });
         }

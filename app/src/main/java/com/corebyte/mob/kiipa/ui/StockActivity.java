@@ -63,7 +63,6 @@ public class StockActivity extends AppCompatActivity implements StockEvent {
 
         mCart = new Cart();
 
-        stockCrudOperation = new StockCrudOperation(getApplicationContext());
         mStockAdapter = new StockRecyclerAdapter(this);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setHasFixedSize(true);

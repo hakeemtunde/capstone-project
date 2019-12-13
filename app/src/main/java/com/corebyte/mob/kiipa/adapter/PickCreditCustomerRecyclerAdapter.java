@@ -132,7 +132,7 @@ public class PickCreditCustomerRecyclerAdapter
 
                     //credit limit hit
                     if (total >= nCreditLimit) {
-                        sb.append("\nCredit limit hit");
+                        sb.append("\nCredit limit reached");
                         mCreditTv.setTextColor(ContextCompat.getColor(mEventHandler.getContext(),
                                 R.color.colorRed));
                     } else {

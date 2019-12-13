@@ -12,7 +12,7 @@ import java.util.Objects;
 public class Stock extends BaseModel implements Parcelable {
 
 
-    static Parcelable.Creator CREATOR = new Parcelable.Creator<Stock>(){
+    public static Parcelable.Creator CREATOR = new Parcelable.Creator<Stock>(){
 
         @Override
         public Stock createFromParcel(Parcel parcel) {

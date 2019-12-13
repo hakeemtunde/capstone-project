@@ -2,6 +2,7 @@ package com.corebyte.mob.kiipa.ui;
 
 import android.arch.lifecycle.Observer;
 import android.arch.lifecycle.ViewModelProviders;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
@@ -11,11 +12,15 @@ import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 
 import com.corebyte.mob.kiipa.R;
 import com.corebyte.mob.kiipa.adapter.CustomerRecyclerViewAdapter;
 import com.corebyte.mob.kiipa.event.CustomerEventHandler;
+import com.corebyte.mob.kiipa.model.BaseModel;
 import com.corebyte.mob.kiipa.model.Customer;
+import com.corebyte.mob.kiipa.ui.dlg.CreditorsPaymentDlg;
+import com.corebyte.mob.kiipa.ui.dlg.DialogPresenter;
 import com.corebyte.mob.kiipa.viewmodel.CustomerViewModel;
 
 import java.util.List;
@@ -25,6 +30,7 @@ import butterknife.ButterKnife;
 
 public class CustomerActivity extends AppCompatActivity {
 
+    public static final String CUSTOMER_KEY = "customer_model";
     @BindView(R.id.appToolbar)
     public Toolbar toolbar;
     @BindView(R.id.customer_rv)
@@ -66,6 +72,19 @@ public class CustomerActivity extends AppCompatActivity {
         });
 
 
+        //setup payment dialog button click
+        DialogPresenter.ModelDialogCallback callback = new DialogPresenter.ModelDialogCallback<Customer>() {
+            @Override
+            public void click(Customer model) {
+                CreditorsPaymentDialogR dialogR = new CreditorsPaymentDialogR();
+                Bundle bundle = new Bundle();
+                bundle.putParcelable(CUSTOMER_KEY, model);
+                dialogR.setArguments(bundle);
+                dialogR.show(getSupportFragmentManager(), "Payment_DlG");
+            }
+        };
+
+        adapter.setDialogCallback(callback);
 
     }
 
