@@ -98,11 +98,39 @@ public class StockCrudOperation implements CrudDao<Stock> {
 
     }
 
-    public List<Stock> findExpireStockIn2(int days, final boolean shownotification) {
+//    public List<Stock> findExpireStockIn2(int days, final boolean shownotification) {
+//
+//        final List<Stock> expireStocks = new ArrayList<>();
+//
+//        AsyncTask asyncTask = new AsyncTask<Integer, Void, List<Stock>>() {
+//
+//            @Override
+//            protected List<Stock> doInBackground(Integer... integers) {
+//                return ((StockDao) mCrudAsync.getDao()).findExpireStockIn(integers[0]);
+//            }
+//
+//            @Override
+//            protected void onPostExecute(List<Stock> stocks) {
+//                expireStocks.addAll(stocks);
+//                if (shownotification && !expireStocks.isEmpty()) {
+//                    TrackStock.notification(mCrudAsync.getContext(), expireStocks);
+//                }
+//                Log.i(TAG, " expire stocks " + expireStocks.toString());
+//            }
+//        }.execute(days);
+//
+//
+//        return expireStocks;
+//
+//    }
+
+
+    public void findExpireStockAndTriggerAlarmService(final TrackStock.TrackStockHandler handler,
+            int days) {
 
         final List<Stock> expireStocks = new ArrayList<>();
 
-        AsyncTask asyncTask = new AsyncTask<Integer, Void, List<Stock>>() {
+        new AsyncTask<Integer, Void, List<Stock>>() {
 
             @Override
             protected List<Stock> doInBackground(Integer... integers) {
@@ -112,15 +140,10 @@ public class StockCrudOperation implements CrudDao<Stock> {
             @Override
             protected void onPostExecute(List<Stock> stocks) {
                 expireStocks.addAll(stocks);
-                if (shownotification && !expireStocks.isEmpty()) {
-                    TrackStock.notification(mCrudAsync.getContext(), expireStocks);
-                }
+                handler.handler(stocks);
                 Log.i(TAG, " expire stocks " + expireStocks.toString());
             }
         }.execute(days);
-
-
-        return expireStocks;
 
     }
 

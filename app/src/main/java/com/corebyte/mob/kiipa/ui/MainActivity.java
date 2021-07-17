@@ -7,6 +7,7 @@ import android.os.Build;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.TextView;
@@ -28,10 +29,9 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 public class MainActivity extends AppCompatActivity {
-
-
+    private static final String TAG = MainActivity.class.getSimpleName();
     @BindView(R.id.toolbar_date)
-    TextView largeDateTv;
+    public TextView largeDateTv;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,8 +44,8 @@ public class MainActivity extends AppCompatActivity {
 
         largeDateTv.setText(DateUtil.getDashboardDateFormat(new Date()));
 
-//        MobileAds.initialize(this, getString(R.string.admob_app_id));
-        MobileAds.initialize(this, getString(R.string.banner_ad_test_unit_id));
+        MobileAds.initialize(this, getString(R.string.banner_ad_unit_id));
+//        MobileAds.initialize(this, getString(R.string.banner_ad_test_unit_id));
         AdView adView = findViewById(R.id.adView);
         AdRequest adRequest = new AdRequest.Builder().build();
         adView.loadAd(adRequest);
@@ -54,7 +54,12 @@ public class MainActivity extends AppCompatActivity {
 
         boolean notificaionstatus = AppUtil.getPreferenceSettings(getApplicationContext(),
                 getString(R.string.key_alert_on_low_stock), false);
+
         StockExpirationScheduler.setUpAlarmServiceOnStockLow(getApplicationContext(), notificaionstatus);
+
+        notificaionstatus = AppUtil.getPreferenceSettings(getApplicationContext(),
+                getString(R.string.key_notify_on_expire_stock), false);
+        StockExpirationScheduler.setUpAlarmServiceOnStockExpiration(getApplicationContext(), notificaionstatus);
 
     }
 
@@ -73,8 +78,6 @@ public class MainActivity extends AppCompatActivity {
             notificationManager.createNotificationChannel(channel);
         }
     }
-
-
 
 
     @Override

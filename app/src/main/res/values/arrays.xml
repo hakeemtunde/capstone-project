@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="expiration_day_labels">
+        <item>5 Days</item>
+        <item>10 Days</item>
+        <item>2 Weeks</item>
+        <item>1 Month</item>
+    </string-array>
+    <string-array name="expiration_day_list">
+        <item>5</item>
+        <item>10</item>
+        <item>14</item>
+        <item>30</item>
+    </string-array>
+</resources>

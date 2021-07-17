@@ -5,6 +5,7 @@ import android.graphics.drawable.Drawable;
 import android.preference.PreferenceManager;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.graphics.drawable.DrawableCompat;
+import android.util.Log;
 import android.view.MenuItem;
 
 public class AppUtil {
@@ -34,5 +35,10 @@ public class AppUtil {
     public static boolean getPreferenceSettings(Context context, String key, boolean defaultVal) {
         return PreferenceManager.getDefaultSharedPreferences(context)
                 .getBoolean(key, defaultVal);
+    }
+
+    public static int getPreferenceSettings(Context context, String key) {
+        String strDays = PreferenceManager.getDefaultSharedPreferences(context).getString(key, "10");
+        return Integer.valueOf(strDays);
     }
 }

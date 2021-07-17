@@ -19,6 +19,15 @@
         android:maxLines="1"
         android:singleLine="true" />
 
+    <ListPreference
+        android:key="@string/stock_expiration_days_number"
+        android:title="Stock expiration"
+        android:summary="Specify days to stock expiration"
+        android:entryValues="@array/expiration_day_list"
+        android:entries="@array/expiration_day_labels"
+        android:singleLineTitle="true"/>
+
+
     <SwitchPreference
         android:key="@string/key_alert_on_low_stock"
         android:title="@string/title_alert_on_low_stock"

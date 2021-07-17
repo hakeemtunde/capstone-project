@@ -49,6 +49,7 @@
     <string name="title_notify_on_expire_stock">Stock Expiry notification</string>
     <string name="desc_notify_on_expire_stock">Show notification on stock expiration</string>
     <string name="key_notify_on_expire_stock">notify_on_expire_stock</string>
+    <string name="stock_expiration_days_number">stock_expiration_day_number</string>
 
     <string name="title_use_app_as_store_keeper">Switch to store keeper mode</string>
     <string name="desc_use_app_as_store_keeper">Control app to be use for store keeping</string>
@@ -56,10 +57,10 @@
     <string name="appwidget_text">Kiipa</string>
     <string name="add_widget">Add widget</string>
 
-    <string name="admob_app_id">ca-app-pub-8899251241880967~6390735769</string>
     <!--test unit id-->
     <string name="banner_ad_unit_id">ca-app-pub-8899251241880967/4283447175</string>
     <string name="interstitial_ad_unit_id">ca-app-pub-8899251241880967/5279520995</string>
+    <string name="admob_app_id">ca-app-pub-8899251241880967~6390735769</string>
 
     <string name="banner_ad_test_unit_id">ca-app-pub-3940256099942544/6300978111</string>
     <string name="expiration_date">Expiration date</string>

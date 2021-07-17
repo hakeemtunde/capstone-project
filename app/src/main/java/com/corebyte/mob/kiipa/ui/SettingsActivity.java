@@ -7,13 +7,13 @@ import android.preference.PreferenceFragment;
 import android.preference.PreferenceManager;
 import android.preference.SwitchPreference;
 import android.support.annotation.Nullable;
-import android.util.Log;
 
 import com.corebyte.mob.kiipa.R;
 import com.corebyte.mob.kiipa.services.StockExpirationScheduler;
 
 public class SettingsActivity extends AppCompatPreferenceActivity {
 
+    private static final String TAG = SettingsActivity.class.getSimpleName();
     private Context mContext;
 
     @Override
@@ -76,7 +76,9 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
                 public boolean onPreferenceChange(Preference preference, Object o) {
 
                     boolean enabled = (boolean) o;
-                    StockExpirationScheduler.stockExpirationJobSheduler(
+//                    StockExpirationScheduler.stockExpirationJobScheduler(
+//                            getActivity().getApplicationContext(), enabled);
+                    StockExpirationScheduler.setUpAlarmServiceOnStockExpiration(
                             getActivity().getApplicationContext(), enabled);
                     return true;
                 }

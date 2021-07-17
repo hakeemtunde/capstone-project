@@ -17,7 +17,7 @@ public class StockExpirationScheduler {
 
     private static final int JOB_ID = 100;
 
-    public static void stockExpirationJobSheduler(Context context, boolean enabled) {
+    public static void stockExpirationJobScheduler(Context context, boolean enabled) {
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
 
@@ -39,11 +39,11 @@ public class StockExpirationScheduler {
 
             }
         } else {
-            setUpAlarmService(context, enabled);
+            setUpAlarmServiceOnStockExpiration(context, enabled);
         }
     }
 
-    private static void setUpAlarmService(Context context, boolean enabled) {
+    public static void setUpAlarmServiceOnStockExpiration(Context context, boolean enabled) {
 
         AlarmManager alarmManager = (AlarmManager) context.getSystemService(ALARM_SERVICE);
 

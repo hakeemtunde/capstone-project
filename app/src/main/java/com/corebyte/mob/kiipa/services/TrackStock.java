@@ -29,10 +29,23 @@ public class TrackStock {
 //        mStockCrudOperation = new StockCrudOperation(context);
 //    }
 
-    public static void trackExpireStockIn(Context context, int days) {
+    public static void trackExpireStockIn(final Context context, final int days) {
 
         StockCrudOperation operation = new StockCrudOperation(context);
-        List<Stock> expireStocks = operation.findExpireStockIn2(days, true);
+//        final List<Stock> expireStocks = operation.findExpireStockIn2(days, true);
+
+        TrackStockHandler<Stock> trackStockHandler = new TrackStockHandler<Stock>() {
+            @Override
+            public void handler(List<Stock> items) {
+                Log.i(TAG, "Expiring stocks: " + items.toString());
+                if(!items.isEmpty()) {
+                    notification(context, items, days);
+                }
+
+            }
+        };
+
+        operation.findExpireStockAndTriggerAlarmService(trackStockHandler, days);
 
     }
 
@@ -102,16 +115,16 @@ public class TrackStock {
         return stockLevelsInfo;
     }
 
-    public static void notification(Context context, List<Stock> expirestocks) {
+    public static void notification(Context context, List<Stock> expirestocks, int days) {
 
         NotificationCompat.Builder notification = new NotificationCompat.Builder(context, "Channel001")
                 .setSmallIcon(R.drawable.ic_notifications_black_24dp)
                 .setContentTitle("Expire Products")
-                .setContentText("following product will expire in 10 days" + expirestocks.toString())
+                .setContentText("following product will expire in" + days +" days" + expirestocks.toString())
                 .setPriority(NotificationCompat.DEFAULT_ALL);
 
         NotificationManagerCompat notificationManagerCompat = NotificationManagerCompat.from(context);
-        notificationManagerCompat.notify(001, notification.build());
+        notificationManagerCompat.notify(002, notification.build());
 
     }
 
